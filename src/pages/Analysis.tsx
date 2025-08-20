@@ -661,7 +661,7 @@ const Analysis = () => {
                     onClick={sendMessage}
                     disabled={!newMessage.trim()}
                     size="icon"
-                    className="shrink-0"
+                    className="shrink-0 bg-black hover:bg-gray-800 text-white"
                   >
                     <Send className="w-4 h-4" />
                   </Button>
