@@ -589,10 +589,10 @@ const Analysis = () => {
           <Button 
             onClick={startNewAnalysis}
             size="lg"
-            className="w-40 flex items-center justify-center gap-2 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce hover:animate-none"
+            className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700 animate-pulse hover:animate-none"
           >
-            <Camera className="w-5 h-5" />
-            새 사진 분석
+            <Camera className="w-5 h-5 relative z-10" />
+            <span className="relative z-10">새 사진 분석</span>
           </Button>
 
           {/* 챗봇 버튼 */}
@@ -600,13 +600,11 @@ const Analysis = () => {
             <DialogTrigger asChild>
               <Button 
                 size="lg"
-                className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce hover:animate-none overflow-hidden"
+                className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700 animate-pulse hover:animate-none"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-teal-400/20"></div>
-                <div className="relative flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5" />
-                  AI 상담
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/10 to-teal-400/10"></div>
+                <MessageCircle className="w-5 h-5 relative z-10" />
+                <span className="relative z-10">AI 상담</span>
               </Button>
             </DialogTrigger>
             
