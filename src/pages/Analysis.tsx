@@ -589,7 +589,7 @@ const Analysis = () => {
           <Button 
             onClick={startNewAnalysis}
             size="lg"
-            className="w-40 flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="w-40 flex items-center justify-center gap-2 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce hover:animate-none"
           >
             <Camera className="w-5 h-5" />
             새 사진 분석
@@ -600,7 +600,7 @@ const Analysis = () => {
             <DialogTrigger asChild>
               <Button 
                 size="lg"
-                className="w-40 relative flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
+                className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 animate-bounce hover:animate-none overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-teal-400/20"></div>
                 <div className="relative flex items-center gap-2">
