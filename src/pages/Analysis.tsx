@@ -41,14 +41,41 @@ const Analysis = () => {
     }
 
     if (!uploadedImage) {
-      // 이미지도 없고 저장된 결과도 없으면 카메라 페이지로
-      toast.error('분석할 이미지가 없습니다.');
-      navigate('/camera');
+      // 이미지가 없으면 더미 데이터 표시
+      setAnalysisResult(getDummyAnalysisResult());
+      setIsLoading(false);
       return;
     }
 
     // 새로운 분석 실행
     await performAnalysis();
+  };
+
+  // 더미 분석 결과 데이터
+  const getDummyAnalysisResult = (): AnalysisResult => {
+    return {
+      predicted_disease: "아토피성 피부염",
+      confidence: 87,
+      summary: "촬영된 이미지에서 전형적인 아토피성 피부염의 특징이 관찰됩니다. 피부 표면이 거칠고 건조하며, 염증성 병변과 함께 경계가 불분명한 홍반이 확인됩니다. 만성적인 소양감으로 인한 긁힌 자국도 보입니다.",
+      recommendation: "보습제를 하루 2-3회 충분히 발라주시고, 긁지 않도록 주의하세요. 증상이 지속되거나 악화될 경우 피부과 전문의 상담을 받으시기 바랍니다. 스테로이드 외용제 사용 시 의사의 처방에 따라 사용하세요.",
+      similar_diseases: [
+        {
+          name: "접촉성 피부염",
+          confidence: 72,
+          description: "특정 물질에 대한 알레르기 반응으로 인한 피부염으로, 아토피와 유사한 증상을 보일 수 있습니다."
+        },
+        {
+          name: "지루성 피부염",
+          confidence: 65,
+          description: "주로 피지 분비가 많은 부위에 발생하는 만성 염증성 피부 질환입니다."
+        },
+        {
+          name: "건선",
+          confidence: 58,
+          description: "은백색 인설을 동반한 홍반성 구진이나 판이 특징적인 만성 염증성 피부 질환입니다."
+        }
+      ]
+    };
   };
 
   const performAnalysis = async () => {
@@ -129,7 +156,14 @@ const Analysis = () => {
     if (uploadedImage instanceof File) {
       return URL.createObjectURL(uploadedImage);
     }
-    return uploadedImage || '/placeholder.svg';
+    
+    // 업로드된 이미지가 있는 경우
+    if (uploadedImage) {
+      return uploadedImage;
+    }
+    
+    // 더미 데이터용 기본 이미지
+    return '/icon_14.png';
   };
 
   // 새로운 분석 시작
@@ -151,14 +185,14 @@ const Analysis = () => {
     );
   }
 
-  // 에러 상태
-  if (error || !analysisResult) {
+  // 에러 상태 또는 결과 없음
+  if (error) {
     return (
       <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
         <div className="text-center max-w-md">
           <AlertCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
           <h2 className="text-2xl font-bold text-red-600 mb-2">분석 실패</h2>
-          <p className="text-muted-foreground mb-6">{error || '알 수 없는 오류가 발생했습니다.'}</p>
+          <p className="text-muted-foreground mb-6">{error}</p>
           <div className="space-y-2">
             <Button onClick={performAnalysis} className="w-full" disabled={!uploadedImage}>
               다시 시도
@@ -166,6 +200,104 @@ const Analysis = () => {
             <Button variant="outline" onClick={startNewAnalysis} className="w-full">
               새 사진 촬영
             </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 분석 결과가 없는 경우 (빈 상태)
+  if (!analysisResult) {
+    return (
+      <div className="min-h-screen bg-gradient-glass p-4">
+        <div className="max-w-4xl mx-auto">
+          {/* 헤더 */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-gradient-primary mb-2">
+              피부 분석 결과
+            </h1>
+            <p className="text-muted-foreground">
+              AI 피부 분석을 시작해보세요
+            </p>
+          </div>
+
+          {/* 빈 상태 카드 */}
+          <Card className="glass-card mb-8">
+            <CardContent className="p-8 text-center">
+              <div className="w-24 h-24 bg-gradient-glow rounded-full flex items-center justify-center mx-auto mb-6">
+                <Camera className="w-12 h-12 text-primary" />
+              </div>
+              <h2 className="text-2xl font-bold text-primary mb-4">분석 결과가 없습니다</h2>
+              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                피부 상태를 분석하려면 먼저 사진을 촬영해주세요. 
+                AI가 즉시 분석하여 결과를 제공합니다.
+              </p>
+              <div className="space-y-3">
+                <Button 
+                  onClick={startNewAnalysis}
+                  className="w-full max-w-sm mx-auto flex items-center gap-2"
+                  size="lg"
+                >
+                  <Camera className="w-5 h-5" />
+                  사진 촬영하기
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => navigate('/questionnaire')}
+                  className="w-full max-w-sm mx-auto"
+                >
+                  설문조사 먼저 하기
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 기능 소개 카드들 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <Card className="glass-card">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Sparkles className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="font-semibold mb-2">AI 분석</h3>
+                <p className="text-sm text-muted-foreground">
+                  고도화된 AI 모델로 정확한 피부 상태 분석
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="glass-card">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-6 h-6 text-green-600" />
+                </div>
+                <h3 className="font-semibold mb-2">신뢰성 점수</h3>
+                <p className="text-sm text-muted-foreground">
+                  분석 결과의 신뢰도를 백분율로 제공
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="glass-card">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Info className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="font-semibold mb-2">전문가 추천</h3>
+                <p className="text-sm text-muted-foreground">
+                  근처 병원 찾기 및 전문의 상담 연결
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* 면책조항 */}
+          <div className="p-4 bg-gray-50/80 backdrop-blur-sm rounded-xl border border-gray-200">
+            <p className="text-xs text-gray-500 text-center leading-relaxed">
+              ※ 본 결과는 AI의 예측값으로 참고용입니다. 정확한 진단은 반드시 전문의의 상담을 받으시기 바랍니다.
+              <br />
+              본 서비스는 의료진단을 대체하지 않으며, 응급상황 시에는 즉시 병원에 내원하시기 바랍니다.
+            </p>
           </div>
         </div>
       </div>
@@ -195,6 +327,12 @@ const Analysis = () => {
                 저장된 결과
               </Badge>
             )}
+            {!uploadedImage && !isFromStorage && (
+              <Badge className="bg-orange-100 text-orange-800 border-orange-200 flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                데모 결과
+              </Badge>
+            )}
           </div>
         </div>
 
@@ -209,13 +347,26 @@ const Analysis = () => {
                   <div className="w-full h-full bg-white/50 rounded-xl flex items-center justify-center relative overflow-hidden">
                     <img 
                       src={getImageUrl()} 
-                      alt="사용자 업로드 이미지" 
+                      alt="분석 이미지" 
                       className="w-full h-full object-cover rounded-xl" 
-                      onError={() => setError('이미지를 불러올 수 없습니다.')}
+                      onError={(e) => {
+                        // 이미지 로드 실패시 placeholder 표시
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.innerHTML = `
+                            <div class="flex flex-col items-center justify-center text-gray-400 w-full h-full">
+                              <div class="w-16 h-16 mb-2">📷</div>
+                              <p class="text-sm">이미지 로드 실패</p>
+                            </div>
+                          `;
+                        }
+                      }}
                     />
                     <div className="absolute top-3 left-3">
                       <Badge className="bg-primary text-white">
-                        환부 촬영
+                        {uploadedImage ? '환부 촬영' : '샘플 이미지'}
                       </Badge>
                     </div>
                   </div>
@@ -353,7 +504,17 @@ const Analysis = () => {
           <div className="mt-4 p-3 bg-blue-50/80 backdrop-blur-sm rounded-xl border border-blue-200">
             <p className="text-sm text-blue-700 text-center flex items-center justify-center gap-2">
               <Clock className="w-4 h-4" />
-              이 결과는 30분간 임시 저장됩니다. 새로운 분석을 원하시면 '재분석하기'를 클릭하세요.
+              이 결과는 30분간 임시 저장됩니다. 새로운 분석을 원하시면 '새 사진 분석'을 클릭하세요.
+            </p>
+          </div>
+        )}
+
+        {/* 더미 데이터 안내 */}
+        {!uploadedImage && !isFromStorage && (
+          <div className="mt-4 p-3 bg-orange-50/80 backdrop-blur-sm rounded-xl border border-orange-200">
+            <p className="text-sm text-orange-700 text-center flex items-center justify-center gap-2">
+              <Sparkles className="w-4 h-4" />
+              현재 데모 결과가 표시되고 있습니다. 실제 분석을 위해서는 사진을 촬영해주세요.
             </p>
           </div>
         )}

@@ -40,11 +40,7 @@ const App = () => (
                   <Camera />
                 </ProtectedRoute>
               } />
-              <Route path="/analysis" element={
-                <ProtectedRoute>
-                  <Analysis />
-                </ProtectedRoute>
-              } />
+              <Route path="/analysis" element={<Analysis />} />
               <Route path="/hospital" element={
                 <ProtectedRoute>
                   <HospitalSearch />
