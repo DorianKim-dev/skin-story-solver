@@ -114,27 +114,39 @@ const Camera = () => {
     <div className="min-h-screen p-6 pt-20" style={{ backgroundColor: '#EEEBDE' }}>
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
-        <div className="mb-16">
-          <div className="text-center space-y-4">
-            <h1 className="text-2xl font-light text-gray-800">
+        <div className="mb-10">
+          <div className="text-center space-y-3">
+            <h1 className="text-3xl font-bold font-sans" style={{ color: '#333333' }}>
               환부 촬영
             </h1>
-            <p className="text-sm text-gray-600 max-w-xs mx-auto leading-relaxed">
-              정확한 분석을 위해 환부를 촬영해주세요
+            <p className="font-sans" style={{ color: '#333333' }}>
+              정확한 분석을 위해 환부를 정면에서 촬영해주세요
             </p>
           </div>
         </div>
 
         {/* 진행 상황 */}
-        <div className="flex justify-center mb-12">
-          <div className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center bg-white shadow-sm">
-            {isComplete ? (
-              <Check className="w-5 h-5 text-green-600" />
-            ) : countdown.isActive ? (
-              <span className="text-sm font-medium text-gray-700">{countdown.remaining}</span>
-            ) : (
-              <CameraIcon className="w-5 h-5 text-gray-500" />
-            )}
+        <div className="flex justify-center mb-10">
+          <div className="flex items-center">
+            <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
+              isComplete 
+                ? 'text-white' 
+                : countdown.isActive
+                ? 'bg-white/50'
+                : 'bg-white shadow-sm'
+            }`} style={{ 
+              backgroundColor: isComplete ? '#333333' : undefined,
+              borderColor: '#333333',
+              color: isComplete ? 'white' : '#333333'
+            }}>
+              {isComplete ? (
+                <Check className="w-7 h-7" />
+              ) : countdown.isActive ? (
+                <span className="text-lg font-bold">{countdown.remaining}</span>
+              ) : (
+                <CameraIcon className="w-7 h-7" />
+              )}
+            </div>
           </div>
         </div>
 
