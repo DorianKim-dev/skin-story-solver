@@ -3,7 +3,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Camera, Sparkles, TrendingUp, AlertCircle, Info, Loader2, RefreshCw, Clock } from 'lucide-react';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { aiService, AnalysisResult } from '@/services/aiService';
 import { analysisStorage } from '@/utils/analysisStorage';
@@ -430,34 +429,28 @@ const Analysis = () => {
           </CardContent>
         </Card>
 
-        {/* 비슷한 질환 (슬라이드) */}
+        {/* 유사질환 박스 */}
         {analysisResult.similar_diseases && analysisResult.similar_diseases.length > 0 && (
           <Card className="glass-card mb-8">
             <CardContent className="p-6">
               <div className="mb-4">
                 <h2 className="text-xl font-semibold">유사질환</h2>
               </div>
-              <Carousel opts={{ align: 'start', loop: true }}>
-                <CarouselContent className="-ml-2">
-                  {analysisResult.similar_diseases.map((item, index) => (
-                    <CarouselItem key={index} className="pl-2 basis-full">
-                      <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="font-medium text-gray-800">{item.name}</h3>
-                          <Badge variant="outline" className="text-xs">
-                            {item.confidence}%
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-gray-600 leading-relaxed">
-                          {item.description}
-                        </p>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-              </Carousel>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {analysisResult.similar_diseases.slice(0, 2).map((item, index) => (
+                  <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-medium text-gray-800">{item.name}</h3>
+                      <Badge variant="outline" className="text-xs">
+                        {item.confidence}%
+                      </Badge>
+                    </div>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         )}
@@ -465,12 +458,12 @@ const Analysis = () => {
         {/* 액션 버튼들 */}
         <div className="grid grid-cols-1 gap-4">
           <Card className="glass-card hover:shadow-lg transition-all duration-300 cursor-pointer group">
-            <CardContent className="p-6 text-center" onClick={() => navigate('/hospital')}>
+            <CardContent className="p-6 text-center" onClick={() => navigate('/')}>
               <div className="w-16 h-16 bg-primary-soft/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                 <TrendingUp className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">병원 찾기</h3>
-              <p className="text-sm text-muted-foreground">전문의 상담 받기</p>
+              <h3 className="font-semibold mb-2">홈으로 돌아가기</h3>
+              <p className="text-sm text-muted-foreground">메인 페이지로 이동</p>
             </CardContent>
           </Card>
         </div>
