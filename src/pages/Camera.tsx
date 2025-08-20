@@ -440,7 +440,7 @@ const Camera = () => {
         
         {/* 촬영 가이드 */}
         <div className="mt-8 p-4 bg-white rounded-xl border border-[#759393]/20 shadow-sm">
-          <h3 className="font-medium text-[#759393] mb-2 font-sans">📸 촬영 가이드</h3>
+          <h3 className="font-medium text-[#759393] mb-2 font-sans">촬영 가이드</h3>
           <ul className="text-sm text-gray-600 space-y-1 font-sans">
             <li>• 충분한 조명이 있는 곳에서 촬영해주세요</li>
             <li>• 환부가 선명하게 보이도록 가까이서 촬영해주세요</li>
