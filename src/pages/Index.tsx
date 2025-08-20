@@ -79,7 +79,7 @@ const Index = () => {
       }}>
         <Container size="xl">
           <div className="flex flex-col items-center justify-center min-h-screen text-center space-y-8">
-            <h2 className="text-4xl md:text-5xl font-sans font-bold text-white">
+            <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
               AI로 피부 질환 진단을 빠르고 쉽게 받아보세요
             </h2>
             <Link to="/camera">
