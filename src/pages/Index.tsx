@@ -47,7 +47,7 @@ const Index = () => {
   return (
     <div className="theme-home-bright h-screen bg-white overflow-y-auto snap-y snap-mandatory scroll-root">
       {/* Hero Section - Linear Style */}
-      <Section spacing="hero" className="relative snap-start section-animate min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/lovable-uploads/28aeb6f1-f810-4f69-9f02-12ba8aa223ba.png)' }}>
+      <Section spacing="hero" className="relative snap-start section-animate min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)' }}>
         <Container size="xl">
           {/* Minimal top nav with equal spacing */}
           <div className="grid grid-cols-4 items-center py-4 text-sm text-white/80">
