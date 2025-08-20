@@ -251,11 +251,11 @@ const Analysis = () => {
   // 로딩 상태
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white p-4 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-16 h-16 mx-auto mb-4 animate-spin text-black" />
-          <h2 className="text-2xl font-bold text-black mb-2">AI 분석 중...</h2>
-          <p className="text-gray-600">잠시만 기다려주세요.</p>
+          <Loader2 className="w-16 h-16 mx-auto mb-4 animate-spin text-primary" />
+          <h2 className="text-2xl font-bold text-gradient-primary mb-2">AI 분석 중...</h2>
+          <p className="text-muted-foreground">잠시만 기다려주세요.</p>
         </div>
       </div>
     );
@@ -264,16 +264,16 @@ const Analysis = () => {
   // 에러 상태 또는 결과 없음
   if (error) {
     return (
-      <div className="min-h-screen bg-white p-4 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
         <div className="text-center max-w-md">
-          <AlertCircle className="w-16 h-16 mx-auto mb-4 text-black" />
-          <h2 className="text-2xl font-bold text-black mb-2">분석 실패</h2>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <AlertCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
+          <h2 className="text-2xl font-bold text-red-600 mb-2">분석 실패</h2>
+          <p className="text-muted-foreground mb-6">{error}</p>
           <div className="space-y-2">
-            <Button onClick={performAnalysis} className="w-full bg-black text-white hover:bg-gray-800" disabled={!uploadedImage}>
+            <Button onClick={performAnalysis} className="w-full" disabled={!uploadedImage}>
               다시 시도
             </Button>
-            <Button variant="outline" onClick={startNewAnalysis} className="w-full border-gray-300 text-black hover:bg-black hover:text-white">
+            <Button variant="outline" onClick={startNewAnalysis} className="w-full">
               새 사진 촬영
             </Button>
           </div>
@@ -285,33 +285,33 @@ const Analysis = () => {
   // 분석 결과가 없는 경우 (빈 상태)
   if (!analysisResult) {
     return (
-      <div className="min-h-screen bg-white p-4">
+      <div className="min-h-screen bg-gradient-glass p-4">
         <div className="max-w-4xl mx-auto">
           {/* 헤더 */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-black mb-2">
+            <h1 className="text-3xl font-bold text-gradient-primary mb-2">
               피부 분석 결과
             </h1>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               AI 피부 분석을 시작해보세요
             </p>
           </div>
 
           {/* 빈 상태 카드 */}
-          <Card className="border border-gray-200 bg-white shadow-sm mb-8">
+          <Card className="glass-card mb-8">
             <CardContent className="p-8 text-center">
-              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Camera className="w-12 h-12 text-black" />
+              <div className="w-24 h-24 bg-gradient-glow rounded-full flex items-center justify-center mx-auto mb-6">
+                <Camera className="w-12 h-12 text-primary" />
               </div>
-              <h2 className="text-2xl font-bold text-black mb-4">분석 결과가 없습니다</h2>
-              <p className="text-gray-600 mb-6 max-w-md mx-auto">
+              <h2 className="text-2xl font-bold text-primary mb-4">분석 결과가 없습니다</h2>
+              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                 피부 상태를 분석하려면 먼저 사진을 촬영해주세요. 
                 AI가 즉시 분석하여 결과를 제공합니다.
               </p>
               <div className="space-y-3">
                 <Button 
                   onClick={startNewAnalysis}
-                  className="w-full max-w-sm mx-auto flex items-center gap-2 bg-black text-white hover:bg-gray-800"
+                  className="w-full max-w-sm mx-auto flex items-center gap-2"
                   size="lg"
                 >
                   <Camera className="w-5 h-5" />
@@ -320,7 +320,7 @@ const Analysis = () => {
                 <Button 
                   variant="outline"
                   onClick={() => navigate('/questionnaire')}
-                  className="w-full max-w-sm mx-auto border-gray-300 text-black hover:bg-black hover:text-white"
+                  className="w-full max-w-sm mx-auto"
                 >
                   설문조사 먼저 하기
                 </Button>
@@ -330,37 +330,37 @@ const Analysis = () => {
 
           {/* 기능 소개 카드들 */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <Card className="border border-gray-200 bg-white shadow-sm">
+            <Card className="glass-card">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Sparkles className="w-6 h-6 text-black" />
+                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Sparkles className="w-6 h-6 text-blue-600" />
                 </div>
                 <h3 className="font-semibold mb-2">AI 분석</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   고도화된 AI 모델로 정확한 피부 상태 분석
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border border-gray-200 bg-white shadow-sm">
+            <Card className="glass-card">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="w-6 h-6 text-black" />
+                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-6 h-6 text-green-600" />
                 </div>
                 <h3 className="font-semibold mb-2">신뢰성 점수</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   분석 결과의 신뢰도를 백분율로 제공
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border border-gray-200 bg-white shadow-sm">
+            <Card className="glass-card">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Info className="w-6 h-6 text-black" />
+                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Info className="w-6 h-6 text-purple-600" />
                 </div>
                 <h3 className="font-semibold mb-2">전문가 추천</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   근처 병원 찾기 및 전문의 상담 연결
                 </p>
               </CardContent>
@@ -368,7 +368,7 @@ const Analysis = () => {
           </div>
 
           {/* 면책조항 */}
-          <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+          <div className="p-4 bg-gray-50/80 backdrop-blur-sm rounded-xl border border-gray-200">
             <p className="text-xs text-gray-500 text-center leading-relaxed">
               ※ 본 결과는 AI의 예측값으로 참고용입니다. 정확한 진단은 반드시 전문의의 상담을 받으시기 바랍니다.
               <br />
@@ -381,31 +381,31 @@ const Analysis = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white p-4 pt-20">
+    <div className="min-h-screen bg-gradient-glass p-4 pt-20">
       <div className="max-w-4xl mx-auto">
         {/* 헤더 */}
         <div className="mb-8">
           <div className="text-center space-y-2">
-            <Typography variant="h2" className="text-black">
+            <Typography variant="h2" className="text-gradient-primary">
               피부 분석 결과
             </Typography>
-            <Typography variant="body" className="text-gray-600">
+            <Typography variant="body" className="text-muted-foreground">
               AI가 분석한 환부의 상태입니다
             </Typography>
             <div className="mt-3 flex justify-center gap-2">
               {questionnaireData && (
-                <Badge className="bg-gray-100 text-black border-gray-300">
+                <Badge className="bg-green-100 text-green-800 border-green-200">
                   설문조사 데이터 포함
                 </Badge>
               )}
               {isFromStorage && (
-                <Badge className="bg-gray-100 text-black border-gray-300 flex items-center gap-1">
+                <Badge className="bg-blue-100 text-blue-800 border-blue-200 flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   저장된 결과
                 </Badge>
               )}
               {!uploadedImage && !isFromStorage && (
-                <Badge className="bg-gray-100 text-black border-gray-300 flex items-center gap-1">
+                <Badge className="bg-orange-100 text-orange-800 border-orange-200 flex items-center gap-1">
                   <Sparkles className="w-3 h-3" />
                   데모 결과
                 </Badge>
@@ -415,117 +415,118 @@ const Analysis = () => {
         </div>
 
         {/* 사용자 업로드 이미지와 예상 질환 */}
-        <Card className="border border-gray-200 bg-white shadow-sm mb-6 overflow-hidden">
+        <Card className="glass-card mb-6 overflow-hidden">
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* 업로드된 사진 */}
               <div className="space-y-4 flex flex-col justify-center">
                 <h2 className="text-xl font-semibold mb-3 mx-[13px] my-0">분석 이미지</h2>
-                <div className="aspect-square bg-gray-100 rounded-2xl p-3">
-                  <div className="w-full h-full bg-white rounded-xl flex items-center justify-center relative overflow-hidden">
+                <div className="aspect-square bg-gradient-glow rounded-2xl p-3">
+                  <div className="w-full h-full bg-white/50 rounded-xl flex items-center justify-center relative overflow-hidden">
                     <img 
                       src={getImageUrl()} 
                       alt="분석 이미지" 
                       className="w-full h-full object-cover rounded-xl" 
                       onError={(e) => {
                         // 이미지 로드 실패시 placeholder 표시
-                        (e.target as HTMLImageElement).src = '/placeholder.svg';
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.innerHTML = `
+                            <div class="flex flex-col items-center justify-center text-gray-400 w-full h-full">
+                              <div class="w-16 h-16 mb-2">📷</div>
+                              <p class="text-sm">이미지 로드 실패</p>
+                            </div>
+                          `;
+                        }
                       }}
                     />
-                  </div>
-                </div>
-              </div>
-
-              {/* 분석 결과 */}
-              <div className="space-y-6">
-                <div>
-                  <h2 className="text-xl font-semibold mb-3">예상 질환</h2>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-200">
-                      <span className="font-medium text-lg">{analysisResult.predicted_disease}</span>
-                      <Badge 
-                        className={`px-3 py-1 font-semibold border ${getConfidenceColor(analysisResult.confidence)}`}
-                      >
-                        {analysisResult.confidence}%
+                    <div className="absolute top-3 left-3">
+                      <Badge className="bg-primary text-white">
+                        {uploadedImage ? '환부 촬영' : '샘플 이미지'}
                       </Badge>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* 진단 신뢰도 표시 */}
-                <div>
-                  <h3 className="text-lg font-medium mb-2">분석 신뢰도</h3>
-                  <div className="bg-gray-100 rounded-full h-3 overflow-hidden">
-                    <div 
-                      className="h-full bg-black transition-all duration-1000 ease-out" 
-                      style={{ width: `${analysisResult.confidence}%` }}
-                    />
+              {/* 예상 질환명과 점수 + 진단소견 */}
+              <div className="space-y-4">
+                <h2 className="text-xl font-semibold mb-3">분석 결과</h2>
+                
+                <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-primary/20">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-lg">예상 질환</h3>
+                    <Badge className="bg-[#FFB7AF]/20 text-[#F98D92] border-[#F98D92] border hover:bg-[#FFB7AF]/30 transition-colors duration-200">
+                      {analysisResult.confidence}% 일치
+                    </Badge>
                   </div>
-                  <p className="text-sm text-gray-600 mt-2">
-                    신뢰도 {analysisResult.confidence}% - 
-                    {analysisResult.confidence >= 80 ? ' 높은 신뢰도' : 
-                     analysisResult.confidence >= 60 ? ' 보통 신뢰도' : ' 낮은 신뢰도'}
+                  <p className="text-2xl font-bold text-primary mb-2">
+                    {analysisResult.predicted_disease}
                   </p>
+                  
+                  {/* 신뢰도 바 */}
+                  <div className="mb-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm text-muted-foreground">신뢰도</span>
+                      <span className="font-semibold">{analysisResult.confidence}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className="bg-primary h-2 rounded-full transition-all duration-500" 
+                        style={{ width: `${analysisResult.confidence}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  {analysisResult.confidence < 70 && (
+                    <div className="flex items-center gap-2 text-amber-600 text-sm p-3 bg-amber-50 rounded-lg border border-amber-200">
+                      <AlertCircle className="w-4 h-4" />
+                      <span>정확한 진단을 위해 전문의 상담을 권장합니다</span>
+                    </div>
+                  )}
                 </div>
 
-                {/* 액션 버튼들 */}
-                <div className="space-y-3">
-                  <Button 
-                    className="w-full bg-black text-white hover:bg-gray-800"
-                    onClick={() => navigate('/camera')}
-                  >
-                    <Camera className="w-4 h-4 mr-2" />
-                    새로운 분석
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-gray-300 text-black hover:bg-black hover:text-white"
-                    onClick={() => setIsChatOpen(true)}
-                  >
-                    <MessageCircle className="w-4 h-4 mr-2" />
-                    AI 상담하기
-                  </Button>
+                {/* 진단 소견 */}
+                <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-primary/20">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Info className="w-4 h-4 text-primary" />
+                    <h3 className="font-semibold text-lg">진단 소견</h3>
+                  </div>
+                  <p className="text-gray-700 leading-relaxed mb-4 text-sm">
+                    {analysisResult.summary}
+                  </p>
+                  <div className="bg-cream/30 rounded-lg p-3">
+                    <p className="text-sm text-gray-600">
+                      {analysisResult.recommendation}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* 진단 소견 */}
-        <Card className="border border-gray-200 bg-white shadow-sm mb-6">
-          <CardContent className="p-6">
-            <h2 className="text-xl font-semibold mb-4">진단 소견</h2>
-            <p className="text-gray-700 leading-relaxed">
-              {analysisResult.summary}
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* 치료 권고사항 */}
-        <Card className="border border-gray-200 bg-white shadow-sm mb-6">
-          <CardContent className="p-6">
-            <h2 className="text-xl font-semibold mb-4">치료 권고사항</h2>
-            <p className="text-gray-700 leading-relaxed">
-              {analysisResult.recommendation}
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* 유사 질환 */}
+        {/* 유사질환 박스 */}
         {analysisResult.similar_diseases && analysisResult.similar_diseases.length > 0 && (
-          <Card className="border border-gray-200 bg-white shadow-sm mb-6">
+          <Card className="glass-card mb-8">
             <CardContent className="p-6">
-              <h2 className="text-xl font-semibold mb-4">유사 질환</h2>
-              <div className="space-y-3">
-                {analysisResult.similar_diseases.map((disease, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
-                    <div>
-                      <span className="font-medium">{disease.name}</span>
-                      <p className="text-sm text-gray-600 mt-1">{disease.description}</p>
+              <div className="mb-4">
+                <h2 className="text-xl font-semibold">유사질환</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {analysisResult.similar_diseases.slice(0, 2).map((item, index) => (
+                  <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-medium text-gray-800">{item.name}</h3>
+                      <Badge variant="outline" className="text-xs">
+                        {item.confidence}%
+                      </Badge>
                     </div>
-                    <Badge className="bg-gray-100 text-black border-gray-300">
-                      {disease.confidence}%
-                    </Badge>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      {item.description}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -533,133 +534,203 @@ const Analysis = () => {
           </Card>
         )}
 
-        {/* 추천 병원 */}
-        <Card className="border border-gray-200 bg-white shadow-sm mb-6">
+        {/* 병원 추천 */}
+        <Card className="glass-card mb-8">
           <CardContent className="p-6">
-            <h2 className="text-xl font-semibold mb-4">추천 병원</h2>
-            <div className="space-y-4">
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold">추천 병원</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {getDummyHospitals().map((hospital, index) => (
-                <div key={index} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="font-semibold text-lg">{hospital.name}</h3>
-                    <Badge className="bg-black text-white">추천</Badge>
+                    <h3 className="font-semibold text-gray-800 text-lg">{hospital.name}</h3>
+                    <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary/20">
+                      전문병원
+                    </Badge>
                   </div>
                   
-                  <div className="space-y-2 mb-3">
-                    <div className="flex items-center text-sm text-gray-600">
-                      <MapPin className="w-4 h-4 mr-2" />
-                      {hospital.address}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-start gap-2">
+                      <MapPin className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-600">{hospital.address}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Phone className="w-4 h-4 mr-2" />
-                      {hospital.phone}
+                    
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                      <a href={`tel:${hospital.phone}`} className="text-sm text-primary hover:underline">
+                        {hospital.phone}
+                      </a>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
-                      <Globe className="w-4 h-4 mr-2" />
-                      <a href={hospital.website} target="_blank" rel="noopener noreferrer" className="text-black hover:underline">
-                        병원 홈페이지
+                    
+                    <div className="flex items-center gap-2">
+                      <Globe className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                      <a 
+                        href={hospital.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-sm text-primary hover:underline"
+                      >
+                        병원 웹사이트
                       </a>
                     </div>
                   </div>
                   
-                  <div>
-                    <h4 className="font-medium mb-2 text-sm">전문 진료분야</h4>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {hospital.specialty}
-                    </p>
+                  <div className="bg-primary/5 rounded-lg p-3">
+                    <p className="text-xs text-gray-500 mb-1">전문 분야</p>
+                    <p className="text-sm font-medium text-gray-700">{hospital.specialty}</p>
                   </div>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
+        
+
+        {/* 분석 관련 버튼들 */}
+        <div className="mt-6 flex justify-center gap-3 flex-wrap">
+          <Button 
+            onClick={startNewAnalysis}
+            size="lg"
+            className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+          >
+            <Camera className="w-5 h-5 relative z-10" />
+            <span className="relative z-10">새 사진 분석</span>
+          </Button>
+
+          {/* 챗봇 버튼 */}
+          <Dialog open={isChatOpen} onOpenChange={setIsChatOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                size="lg"
+                className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/10 to-teal-400/10"></div>
+                <MessageCircle className="w-5 h-5 relative z-10" />
+                <span className="relative z-10">AI 상담</span>
+              </Button>
+            </DialogTrigger>
+            
+            <DialogContent className="max-w-md h-[500px] flex flex-col p-0">
+              <DialogHeader className="p-4 border-b">
+                <DialogTitle className="flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5 text-primary" />
+                  피부 분석 상담 챗봇
+                </DialogTitle>
+              </DialogHeader>
+              
+              {/* 채팅 메시지 영역 */}
+              <ScrollArea className="flex-1 p-4">
+                <div className="space-y-4">
+                  {chatMessages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-[80%] p-3 rounded-lg ${
+                          message.isUser
+                            ? 'bg-primary text-white'
+                            : 'bg-gray-100 text-gray-800'
+                        }`}
+                      >
+                        <p className="text-sm">{message.text}</p>
+                        <span className="text-xs opacity-70 mt-1 block">
+                          {message.timestamp.toLocaleTimeString([], { 
+                            hour: '2-digit', 
+                            minute: '2-digit' 
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
+              
+              {/* 메시지 입력 영역 */}
+              <div className="p-4 border-t">
+                <div className="flex gap-2">
+                  <Input
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="궁금한 점을 물어보세요..."
+                    className="flex-1"
+                  />
+                  <Button 
+                    onClick={sendMessage}
+                    disabled={!newMessage.trim()}
+                    size="icon"
+                    className="shrink-0"
+                  >
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+
+          {analysisStorage.hasResult() && (
+            <Button 
+              onClick={() => analysisStorage.clearResult()}
+              variant="outline"
+              size="sm"
+              className="text-red-600 border-red-200 hover:bg-red-50"
+            >
+              결과 삭제
+            </Button>
+          )}
+        </div>
+
+        {/* 저장된 결과 안내 */}
+        {isFromStorage && (
+          <div className="mt-4 p-3 bg-blue-50/80 backdrop-blur-sm rounded-xl border border-blue-200">
+            <p className="text-sm text-blue-700 text-center flex items-center justify-center gap-2">
+              <Clock className="w-4 h-4" />
+              이 결과는 30분간 임시 저장됩니다. 새로운 분석을 원하시면 '새 사진 분석'을 클릭하세요.
+            </p>
+          </div>
+        )}
+
+        {/* 더미 데이터 안내 */}
+        {!uploadedImage && !isFromStorage && (
+          <div className="mt-4 p-3 bg-orange-50/80 backdrop-blur-sm rounded-xl border border-orange-200">
+            <p className="text-sm text-orange-700 text-center flex items-center justify-center gap-2">
+              <Sparkles className="w-4 h-4" />
+              궁금한 점이 있으신 분들은 위의 'AI 상담' 버튼을 눌러 이용해주세요.
+            </p>
+          </div>
+        )}
 
         {/* 면책조항 */}
-        <div className="p-4 bg-gray-50 rounded-xl border border-gray-200 mb-6">
+        <div className="mt-8 p-4 bg-gray-50/80 backdrop-blur-sm rounded-xl border border-gray-200">
           <p className="text-xs text-gray-500 text-center leading-relaxed">
             ※ 본 결과는 AI의 예측값으로 참고용입니다. 정확한 진단은 반드시 전문의의 상담을 받으시기 바랍니다.
             <br />
             본 서비스는 의료진단을 대체하지 않으며, 응급상황 시에는 즉시 병원에 내원하시기 바랍니다.
           </p>
         </div>
-      </div>
 
-      {/* 챗봇 Dialog */}
-      <Dialog open={isChatOpen} onOpenChange={setIsChatOpen}>
-        <DialogContent className="max-w-md max-h-[80vh] p-0 bg-white border border-gray-200">
-          <DialogHeader className="p-4 border-b border-gray-200">
-            <DialogTitle className="flex items-center justify-between">
-              <span className="flex items-center gap-2 text-black">
-                <MessageCircle className="w-5 h-5" />
-                AI 상담
-              </span>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsChatOpen(false)}
-                className="text-gray-500 hover:text-black"
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            </DialogTitle>
-          </DialogHeader>
-          
-          <ScrollArea className="flex-1 p-4 max-h-96">
-            <div className="space-y-4">
-              {chatMessages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[80%] p-3 rounded-lg ${
-                      message.isUser
-                        ? 'bg-black text-white'
-                        : 'bg-gray-100 text-black border border-gray-200'
-                    }`}
-                  >
-                    <p className="text-sm">{message.text}</p>
-                    <p className="text-xs opacity-70 mt-1">
-                      {message.timestamp.toLocaleTimeString()}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
-          
-          <div className="p-4 border-t border-gray-200">
-            <div className="flex gap-2">
-              <Input
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                placeholder="궁금한 점을 물어보세요..."
-                onKeyPress={handleKeyPress}
-                className="flex-1 border-gray-300 focus:border-black"
-              />
-              <Button
-                onClick={sendMessage}
-                disabled={!newMessage.trim()}
-                className="bg-black text-white hover:bg-gray-800"
-                size="icon"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </div>
+        {/* 디버깅 정보 (개발 모드에서만 표시) */}
+        {process.env.NODE_ENV === 'development' && (
+          <div className="mt-4 p-3 bg-gray-100 border rounded-lg text-xs">
+            <p><strong>디버깅 정보:</strong></p>
+            <p>• 이미지: {uploadedImage ? '✅' : '❌'}</p>
+            <p>• 추가 정보: {additionalInfo ? '✅' : '❌'}</p>
+            <p>• 설문조사 데이터: {questionnaireData ? '✅' : '❌'}</p>
+            <p>• 저장된 결과: {analysisStorage.hasResult() ? '✅' : '❌'}</p>
+            <p>• 결과 출처: {isFromStorage ? '저장소' : '새 분석'}</p>
+            {questionnaireData && (
+              <details className="mt-2">
+                <summary className="cursor-pointer">설문조사 상세 데이터</summary>
+                <pre className="mt-1 text-xs bg-white p-2 rounded overflow-auto">
+                  {JSON.stringify(questionnaireData, null, 2)}
+                </pre>
+              </details>
+            )}
           </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* 플로팅 챗봇 버튼 */}
-      {!isChatOpen && (
-        <Button
-          onClick={() => setIsChatOpen(true)}
-          className="fixed bottom-6 right-6 rounded-full w-14 h-14 bg-black text-white hover:bg-gray-800 shadow-lg"
-          size="icon"
-        >
-          <MessageCircle className="w-6 h-6" />
-        </Button>
-      )}
+        )}
+      </div>
     </div>
   );
 };
