@@ -24,18 +24,29 @@ interface AuthState {
 }
 
 export const useAuth = () => {
+    // 개발/테스트 모드: 항상 인증된 상태로 설정
     const [authState, setAuthState] = useState<AuthState>({
-        user: null,
-        isLoading: true,
-        isAuthenticated: false,
+        user: {
+            id: 'test-user',
+            email: 'test@example.com',
+            name: '테스트 사용자',
+            nickname: '테스트',
+        },
+        isLoading: false,
+        isAuthenticated: true, // 항상 true로 설정
     });
 
-    // 초기 인증 상태 체크
-    useEffect(() => {
-        checkAuthStatus();
-    }, []);
+    // 초기 인증 상태 체크 (비활성화)
+    // useEffect(() => {
+    //     checkAuthStatus();
+    // }, []);
 
     const checkAuthStatus = async () => {
+        // 개발/테스트 모드에서는 항상 인증된 상태 유지
+        return;
+        
+        /*
+        // 원래 인증 로직 (주석 처리)
         try {
             const accessToken = localStorage.getItem('accessToken');
             const userInfo = localStorage.getItem('userInfo');
@@ -96,6 +107,7 @@ export const useAuth = () => {
             // 토큰이 유효하지 않은 경우 로그아웃 처리
             logout();
         }
+        */
     };
 
     const login = (user: User, accessToken: string, refreshToken: string) => {

@@ -13,25 +13,29 @@ const apiClient = axios.create({
     withCredentials: true,
 });
 
-// 요청 인터셉터 - JWT 토큰 자동 추가
+// 요청 인터셉터 - JWT 토큰 자동 추가 (개발/테스트 모드에서는 비활성화)
 apiClient.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('accessToken');
+        // 개발/테스트 모드: 토큰 없이도 요청 허용
+        // const token = localStorage.getItem('accessToken');
         
         // 고급 로깅 시스템 사용
         logger.apiRequest(
             config.method?.toUpperCase() || 'GET',
             `${config.baseURL}${config.url}`,
             {
-                hasToken: !!token,
+                hasToken: false, // 개발 모드에서는 토큰 없음으로 표시
                 headers: config.headers,
                 data: config.data
             }
         );
         
+        // 개발/테스트 모드에서는 토큰 추가하지 않음
+        /*
         if (token && token !== 'undefined' && token !== 'null') {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        */
         
         return config;
     },
@@ -41,7 +45,7 @@ apiClient.interceptors.request.use(
     }
 );
 
-// 응답 인터셉터 - 토큰 만료 처리
+// 응답 인터셉터 - 토큰 만료 처리 (개발/테스트 모드에서는 비활성화)
 apiClient.interceptors.response.use(
     (response) => {
         // 성공 응답 로깅
@@ -65,6 +69,8 @@ apiClient.interceptors.response.use(
             }
         );
 
+        // 개발/테스트 모드에서는 토큰 갱신 로직 비활성화
+        /*
         const original = error.config;
 
         if (error.response?.status === 401 && !original._retry) {
@@ -87,6 +93,7 @@ apiClient.interceptors.response.use(
                 }
             }
         }
+        */
 
         return Promise.reject(error);
     }
@@ -218,6 +225,20 @@ export const authService = {
 
     // 현재 사용자 정보 조회
     async getCurrentUser() {
+        // 개발/테스트 모드: 더미 사용자 데이터 반환
+        return {
+            success: true,
+            data: {
+                id: 'test-user',
+                email: 'test@example.com',
+                name: '테스트 사용자',
+                nickname: '테스트',
+                role: 'USER'
+            }
+        };
+        
+        /*
+        // 원래 로직 (주석 처리)
         const token = localStorage.getItem('accessToken');
         if (!token || token === 'undefined' || token === 'null') {
             throw new Error('No access token');
@@ -234,6 +255,7 @@ export const authService = {
             logger.error('사용자 정보 조회 실패', error.response?.data);
             throw error;
         }
+        */
     },
 
     // 토큰 재발급

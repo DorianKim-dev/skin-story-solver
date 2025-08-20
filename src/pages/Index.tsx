@@ -128,8 +128,12 @@ const Index = () => {
       {/* Hero Section - Linear Style */}
       <Section spacing="hero" className="relative gradient-hero snap-start min-h-screen flex items-center">
         <Container size="xl">
-          {/* Top-right Login/Logout */}
-          <div className="absolute right-4 top-4 z-20">
+          {/* Top-right Dev Mode Notice */}
+          <div className="absolute right-4 top-4 z-20 flex items-center gap-2">
+            {/* 개발/테스트 모드 알림 */}
+            <div className="bg-green-500/10 text-green-600 px-3 py-1 rounded-full text-xs font-medium border border-green-500/20">
+              🚀 로그인 없이 체험 가능
+            </div>
             {isAuthenticated ? (
               <Button 
                 variant="ghost" 

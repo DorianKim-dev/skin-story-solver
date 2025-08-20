@@ -30,12 +30,13 @@ class CameraService {
   });
 
   constructor() {
-    // 요청 인터셉터 - 인증 토큰 추가
+    // 요청 인터셉터 - 인증 토큰 추가 (개발/테스트 모드에서는 비활성화)
     this.apiClient.interceptors.request.use((config) => {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+      // 개발/테스트 모드에서는 토큰 없이 요청
+      // const token = localStorage.getItem('authToken');
+      // if (token) {
+      //   config.headers.Authorization = `Bearer ${token}`;
+      // }
       return config;
     });
 
@@ -119,16 +120,17 @@ class CameraService {
     }
   }
 
-  // WebSocket URL 생성
+  // WebSocket URL 생성 (개발/테스트 모드에서는 토큰 없이)
   getWebSocketUrl(sessionId: string): string {
-    const token = localStorage.getItem('authToken');
-    const params = new URLSearchParams();
+    // 개발/테스트 모드에서는 토큰 없이 WebSocket 연결
+    // const token = localStorage.getItem('authToken');
+    // const params = new URLSearchParams();
     
-    if (token) {
-      params.append('token', token);
-    }
+    // if (token) {
+    //   params.append('token', token);
+    // }
     
-    const wsUrl = `${WS_BASE}/ws/camera/${sessionId}${params.toString() ? '?' + params.toString() : ''}`;
+    const wsUrl = `${WS_BASE}/ws/camera/${sessionId}`;
     console.log('Generated WebSocket URL:', wsUrl);
     return wsUrl;
   }

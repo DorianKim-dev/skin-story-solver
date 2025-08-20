@@ -75,6 +75,12 @@ const Profile = () => {
 
   const handleSave = () => {
     if (!validateForm()) return;
+    
+    // 개발/테스트 모드: 로컬에서만 저장 성공 메시지 표시
+    toast.success('프로필이 저장되었습니다. (개발 모드)');
+    
+    /*
+    // 원래 로직 (주석 처리)
     (async () => {
       try {
         const res = await authService.updateProfile({
@@ -96,62 +102,41 @@ const Profile = () => {
         toast.error(e.response?.data?.message || '프로필 저장 중 오류가 발생했습니다.');
       }
     })();
+    */
   };
 
   const handleLogout = async () => {
+    // 개발/테스트 모드: 로그아웃 시뮬레이션
+    toast.success('로그아웃되었습니다. (개발 모드)');
+    navigate('/');
+    
+    /*
+    // 원래 로직 (주석 처리)
     await logout();
     navigate('/');
+    */
   };
 
-  // 로그인 여부 확인 중 로딩 표시
-  if (isLoading) {
-    return null;
-  }
+  // 로딩 및 인증 체크 비활성화 (개발/테스트 모드)
+  // 원래 로직은 주석 처리됨
 
-  // 비로그인 접근 차단
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Section spacing="default">
-          <Container size="sm" className="max-w-md text-center">
-            <div className="space-y-6">
-              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto">
-                <User className="w-8 h-8 text-muted-foreground" />
-              </div>
-              
-              <div className="space-y-2">
-                <Typography variant="h3">로그인이 필요합니다</Typography>
-                <Typography variant="body" className="text-muted-foreground">
-                  프로필을 확인하려면 먼저 로그인해주세요
-                </Typography>
-              </div>
-              
-              <div className="space-y-3">
-                <Link to="/login" className="block">
-                  <Button size="lg" className="w-full">
-                    로그인
-                  </Button>
-                </Link>
-                <Link to="/signup" className="block">
-                  <Button variant="outline" size="lg" className="w-full">
-                    회원가입
-                  </Button>
-                </Link>
-              </div>
-              
-              <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-                <ArrowLeft className="w-4 h-4" />
-                <Typography variant="bodySmall">홈으로 돌아가기</Typography>
-              </Link>
-            </div>
-          </Container>
-        </Section>
-      </div>
-    );
-  }
-
-  // 사용자 정보 불러오기
+  // 사용자 정보 불러오기 (개발/테스트 모드에서는 더미 데이터 사용)
   useEffect(() => {
+    // 개발/테스트 모드: 더미 데이터로 프로필 설정
+    setProfileData({
+      nickname: '테스트 사용자',
+      name: '테스트 사용자',
+      gender: 'male',
+      birthYear: '1990',
+      email: 'test@example.com',
+      nationality: 'korean',
+      allergies: '',
+      surgicalHistory: '',
+      profileImage: null,
+    });
+    
+    /*
+    // 원래 로직 (주석 처리)
     const load = async () => {
       if (!user) return;
       try {
@@ -180,6 +165,7 @@ const Profile = () => {
       }
     };
     load();
+    */
   }, [user]);
 
   return (
@@ -192,6 +178,13 @@ const Profile = () => {
               <ArrowLeft className="w-4 h-4" />
               <Typography variant="bodySmall">돌아가기</Typography>
             </Link>
+            
+            {/* 개발 모드 알림 */}
+            <div className="text-center mb-4">
+              <div className="inline-flex bg-green-500/10 text-green-600 px-3 py-1 rounded-full text-xs font-medium border border-green-500/20">
+                🚀 개발/테스트 모드 - 더미 데이터로 동작
+              </div>
+            </div>
             
             <div className="text-center space-y-2">
               <Typography variant="h3">프로필</Typography>

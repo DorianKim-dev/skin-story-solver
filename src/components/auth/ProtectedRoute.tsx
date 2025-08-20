@@ -15,9 +15,15 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children, 
   redirectTo = '/login' 
 }) => {
-  const { isAuthenticated, isLoading } = useAuthContext();
-  const location = useLocation();
+  // 개발/테스트 모드: 모든 사용자에게 접근 허용
+  // const { isAuthenticated, isLoading } = useAuthContext();
+  // const location = useLocation();
 
+  // 로딩 없이 바로 자식 컴포넌트 렌더링 (인증 우회)
+  return <>{children}</>;
+
+  /*
+  // 원래 인증 로직 (주석 처리)
   // 로딩 중일 때 로딩 스피너 표시
   if (isLoading) {
     return (
@@ -51,6 +57,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   // 인증된 경우 자식 컴포넌트 렌더링
   return <>{children}</>;
-};
+  */;
 
 export default ProtectedRoute;
