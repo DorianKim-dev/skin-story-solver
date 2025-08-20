@@ -585,7 +585,7 @@ const Analysis = () => {
         
 
         {/* 분석 관련 버튼들 */}
-        <div className="mt-6 flex justify-center gap-3">
+        <div className="mt-6 flex justify-center gap-3 flex-wrap">
           <Button 
             onClick={startNewAnalysis}
             size="lg"
@@ -594,6 +594,82 @@ const Analysis = () => {
             <Camera className="w-5 h-5" />
             새 사진 분석
           </Button>
+
+          {/* 챗봇 버튼 */}
+          <Dialog open={isChatOpen} onOpenChange={setIsChatOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                size="lg"
+                className="relative flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-pulse hover:animate-none overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 animate-fade-in"></div>
+                <div className="relative flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5 animate-bounce" />
+                  AI 상담
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+                </div>
+              </Button>
+            </DialogTrigger>
+            
+            <DialogContent className="max-w-md h-[500px] flex flex-col p-0">
+              <DialogHeader className="p-4 border-b">
+                <DialogTitle className="flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5 text-primary" />
+                  피부 분석 상담 챗봇
+                </DialogTitle>
+              </DialogHeader>
+              
+              {/* 채팅 메시지 영역 */}
+              <ScrollArea className="flex-1 p-4">
+                <div className="space-y-4">
+                  {chatMessages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-[80%] p-3 rounded-lg ${
+                          message.isUser
+                            ? 'bg-primary text-white'
+                            : 'bg-gray-100 text-gray-800'
+                        }`}
+                      >
+                        <p className="text-sm">{message.text}</p>
+                        <span className="text-xs opacity-70 mt-1 block">
+                          {message.timestamp.toLocaleTimeString([], { 
+                            hour: '2-digit', 
+                            minute: '2-digit' 
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
+              
+              {/* 메시지 입력 영역 */}
+              <div className="p-4 border-t">
+                <div className="flex gap-2">
+                  <Input
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="궁금한 점을 물어보세요..."
+                    className="flex-1"
+                  />
+                  <Button 
+                    onClick={sendMessage}
+                    disabled={!newMessage.trim()}
+                    size="icon"
+                    className="shrink-0"
+                  >
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
 
           {analysisStorage.hasResult() && (
             <Button 
@@ -622,7 +698,7 @@ const Analysis = () => {
           <div className="mt-4 p-3 bg-orange-50/80 backdrop-blur-sm rounded-xl border border-orange-200">
             <p className="text-sm text-orange-700 text-center flex items-center justify-center gap-2">
               <Sparkles className="w-4 h-4" />
-              궁금한 점이 있으신 분들은 오른쪽 하단에 챗봇 버튼을 눌러 이용해주세요.
+              궁금한 점이 있으신 분들은 위의 'AI 상담' 버튼을 눌러 이용해주세요.
             </p>
           </div>
         )}
@@ -657,75 +733,6 @@ const Analysis = () => {
         )}
       </div>
 
-      {/* 플로팅 챗봇 버튼 */}
-      <Dialog open={isChatOpen} onOpenChange={setIsChatOpen}>
-        <DialogTrigger asChild>
-          <Button 
-            className="fixed bottom-28 right-6 w-14 h-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-[9999]"
-            size="icon"
-          >
-            <MessageCircle className="w-6 h-6 text-white" />
-          </Button>
-        </DialogTrigger>
-        
-        <DialogContent className="max-w-md h-[500px] flex flex-col p-0">
-          <DialogHeader className="p-4 border-b">
-            <DialogTitle className="flex items-center gap-2">
-              <MessageCircle className="w-5 h-5 text-primary" />
-              피부 분석 상담 챗봇
-            </DialogTitle>
-          </DialogHeader>
-          
-          {/* 채팅 메시지 영역 */}
-          <ScrollArea className="flex-1 p-4">
-            <div className="space-y-4">
-              {chatMessages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[80%] p-3 rounded-lg ${
-                      message.isUser
-                        ? 'bg-primary text-white'
-                        : 'bg-gray-100 text-gray-800'
-                    }`}
-                  >
-                    <p className="text-sm">{message.text}</p>
-                    <span className="text-xs opacity-70 mt-1 block">
-                      {message.timestamp.toLocaleTimeString([], { 
-                        hour: '2-digit', 
-                        minute: '2-digit' 
-                      })}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
-          
-          {/* 메시지 입력 영역 */}
-          <div className="p-4 border-t">
-            <div className="flex gap-2">
-              <Input
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="궁금한 점을 물어보세요..."
-                className="flex-1"
-              />
-              <Button 
-                onClick={sendMessage}
-                disabled={!newMessage.trim()}
-                size="icon"
-                className="shrink-0"
-              >
-                <Send className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
