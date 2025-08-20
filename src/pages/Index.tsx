@@ -6,34 +6,35 @@ import { Container, Section } from '@/components/ui/theme-container';
 import { Header, Navigation, Hero, Footer } from '@/components/ui/theme-layout';
 import { Camera, Search, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerClick } from 'lucide-react';
 import { useAuthContext } from '@/contexts/AuthContext';
-
 const Index = () => {
-  const { isAuthenticated, logout } = useAuthContext();
-  
+  const {
+    isAuthenticated,
+    logout
+  } = useAuthContext();
+
   // Simple implementation of useInView hook functionality
-  const useInView = <T extends HTMLElement>() => {
+  const useInView = <T extends HTMLElement,>() => {
     const ref = useRef<T>(null);
     const [inView, setInView] = useState(false);
-    
     useEffect(() => {
       const el = ref.current;
       if (!el) return;
-      
       const observer = new IntersectionObserver(([entry]) => {
         setInView(entry.isIntersecting);
-      }, { threshold: 0.1 });
-      
+      }, {
+        threshold: 0.1
+      });
       observer.observe(el);
       return () => observer.disconnect();
     }, []);
-    
-    return { ref, inView };
+    return {
+      ref,
+      inView
+    };
   };
-
   const hero = useInView<HTMLDivElement>();
   const benefits = useInView<HTMLDivElement>();
   const featuresRef = useInView<HTMLDivElement>();
-  
   const features = [{
     icon: Camera,
     title: '정밀 분석',
@@ -43,22 +44,18 @@ const Index = () => {
     title: '전문의 매칭',
     description: '필요할 때 정확한 연결'
   }];
-
-  return (
-    <div className="theme-home-bright h-screen bg-white overflow-y-auto snap-y snap-mandatory scroll-root">
+  return <div className="theme-home-bright h-screen bg-white overflow-y-auto snap-y snap-mandatory scroll-root">
       {/* Hero Section - Linear Style */}
-      <Section spacing="hero" className="relative snap-start section-animate min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)' }}>
+      <Section spacing="hero" className="relative snap-start section-animate min-h-screen bg-cover bg-center bg-no-repeat" style={{
+      backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)'
+    }}>
         <Container size="xl">
           {/* Minimal top nav with equal spacing */}
           <div className="grid grid-cols-4 items-center py-4 text-sm text-white/80">
             <Link to="/camera" className="text-center hover:text-white">Camera</Link>
             <Link to="/analysis" className="text-center hover:text-white">Results</Link>
             <Link to="/profile" className="text-center hover:text-white">My Page</Link>
-            {isAuthenticated ? (
-              <button onClick={logout} className="text-center hover:text-white">Logout</button>
-            ) : (
-              <Link to="/login" className="text-center hover:text-white">Login</Link>
-            )}
+            {isAuthenticated ? <button onClick={logout} className="text-center hover:text-white">Logout</button> : <Link to="/login" className="text-center hover:text-white">Login</Link>}
           </div>
 
           {/* Content */}
@@ -70,9 +67,7 @@ const Index = () => {
               <Typography variant="h2" className="max-w-xl mx-auto text-white/90 text-center">
                 AI가 제안하는 당신만의 피부 솔루션
               </Typography>
-              <Typography variant="h2" className="max-w-xl mx-auto text-white/80 text-balance text-center">
-                핵심만 담은 프리미엄 진단 경험
-              </Typography>
+              
             </div>
           </div>
         </Container>
@@ -152,8 +147,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {features.map((feature, index) => (
-              <div key={index} className="group">
+            {features.map((feature, index) => <div key={index} className="group">
                 <div className="bg-card rounded-xl p-8 h-full border border-border hover:border-primary/20 transition-all duration-300">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
                     <feature.icon className="w-6 h-6 text-primary" />
@@ -165,13 +159,10 @@ const Index = () => {
                     {feature.description}
                   </Typography>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </Container>
       </Section>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
