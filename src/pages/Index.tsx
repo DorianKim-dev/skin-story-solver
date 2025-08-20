@@ -88,7 +88,7 @@ const Index = () => {
 
       {/* AI 안면 분석 Section */}
       <Section spacing="hero" className="snap-start section-animate relative min-h-screen bg-cover bg-center bg-no-repeat" style={{
-        backgroundImage: 'url(/lovable-uploads/998aef6a-ec7c-44c1-adaf-e0ccde09df4c.png)'
+        backgroundImage: 'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)'
       }}>
         <Container size="xl">
           <div className="flex flex-col items-center justify-center min-h-screen text-center space-y-8">
