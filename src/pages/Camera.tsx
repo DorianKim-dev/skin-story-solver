@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Camera as CameraIcon, Upload, RotateCcw, Check, MessageCircle, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import { useCamera } from '@/hooks/useCamera';
 
 const Camera = () => {
@@ -161,7 +162,7 @@ const Camera = () => {
                   }}
                   onError={(e) => {
                     console.error('Video error:', e);
-                    setError && setError('비디오 스트림 오류가 발생했습니다');
+                    toast.error('비디오 스트림 오류가 발생했습니다');
                   }}
                   onLoadedMetadata={() => {
                     console.log('Video metadata loaded');

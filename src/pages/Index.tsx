@@ -124,9 +124,11 @@ const Index = () => {
       window.removeEventListener('keydown', onKey as any);
     };
   }, []);
-  return <div ref={containerRef} className="theme-home-bright h-screen bg-background overflow-y-scroll snap-y snap-mandatory scroll-smooth">
-      {/* Hero Section - Linear Style */}
-      <Section spacing="hero" className="relative gradient-hero snap-start min-h-screen flex items-center">
+  return (
+    <div className="theme-home-bright h-screen bg-background overflow-hidden">
+      <div ref={containerRef} className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
+        {/* Hero Section - Linear Style */}
+        <Section spacing="hero" className="relative gradient-hero snap-start min-h-screen flex items-center">
         <Container size="xl">
           {/* Top-right Dev Mode Notice */}
           <div className="absolute right-4 top-4 z-20 flex items-center gap-2">
@@ -307,6 +309,8 @@ const Index = () => {
           </RevealOnSnap>
         </Container>
       </Section>
-    </div>;
+      </div>
+    </div>
+  );
 };
 export default Index;

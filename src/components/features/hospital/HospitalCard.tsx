@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Phone, Navigation, Clock, Heart } from 'lucide-react';
-import { Hospital } from '@/services/hospitalService';
+import { Hospital } from '@/services/hospitalServiceSimple';
 
 interface HospitalCardProps {
   hospital: Hospital;

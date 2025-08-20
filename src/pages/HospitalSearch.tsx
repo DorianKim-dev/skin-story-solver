@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import HospitalCard from '@/components/features/hospital/HospitalCard';
-import { hospitalService, Hospital, getCurrentLocation } from '@/services/hospitalService';
+import { hospitalService, Hospital, getCurrentLocation } from '@/services/hospitalServiceSimple';
 import { MapPin, SlidersHorizontal, List, Grid3X3, Search, X, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
 
 // 접을 수 있는 SearchFilters 컴포넌트
