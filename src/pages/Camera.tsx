@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Typography } from '@/components/ui/theme-typography';
-import { Camera as CameraIcon, Upload, RotateCcw, Check, MessageCircle, AlertCircle, ArrowLeft } from 'lucide-react';
+import { Upload, RotateCcw, Check, MessageCircle, AlertCircle, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCamera } from '@/hooks/useCamera';
 
@@ -111,7 +111,7 @@ const Camera = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 pt-20" style={{ backgroundColor: '#EEEBDE' }}>
+    <div className="min-h-screen p-6 pt-20 bg-white">
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
         <div className="mb-10">
@@ -144,7 +144,7 @@ const Camera = () => {
               ) : countdown.isActive ? (
                 <span className="text-lg font-bold">{countdown.remaining}</span>
               ) : (
-                <CameraIcon className="w-7 h-7" />
+                <div className="w-7 h-7 rounded-full bg-gray-200"></div>
               )}
             </div>
           </div>
@@ -188,8 +188,8 @@ const Camera = () => {
               {!isActive && (
                 <div className="absolute inset-0 bg-gray-50 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-[#759393]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#759393]/30">
-                      <CameraIcon className="w-8 h-8 text-[#759393]" />
+                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-200">
+                      <div className="w-8 h-8 rounded bg-gray-300"></div>
                     </div>
                     <div className="bg-white rounded-lg p-4 border border-[#759393]/20 shadow-sm">
                       <p className="text-[#759393] font-medium mb-1 font-sans">
@@ -213,8 +213,8 @@ const Camera = () => {
                           <span className="text-3xl font-bold text-white">{countdown.remaining}</span>
                         </div>
                       ) : (
-                        <div className="w-16 h-16 bg-[#759393]/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#759393]/50">
-                          <CameraIcon className="w-8 h-8 text-[#759393]" />
+                        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-200">
+                          <div className="w-8 h-8 rounded bg-gray-300"></div>
                         </div>
                       )}
                       
@@ -236,8 +236,8 @@ const Camera = () => {
                 <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
                   <div className="w-80 h-80 border-2 border-dashed border-[#759393]/60 rounded-2xl flex items-center justify-center">
                     <div className="text-center">
-                      <div className="w-16 h-16 bg-[#759393]/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#759393]/50">
-                        <CameraIcon className="w-8 h-8 text-[#759393]" />
+                      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-200">
+                        <div className="w-8 h-8 rounded bg-gray-300"></div>
                       </div>
                       <div className="bg-white/95 rounded-lg p-4 border border-[#759393]/20 shadow-sm">
                         <p className="text-[#759393] font-medium mb-1 font-sans">
@@ -336,7 +336,6 @@ const Camera = () => {
                     startCamera();
                   }}
                 >
-                  <CameraIcon className="w-6 h-6 mr-2" />
                   카메라 시작
                 </Button>
               ) : !deviceInfo?.isDesktop ? (
@@ -350,7 +349,6 @@ const Camera = () => {
                   }}
                   disabled={countdown.isActive}
                 >
-                  <CameraIcon className="w-6 h-6 mr-2" />
                   {countdown.isActive ? `촬영까지 ${countdown.remaining}초` : '촬영하기'}
                 </Button>
               ) : (
@@ -415,7 +413,6 @@ const Camera = () => {
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 onClick={() => navigate('/analysis', { state: { image: capturedImage } })}
               >
-                <CameraIcon className="w-5 h-5 mr-2" />
                 바로 분석하기
               </Button>
               
