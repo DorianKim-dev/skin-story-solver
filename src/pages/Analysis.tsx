@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Camera, Sparkles, TrendingUp, AlertCircle, Info, Loader2, RefreshCw, Clock } from 'lucide-react';
+import { Camera, Sparkles, TrendingUp, AlertCircle, Info, Loader2, RefreshCw, Clock, MapPin, Phone, Globe } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { aiService, AnalysisResult } from '@/services/aiService';
 import { analysisStorage } from '@/utils/analysisStorage';
@@ -75,6 +75,26 @@ const Analysis = () => {
         }
       ]
     };
+  };
+
+  // 더미 병원 추천 데이터
+  const getDummyHospitals = () => {
+    return [
+      {
+        name: "서울피부과의원",
+        address: "서울특별시 강남구 테헤란로 123",
+        phone: "02-1234-5678",
+        website: "https://seoulderma.co.kr",
+        specialty: "아토피, 건선, 습진 전문"
+      },
+      {
+        name: "강남성형외과",
+        address: "서울특별시 강남구 역삼로 456",
+        phone: "02-2345-6789", 
+        website: "https://gangnamclinic.co.kr",
+        specialty: "피부미용, 레이저치료, 보톡스"
+      }
+    ];
   };
 
   const performAnalysis = async () => {
@@ -455,6 +475,59 @@ const Analysis = () => {
           </Card>
         )}
 
+        {/* 병원 추천 */}
+        <Card className="glass-card mb-8">
+          <CardContent className="p-6">
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold">추천 병원</h2>
+              <p className="text-sm text-muted-foreground">근처 전문 병원을 추천해드립니다</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {getDummyHospitals().map((hospital, index) => (
+                <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="font-semibold text-gray-800 text-lg">{hospital.name}</h3>
+                    <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary/20">
+                      전문병원
+                    </Badge>
+                  </div>
+                  
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-start gap-2">
+                      <MapPin className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-gray-600">{hospital.address}</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                      <a href={`tel:${hospital.phone}`} className="text-sm text-primary hover:underline">
+                        {hospital.phone}
+                      </a>
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Globe className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                      <a 
+                        href={hospital.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-sm text-primary hover:underline"
+                      >
+                        병원 웹사이트
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-primary/5 rounded-lg p-3">
+                    <p className="text-xs text-gray-500 mb-1">전문 분야</p>
+                    <p className="text-sm font-medium text-gray-700">{hospital.specialty}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+        
         {/* 액션 버튼들 */}
         <div className="grid grid-cols-1 gap-4">
           <Card className="glass-card hover:shadow-lg transition-all duration-300 cursor-pointer group">
