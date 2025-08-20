@@ -7,24 +7,29 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { aiService, AnalysisResult } from '@/services/aiService';
 import { analysisStorage } from '@/utils/analysisStorage';
 import { toast } from 'sonner';
+
 const Analysis = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  
   const [isLoading, setIsLoading] = useState(true);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isFromStorage, setIsFromStorage] = useState(false);
-
+  
   // 이전 페이지에서 전달받은 이미지 데이터
   const uploadedImage = location.state?.image || null;
   const additionalInfo = location.state?.additionalInfo || '';
   const questionnaireData = location.state?.questionnaireData || null;
+
   useEffect(() => {
     initializeAnalysis();
   }, []);
+
   const initializeAnalysis = async () => {
     // 먼저 저장된 결과가 있는지 확인
     const storedResult = analysisStorage.getResult();
+    
     if (storedResult && !uploadedImage) {
       // 새로운 분석 요청 없이 저장된 결과만 보여주는 경우
       setAnalysisResult(mapStoredToAnalysisResult(storedResult));
@@ -33,6 +38,7 @@ const Analysis = () => {
       toast.info('저장된 분석 결과를 불러왔습니다.');
       return;
     }
+
     if (!uploadedImage) {
       // 이미지가 없으면 더미 데이터 표시
       setAnalysisResult(getDummyAnalysisResult());
@@ -51,38 +57,46 @@ const Analysis = () => {
       confidence: 87,
       summary: "촬영된 이미지에서 전형적인 아토피성 피부염의 특징이 관찰됩니다. 피부 표면이 거칠고 건조하며, 염증성 병변과 함께 경계가 불분명한 홍반이 확인됩니다. 만성적인 소양감으로 인한 긁힌 자국도 보입니다.",
       recommendation: "보습제를 하루 2-3회 충분히 발라주시고, 긁지 않도록 주의하세요. 증상이 지속되거나 악화될 경우 피부과 전문의 상담을 받으시기 바랍니다. 스테로이드 외용제 사용 시 의사의 처방에 따라 사용하세요.",
-      similar_diseases: [{
-        name: "접촉성 피부염",
-        confidence: 72,
-        description: "특정 물질에 대한 알레르기 반응으로 인한 피부염으로, 아토피와 유사한 증상을 보일 수 있습니다."
-      }, {
-        name: "지루성 피부염",
-        confidence: 65,
-        description: "주로 피지 분비가 많은 부위에 발생하는 만성 염증성 피부 질환입니다."
-      }, {
-        name: "건선",
-        confidence: 58,
-        description: "은백색 인설을 동반한 홍반성 구진이나 판이 특징적인 만성 염증성 피부 질환입니다."
-      }]
+      similar_diseases: [
+        {
+          name: "접촉성 피부염",
+          confidence: 72,
+          description: "특정 물질에 대한 알레르기 반응으로 인한 피부염으로, 아토피와 유사한 증상을 보일 수 있습니다."
+        },
+        {
+          name: "지루성 피부염",
+          confidence: 65,
+          description: "주로 피지 분비가 많은 부위에 발생하는 만성 염증성 피부 질환입니다."
+        },
+        {
+          name: "건선",
+          confidence: 58,
+          description: "은백색 인설을 동반한 홍반성 구진이나 판이 특징적인 만성 염증성 피부 질환입니다."
+        }
+      ]
     };
   };
 
   // 더미 병원 추천 데이터
   const getDummyHospitals = () => {
-    return [{
-      name: "서울피부과의원",
-      address: "서울특별시 강남구 테헤란로 123",
-      phone: "02-1234-5678",
-      website: "https://seoulderma.co.kr",
-      specialty: "아토피성 피부염, 건선, 습진 전문 치료 / 알레르기성 피부 질환 및 만성 피부염 진료 / 소아 아토피 및 성인 아토피 맞춤 치료 / 피부 보습 관리 및 생활 습관 개선 상담 / 스테로이드 대체 치료법 및 천연 치료 프로그램"
-    }, {
-      name: "강남성형외과",
-      address: "서울특별시 강남구 역삼로 456",
-      phone: "02-2345-6789",
-      website: "https://gangnamclinic.co.kr",
-      specialty: "피부미용 레이저 치료 및 흉터 제거 / 보톡스, 필러를 이용한 주름 개선 시술 / 여드름 및 여드름 흉터 전문 치료 / 피부 톤 개선 및 색소 침착 치료 / 안티에이징 프로그램 및 피부 재생 관리"
-    }];
+    return [
+      {
+        name: "서울피부과의원",
+        address: "서울특별시 강남구 테헤란로 123",
+        phone: "02-1234-5678",
+        website: "https://seoulderma.co.kr",
+        specialty: "아토피성 피부염, 건선, 습진 전문 치료 / 알레르기성 피부 질환 및 만성 피부염 진료 / 소아 아토피 및 성인 아토피 맞춤 치료 / 피부 보습 관리 및 생활 습관 개선 상담 / 스테로이드 대체 치료법 및 천연 치료 프로그램"
+      },
+      {
+        name: "강남성형외과",
+        address: "서울특별시 강남구 역삼로 456",
+        phone: "02-2345-6789", 
+        website: "https://gangnamclinic.co.kr",
+        specialty: "피부미용 레이저 치료 및 흉터 제거 / 보톡스, 필러를 이용한 주름 개선 시술 / 여드름 및 여드름 흉터 전문 치료 / 피부 톤 개선 및 색소 침착 치료 / 안티에이징 프로그램 및 피부 재생 관리"
+      }
+    ];
   };
+
   const performAnalysis = async () => {
     try {
       setIsLoading(true);
@@ -101,8 +115,9 @@ const Analysis = () => {
         additional_info: additionalInfo,
         questionnaire_data: questionnaireData
       });
-      setAnalysisResult(result);
 
+      setAnalysisResult(result);
+      
       // 분석 결과를 임시 저장
       analysisStorage.saveResult({
         id: analysisStorage.generateResultId(),
@@ -110,12 +125,12 @@ const Analysis = () => {
         confidence_score: result.confidence,
         recommendations: result.recommendation,
         similar_conditions: result.similar_diseases?.map(d => d.name).join(', '),
-        summary: result.summary,
-        // 진단소견 추가
+        summary: result.summary, // 진단소견 추가
         image: uploadedImage instanceof File ? URL.createObjectURL(uploadedImage) : uploadedImage,
         additionalInfo: additionalInfo,
         questionnaireData: questionnaireData
       });
+
       toast.success('분석이 완료되었습니다!');
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : '분석 중 오류가 발생했습니다.';
@@ -134,35 +149,38 @@ const Analysis = () => {
       confidence: stored.confidence_score || 0,
       summary: stored.summary || '저장된 분석 결과입니다.',
       recommendation: stored.recommendations || '전문의 상담을 권장합니다.',
-      similar_diseases: stored.similar_conditions ? stored.similar_conditions.split(', ').map((name: string, index: number) => ({
-        name,
-        confidence: Math.max(0, (stored.confidence_score || 0) - (index + 1) * 10),
-        description: `${name}와 유사한 증상을 보입니다.`
-      })) : []
+      similar_diseases: stored.similar_conditions ? 
+        stored.similar_conditions.split(', ').map((name: string, index: number) => ({
+          name,
+          confidence: Math.max(0, (stored.confidence_score || 0) - (index + 1) * 10),
+          description: `${name}와 유사한 증상을 보입니다.`
+        })) : []
     };
   };
+
   const getConfidenceColor = (confidence: number) => {
     if (confidence >= 80) return 'text-green-600 bg-green-50 border-green-200';
     if (confidence >= 60) return 'text-yellow-600 bg-yellow-50 border-yellow-200';
     return 'text-red-600 bg-red-50 border-red-200';
   };
+
   const getImageUrl = () => {
     // 저장된 결과에서 온 경우
     if (isFromStorage) {
       const storedResult = analysisStorage.getResult();
       return storedResult?.image || '/placeholder.svg';
     }
-
+    
     // 새로운 분석인 경우
     if (uploadedImage instanceof File) {
       return URL.createObjectURL(uploadedImage);
     }
-
+    
     // 업로드된 이미지가 있는 경우
     if (uploadedImage) {
       return uploadedImage;
     }
-
+    
     // 더미 데이터용 기본 이미지
     return '/icon_14.png';
   };
@@ -175,18 +193,21 @@ const Analysis = () => {
 
   // 로딩 상태
   if (isLoading) {
-    return <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
+    return (
+      <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-16 h-16 mx-auto mb-4 animate-spin text-primary" />
           <h2 className="text-2xl font-bold text-gradient-primary mb-2">AI 분석 중...</h2>
           <p className="text-muted-foreground">잠시만 기다려주세요.</p>
         </div>
-      </div>;
+      </div>
+    );
   }
 
   // 에러 상태 또는 결과 없음
   if (error) {
-    return <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
+    return (
+      <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
         <div className="text-center max-w-md">
           <AlertCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
           <h2 className="text-2xl font-bold text-red-600 mb-2">분석 실패</h2>
@@ -200,12 +221,14 @@ const Analysis = () => {
             </Button>
           </div>
         </div>
-      </div>;
+      </div>
+    );
   }
 
   // 분석 결과가 없는 경우 (빈 상태)
   if (!analysisResult) {
-    return <div className="min-h-screen bg-gradient-glass p-4">
+    return (
+      <div className="min-h-screen bg-gradient-glass p-4">
         <div className="max-w-4xl mx-auto">
           {/* 헤더 */}
           <div className="text-center mb-8">
@@ -229,11 +252,19 @@ const Analysis = () => {
                 AI가 즉시 분석하여 결과를 제공합니다.
               </p>
               <div className="space-y-3">
-                <Button onClick={startNewAnalysis} className="w-full max-w-sm mx-auto flex items-center gap-2" size="lg">
+                <Button 
+                  onClick={startNewAnalysis}
+                  className="w-full max-w-sm mx-auto flex items-center gap-2"
+                  size="lg"
+                >
                   <Camera className="w-5 h-5" />
                   사진 촬영하기
                 </Button>
-                <Button variant="outline" onClick={() => navigate('/questionnaire')} className="w-full max-w-sm mx-auto">
+                <Button 
+                  variant="outline"
+                  onClick={() => navigate('/questionnaire')}
+                  className="w-full max-w-sm mx-auto"
+                >
                   설문조사 먼저 하기
                 </Button>
               </div>
@@ -288,9 +319,12 @@ const Analysis = () => {
             </p>
           </div>
         </div>
-      </div>;
+      </div>
+    );
   }
-  return <div className="min-h-screen bg-gradient-glass p-4">
+
+  return (
+    <div className="min-h-screen bg-gradient-glass p-4">
       <div className="max-w-4xl mx-auto">
         {/* 헤더 */}
         <div className="text-center mb-8">
@@ -301,17 +335,23 @@ const Analysis = () => {
             AI가 분석한 환부의 상태입니다
           </p>
           <div className="mt-3 flex justify-center gap-2">
-            {questionnaireData && <Badge className="bg-green-100 text-green-800 border-green-200">
+            {questionnaireData && (
+              <Badge className="bg-green-100 text-green-800 border-green-200">
                 설문조사 데이터 포함
-              </Badge>}
-            {isFromStorage && <Badge className="bg-blue-100 text-blue-800 border-blue-200 flex items-center gap-1">
+              </Badge>
+            )}
+            {isFromStorage && (
+              <Badge className="bg-blue-100 text-blue-800 border-blue-200 flex items-center gap-1">
                 <Clock className="w-3 h-3" />
                 저장된 결과
-              </Badge>}
-            {!uploadedImage && !isFromStorage && <Badge className="bg-orange-100 text-orange-800 border-orange-200 flex items-center gap-1">
+              </Badge>
+            )}
+            {!uploadedImage && !isFromStorage && (
+              <Badge className="bg-orange-100 text-orange-800 border-orange-200 flex items-center gap-1">
                 <Sparkles className="w-3 h-3" />
                 데모 결과
-              </Badge>}
+              </Badge>
+            )}
           </div>
         </div>
 
@@ -324,20 +364,25 @@ const Analysis = () => {
                 <h2 className="text-xl font-semibold mb-3 mx-[13px] my-0">분석 이미지</h2>
                 <div className="aspect-square bg-gradient-glow rounded-2xl p-3">
                   <div className="w-full h-full bg-white/50 rounded-xl flex items-center justify-center relative overflow-hidden">
-                    <img src={getImageUrl()} alt="분석 이미지" className="w-full h-full object-cover rounded-xl" onError={e => {
-                    // 이미지 로드 실패시 placeholder 표시
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const parent = target.parentElement;
-                    if (parent) {
-                      parent.innerHTML = `
+                    <img 
+                      src={getImageUrl()} 
+                      alt="분석 이미지" 
+                      className="w-full h-full object-cover rounded-xl" 
+                      onError={(e) => {
+                        // 이미지 로드 실패시 placeholder 표시
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.innerHTML = `
                             <div class="flex flex-col items-center justify-center text-gray-400 w-full h-full">
                               <div class="w-16 h-16 mb-2">📷</div>
                               <p class="text-sm">이미지 로드 실패</p>
                             </div>
                           `;
-                    }
-                  }} />
+                        }
+                      }}
+                    />
                     <div className="absolute top-3 left-3">
                       <Badge className="bg-primary text-white">
                         {uploadedImage ? '환부 촬영' : '샘플 이미지'}
@@ -369,16 +414,19 @@ const Analysis = () => {
                       <span className="font-semibold">{analysisResult.confidence}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div className="bg-primary h-2 rounded-full transition-all duration-500" style={{
-                      width: `${analysisResult.confidence}%`
-                    }}></div>
+                      <div 
+                        className="bg-primary h-2 rounded-full transition-all duration-500" 
+                        style={{ width: `${analysisResult.confidence}%` }}
+                      ></div>
                     </div>
                   </div>
 
-                  {analysisResult.confidence < 70 && <div className="flex items-center gap-2 text-amber-600 text-sm p-3 bg-amber-50 rounded-lg border border-amber-200">
+                  {analysisResult.confidence < 70 && (
+                    <div className="flex items-center gap-2 text-amber-600 text-sm p-3 bg-amber-50 rounded-lg border border-amber-200">
                       <AlertCircle className="w-4 h-4" />
                       <span>정확한 진단을 위해 전문의 상담을 권장합니다</span>
-                    </div>}
+                    </div>
+                  )}
                 </div>
 
                 {/* 진단 소견 */}
@@ -402,13 +450,15 @@ const Analysis = () => {
         </Card>
 
         {/* 유사질환 박스 */}
-        {analysisResult.similar_diseases && analysisResult.similar_diseases.length > 0 && <Card className="glass-card mb-8">
+        {analysisResult.similar_diseases && analysisResult.similar_diseases.length > 0 && (
+          <Card className="glass-card mb-8">
             <CardContent className="p-6">
               <div className="mb-4">
                 <h2 className="text-xl font-semibold">유사질환</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {analysisResult.similar_diseases.slice(0, 2).map((item, index) => <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
+                {analysisResult.similar_diseases.slice(0, 2).map((item, index) => (
+                  <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="font-medium text-gray-800">{item.name}</h3>
                       <Badge variant="outline" className="text-xs">
@@ -418,10 +468,12 @@ const Analysis = () => {
                     <p className="text-sm text-gray-600 leading-relaxed">
                       {item.description}
                     </p>
-                  </div>)}
+                  </div>
+                ))}
               </div>
             </CardContent>
-          </Card>}
+          </Card>
+        )}
 
         {/* 병원 추천 */}
         <Card className="glass-card mb-8">
@@ -430,7 +482,8 @@ const Analysis = () => {
               <h2 className="text-xl font-semibold">추천 병원</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {getDummyHospitals().map((hospital, index) => <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
+              {getDummyHospitals().map((hospital, index) => (
+                <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="font-semibold text-gray-800 text-lg">{hospital.name}</h3>
                     <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary/20">
@@ -453,7 +506,12 @@ const Analysis = () => {
                     
                     <div className="flex items-center gap-2">
                       <Globe className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                      <a href={hospital.website} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                      <a 
+                        href={hospital.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-sm text-primary hover:underline"
+                      >
                         병원 웹사이트
                       </a>
                     </div>
@@ -463,7 +521,8 @@ const Analysis = () => {
                     <p className="text-xs text-gray-500 mb-1">전문 분야</p>
                     <p className="text-sm font-medium text-gray-700">{hospital.specialty}</p>
                   </div>
-                </div>)}
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
@@ -471,37 +530,59 @@ const Analysis = () => {
         {/* 액션 버튼들 */}
         <div className="grid grid-cols-1 gap-4">
           <Card className="glass-card hover:shadow-lg transition-all duration-300 cursor-pointer group">
-            
+            <CardContent className="p-6 text-center" onClick={() => navigate('/')}>
+              <div className="w-16 h-16 bg-primary-soft/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <TrendingUp className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="font-semibold mb-2">홈으로 돌아가기</h3>
+              <p className="text-sm text-muted-foreground">메인 페이지로 이동</p>
+            </CardContent>
           </Card>
         </div>
 
         {/* 분석 관련 버튼들 */}
         <div className="mt-6 flex justify-center gap-3">
-          <Button onClick={startNewAnalysis} variant="outline" size="sm" className="flex items-center gap-1">
+          <Button 
+            onClick={startNewAnalysis}
+            variant="outline"
+            size="sm"
+            className="flex items-center gap-1"
+          >
             <Camera className="w-3 h-3" />
             새 사진 분석
           </Button>
 
-          {analysisStorage.hasResult() && <Button onClick={() => analysisStorage.clearResult()} variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50">
+          {analysisStorage.hasResult() && (
+            <Button 
+              onClick={() => analysisStorage.clearResult()}
+              variant="outline"
+              size="sm"
+              className="text-red-600 border-red-200 hover:bg-red-50"
+            >
               결과 삭제
-            </Button>}
+            </Button>
+          )}
         </div>
 
         {/* 저장된 결과 안내 */}
-        {isFromStorage && <div className="mt-4 p-3 bg-blue-50/80 backdrop-blur-sm rounded-xl border border-blue-200">
+        {isFromStorage && (
+          <div className="mt-4 p-3 bg-blue-50/80 backdrop-blur-sm rounded-xl border border-blue-200">
             <p className="text-sm text-blue-700 text-center flex items-center justify-center gap-2">
               <Clock className="w-4 h-4" />
               이 결과는 30분간 임시 저장됩니다. 새로운 분석을 원하시면 '새 사진 분석'을 클릭하세요.
             </p>
-          </div>}
+          </div>
+        )}
 
         {/* 더미 데이터 안내 */}
-        {!uploadedImage && !isFromStorage && <div className="mt-4 p-3 bg-orange-50/80 backdrop-blur-sm rounded-xl border border-orange-200">
+        {!uploadedImage && !isFromStorage && (
+          <div className="mt-4 p-3 bg-orange-50/80 backdrop-blur-sm rounded-xl border border-orange-200">
             <p className="text-sm text-orange-700 text-center flex items-center justify-center gap-2">
               <Sparkles className="w-4 h-4" />
               현재 데모 결과가 표시되고 있습니다. 실제 분석을 위해서는 사진을 촬영해주세요.
             </p>
-          </div>}
+          </div>
+        )}
 
         {/* 면책조항 */}
         <div className="mt-8 p-4 bg-gray-50/80 backdrop-blur-sm rounded-xl border border-gray-200">
@@ -513,21 +594,27 @@ const Analysis = () => {
         </div>
 
         {/* 디버깅 정보 (개발 모드에서만 표시) */}
-        {process.env.NODE_ENV === 'development' && <div className="mt-4 p-3 bg-gray-100 border rounded-lg text-xs">
+        {process.env.NODE_ENV === 'development' && (
+          <div className="mt-4 p-3 bg-gray-100 border rounded-lg text-xs">
             <p><strong>디버깅 정보:</strong></p>
             <p>• 이미지: {uploadedImage ? '✅' : '❌'}</p>
             <p>• 추가 정보: {additionalInfo ? '✅' : '❌'}</p>
             <p>• 설문조사 데이터: {questionnaireData ? '✅' : '❌'}</p>
             <p>• 저장된 결과: {analysisStorage.hasResult() ? '✅' : '❌'}</p>
             <p>• 결과 출처: {isFromStorage ? '저장소' : '새 분석'}</p>
-            {questionnaireData && <details className="mt-2">
+            {questionnaireData && (
+              <details className="mt-2">
                 <summary className="cursor-pointer">설문조사 상세 데이터</summary>
                 <pre className="mt-1 text-xs bg-white p-2 rounded overflow-auto">
                   {JSON.stringify(questionnaireData, null, 2)}
                 </pre>
-              </details>}
-          </div>}
+              </details>
+            )}
+          </div>
+        )}
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default Analysis;
