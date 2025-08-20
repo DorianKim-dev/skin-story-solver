@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Camera, Sparkles, TrendingUp, AlertCircle, Info, Loader2, RefreshCw, Clock, MapPin, Phone, Globe } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Camera, Sparkles, TrendingUp, AlertCircle, Info, Loader2, RefreshCw, Clock, MapPin, Phone, Globe, MessageCircle, Send, X } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { aiService, AnalysisResult } from '@/services/aiService';
 import { analysisStorage } from '@/utils/analysisStorage';
@@ -16,6 +19,18 @@ const Analysis = () => {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isFromStorage, setIsFromStorage] = useState(false);
+  
+  // 챗봇 상태
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState<Array<{id: string, text: string, isUser: boolean, timestamp: Date}>>([
+    {
+      id: '1',
+      text: '안녕하세요! 피부 분석 결과에 대해 궁금한 점이 있으시면 언제든 물어보세요.',
+      isUser: false,
+      timestamp: new Date()
+    }
+  ]);
+  const [newMessage, setNewMessage] = useState('');
   
   // 이전 페이지에서 전달받은 이미지 데이터
   const uploadedImage = location.state?.image || null;
@@ -189,6 +204,47 @@ const Analysis = () => {
   const startNewAnalysis = () => {
     analysisStorage.clearResult();
     navigate('/camera');
+  };
+
+  // 챗봇 메시지 전송
+  const sendMessage = () => {
+    if (!newMessage.trim()) return;
+    
+    const userMessage = {
+      id: Date.now().toString(),
+      text: newMessage,
+      isUser: true,
+      timestamp: new Date()
+    };
+    
+    setChatMessages(prev => [...prev, userMessage]);
+    setNewMessage('');
+    
+    // 간단한 자동 응답 (실제로는 AI API 연결)
+    setTimeout(() => {
+      const responses = [
+        "분석 결과에 대해 더 자세히 설명드리겠습니다.",
+        "해당 피부 질환에 대한 추가 정보를 제공해드릴 수 있습니다.",
+        "추천 병원에 대한 상세 정보가 필요하시면 말씀해 주세요.",
+        "피부 관리 방법에 대해 안내해드릴 수 있습니다."
+      ];
+      
+      const botMessage = {
+        id: (Date.now() + 1).toString(),
+        text: responses[Math.floor(Math.random() * responses.length)],
+        isUser: false,
+        timestamp: new Date()
+      };
+      
+      setChatMessages(prev => [...prev, botMessage]);
+    }, 1000);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   // 로딩 상태
@@ -600,6 +656,76 @@ const Analysis = () => {
           </div>
         )}
       </div>
+
+      {/* 플로팅 챗봇 버튼 */}
+      <Dialog open={isChatOpen} onOpenChange={setIsChatOpen}>
+        <DialogTrigger asChild>
+          <Button 
+            className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-50"
+            size="icon"
+          >
+            <MessageCircle className="w-6 h-6 text-white" />
+          </Button>
+        </DialogTrigger>
+        
+        <DialogContent className="max-w-md h-[500px] flex flex-col p-0">
+          <DialogHeader className="p-4 border-b">
+            <DialogTitle className="flex items-center gap-2">
+              <MessageCircle className="w-5 h-5 text-primary" />
+              피부 분석 상담 챗봇
+            </DialogTitle>
+          </DialogHeader>
+          
+          {/* 채팅 메시지 영역 */}
+          <ScrollArea className="flex-1 p-4">
+            <div className="space-y-4">
+              {chatMessages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] p-3 rounded-lg ${
+                      message.isUser
+                        ? 'bg-primary text-white'
+                        : 'bg-gray-100 text-gray-800'
+                    }`}
+                  >
+                    <p className="text-sm">{message.text}</p>
+                    <span className="text-xs opacity-70 mt-1 block">
+                      {message.timestamp.toLocaleTimeString([], { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                      })}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+          
+          {/* 메시지 입력 영역 */}
+          <div className="p-4 border-t">
+            <div className="flex gap-2">
+              <Input
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="궁금한 점을 물어보세요..."
+                className="flex-1"
+              />
+              <Button 
+                onClick={sendMessage}
+                disabled={!newMessage.trim()}
+                size="icon"
+                className="shrink-0"
+              >
+                <Send className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
