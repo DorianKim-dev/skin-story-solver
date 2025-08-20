@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Typography } from '@/components/ui/theme-typography';
 import { Container, Section } from '@/components/ui/theme-container';
 import { Header, Navigation, Hero, Footer } from '@/components/ui/theme-layout';
-import { Camera, Search, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerClick } from 'lucide-react';
+import { Camera, Hospital, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerClick } from 'lucide-react';
 import { useAuthContext } from '@/contexts/AuthContext';
 
 const Index = () => {
@@ -15,7 +15,7 @@ const Index = () => {
     title: 'AI 피부 분석',
     description: '정밀한 피부 상태 분석 후 진단결과 제공'
   }, {
-    icon: Search,
+    icon: Hospital,
     title: '전문 병원 매칭',
     description: '분석 결과 기반 최적의 피부과 병원 추천'
   }];
