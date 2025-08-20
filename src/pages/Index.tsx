@@ -65,7 +65,7 @@ const Index = () => {
           <div className="relative z-10 flex items-center justify-center py-20 min-h-[60vh]">
             <div ref={hero.ref} className={`w-full max-w-2xl text-center space-y-6 fade-enter ${hero.inView ? 'fade-enter-active' : ''} mt-28 md:mt-40`}>
               {/* Title + Subtitle */}
-              <div className="display-hero text-white inline-block -translate-x-2 md:-translate-x-6 font-sans">Diagnose. Match. Heal.</div>
+              <div className="text-6xl md:text-8xl text-white inline-block -translate-x-2 md:-translate-x-6 font-sans font-bold">Diagnose. Match. Heal.</div>
 
               <Typography variant="h2" className="max-w-xl mx-auto text-white/90">
                 AI가 제안하는 당신만의 피부 솔루션
