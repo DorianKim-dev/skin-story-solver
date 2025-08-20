@@ -337,7 +337,7 @@ const Camera = () => {
                   
                   <Button 
                     variant="outline" 
-                    className="w-full h-12 font-sans border-gray-300 text-black hover:bg-black hover:text-white transition-colors" 
+                    className="w-full h-12 font-sans border-gray-300 text-black hover:bg-black hover:text-white hover:border-black transition-colors" 
                     onClick={() => document.getElementById('file-input')?.click()}
                   >
                     <Upload className="w-5 h-5 mr-2" />
