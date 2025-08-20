@@ -603,7 +603,7 @@ const Analysis = () => {
             <DialogTrigger asChild>
               <Button 
                 size="lg"
-                className="w-40 relative flex items-center justify-center gap-2 bg-black border-2 border-black text-white hover:bg-gray-800 hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+                className="w-40 relative flex items-center justify-center gap-2 bg-black border-2 border-black text-white hover:bg-white hover:text-black font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-100/10 to-gray-200/10"></div>
                 <MessageCircle className="w-5 h-5 relative z-10" />
