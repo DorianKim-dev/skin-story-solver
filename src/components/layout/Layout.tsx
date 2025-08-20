@@ -9,7 +9,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className="min-h-screen bg-gradient-glass">
       <Header />
-      <main>
+      <main className="pt-16">
         {children}
       </main>
     </div>
