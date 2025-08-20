@@ -8,61 +8,61 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Warm neutral beauty-care palette (from user's colors) */
-    --background: 60 31% 95%; /* #F6F6EE */
-    --foreground: 15 27% 32%; /* #67463B */
+    /* Pink beauty palette from user's colors */
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 0 0% 0%; /* #000000 */
 
-    --card: 60 100% 99%; /* #FFFFFD */
-    --card-foreground: 15 27% 32%;
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 0 0% 0%;
 
-    --popover: 60 100% 99%;
-    --popover-foreground: 15 27% 32%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
 
-    /* Primary – Sienna */
-    --primary: 18 48% 46%; /* #AD5E3D */
-    --primary-foreground: 60 100% 99%; /* near-white for contrast */
-    --primary-soft: 18 40% 70%;
-    --primary-glow: 18 60% 55%;
+    /* Primary – Coral Pink */
+    --primary: 10 100% 85%; /* #FFB7AF */
+    --primary-foreground: 0 0% 0%; /* black for contrast */
+    --primary-soft: 349 91% 79%; /* #FB96A1 */
+    --primary-glow: 355 89% 77%; /* #F98D92 */
 
-    /* Cream tones */
-    --cream: 60 31% 95%;        /* #F6F6EE */
-    --cream-dark: 32 22% 86%;   /* #E4DDD5 */
-    --cream-light: 60 100% 99%; /* #FFFFFD */
-    --luxury-gold: 35 65% 55%;  /* complementary soft gold */
+    /* Pink tones */
+    --cream: 10 100% 85%;        /* #FFB7AF */
+    --cream-dark: 321 55% 74%;   /* #ECA8C4 */
+    --cream-light: 0 0% 100%; /* #FFFFFF */
+    --luxury-gold: 349 91% 79%;  /* #FB96A1 */
 
-    /* Secondary – Deep brown */
-    --secondary: 15 27% 32%;         /* #67463B */
-    --secondary-foreground: 60 31% 95%;
+    /* Secondary – Lavender Pink */
+    --secondary: 321 55% 74%;         /* #ECA8C4 */
+    --secondary-foreground: 0 0% 0%;
 
-    --glass: 60 31% 96%;
-    --glass-foreground: 15 27% 32%;
+    --glass: 10 100% 85%;
+    --glass-foreground: 0 0% 0%;
 
     /* Neutral tones */
-    --muted: 60 2% 82%;             /* #D1D1CF */
-    --muted-foreground: 30 8% 40%;
+    --muted: 0 0% 95%;             /* light gray */
+    --muted-foreground: 0 0% 20%;
 
-    --accent: 30 8% 56%;            /* #999087 */
-    --accent-foreground: 15 27% 22%;
+    --accent: 355 89% 77%;            /* #F98D92 */
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 60 2% 82%;
-    --input: 60 2% 86%;
-    --ring: 18 48% 46%;
+    --border: 0 0% 90%;
+    --input: 0 0% 95%;
+    --ring: 10 100% 85%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(18 48% 46%), hsl(18 40% 70%));
-    --gradient-secondary: linear-gradient(135deg, hsl(15 27% 32%), hsl(30 8% 56%));
-    --gradient-glass: linear-gradient(180deg, hsl(60 31% 96%), hsl(60 31% 95%));
-    --gradient-luxury: linear-gradient(135deg, hsl(35 65% 55%), hsl(60 31% 95%));
-    --gradient-cream-flow: linear-gradient(45deg, hsl(60 31% 95%), hsl(32 22% 86%), hsl(60 100% 99%));
-    --gradient-hero: linear-gradient(135deg, hsl(18 48% 46%), hsl(15 27% 32%), hsl(60 31% 95%));
+    --gradient-primary: linear-gradient(135deg, hsl(10 100% 85%), hsl(349 91% 79%));
+    --gradient-secondary: linear-gradient(135deg, hsl(321 55% 74%), hsl(355 89% 77%));
+    --gradient-glass: linear-gradient(180deg, hsl(10 100% 85%), hsl(0 0% 100%));
+    --gradient-luxury: linear-gradient(135deg, hsl(349 91% 79%), hsl(10 100% 85%));
+    --gradient-cream-flow: linear-gradient(45deg, hsl(10 100% 85%), hsl(321 55% 74%), hsl(0 0% 100%));
+    --gradient-hero: linear-gradient(135deg, hsl(10 100% 85%), hsl(321 55% 74%), hsl(0 0% 100%));
     
     /* Glassmorphism */
-    --glass-bg: hsla(60, 31%, 96%, 0.7);
-    --glass-border: hsla(60, 2%, 82%, 0.4);
-    --glass-shadow: 0 8px 32px hsla(18, 48%, 46%, 0.12);
+    --glass-bg: hsla(10, 100%, 85%, 0.7);
+    --glass-border: hsla(349, 91%, 79%, 0.4);
+    --glass-shadow: 0 8px 32px hsla(10, 100%, 85%, 0.12);
 
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -82,33 +82,33 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 15 27% 18%;
-    --foreground: 60 31% 95%;
+    --background: 0 0% 10%;
+    --foreground: 0 0% 100%;
 
-    --card: 15 27% 22%;
-    --card-foreground: 60 31% 95%;
+    --card: 0 0% 15%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 15 27% 22%;
-    --popover-foreground: 60 31% 95%;
+    --popover: 0 0% 15%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 18 48% 46%;
-    --primary-foreground: 60 100% 99%;
+    --primary: 10 100% 85%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 15 27% 38%;
-    --secondary-foreground: 60 31% 95%;
+    --secondary: 321 55% 74%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 15 20% 26%;
-    --muted-foreground: 60 31% 85%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 85%;
 
-    --accent: 30 8% 56%;
-    --accent-foreground: 60 100% 99%;
+    --accent: 355 89% 77%;
+    --accent-foreground: 0 0% 0%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 15 20% 28%;
-    --input: 15 20% 28%;
-    --ring: 18 48% 46%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 10 100% 85%;
 
     --sidebar-background: 15 27% 18%;
     --sidebar-foreground: 60 31% 95%;
@@ -122,31 +122,31 @@ All colors MUST be HSL.
 
   /* Home page bright scoped theme */
   .theme-home-bright {
-    --background: 60 100% 99%; /* #FFFFFD */
-    --foreground: 15 27% 28%; /* slightly softer text for clarity */
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 0 0% 0%; /* black for clarity */
 
-    --card: 60 100% 100%;
-    --card-foreground: 15 27% 28%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
 
-    --primary: 18 60% 52%; /* brighter within palette */
-    --primary-foreground: 60 100% 99%;
-    --primary-soft: 18 40% 72%;
-    --primary-glow: 18 70% 60%;
+    --primary: 10 100% 85%; /* bright pink */
+    --primary-foreground: 0 0% 0%;
+    --primary-soft: 349 91% 79%;
+    --primary-glow: 355 89% 77%;
 
-    --muted: 60 12% 92%;
-    --muted-foreground: 30 10% 38%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 30%;
 
-    --accent: 35 40% 60%; /* soft gold highlight */
-    --accent-foreground: 15 27% 22%;
+    --accent: 321 55% 74%; /* lavender pink highlight */
+    --accent-foreground: 0 0% 0%;
 
-    --border: 60 12% 90%;
-    --input: 60 12% 94%;
-    --ring: 18 60% 52%;
+    --border: 0 0% 90%;
+    --input: 0 0% 95%;
+    --ring: 10 100% 85%;
 
     /* Bright, airy gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(60 100% 99%), hsl(60 31% 95%), hsl(32 22% 86%));
-    --gradient-cream-flow: linear-gradient(90deg, hsl(60 100% 99%), hsl(60 31% 95%), hsl(35 65% 85%));
-    --gradient-primary: linear-gradient(135deg, hsl(18 60% 52%), hsl(18 40% 72%));
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%), hsl(10 100% 85%), hsl(321 55% 74%));
+    --gradient-cream-flow: linear-gradient(90deg, hsl(0 0% 100%), hsl(10 100% 85%), hsl(349 91% 79%));
+    --gradient-primary: linear-gradient(135deg, hsl(10 100% 85%), hsl(349 91% 79%));
   }
 }
 
