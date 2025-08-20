@@ -169,21 +169,21 @@ const Profile = () => {
   }, [user]);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Section spacing="default">
         <Container size="sm" className="max-w-md">
           {/* Header */}
           <div className="mb-8">
             {/* 개발 모드 알림 */}
             <div className="text-center mb-4">
-              <div className="inline-flex bg-green-500/10 text-green-600 px-3 py-1 rounded-full text-xs font-medium border border-green-500/20">
+              <div className="inline-flex bg-gray-100 text-black px-3 py-1 rounded-full text-xs font-medium border border-gray-300">
                 🚀 개발/테스트 모드 - 더미 데이터로 동작
               </div>
             </div>
             
             <div className="text-center space-y-2">
-              <Typography variant="h3">프로필</Typography>
-              <Typography variant="body" className="text-muted-foreground">
+              <Typography variant="h3" className="text-black">프로필</Typography>
+              <Typography variant="body" className="text-gray-600">
                 개인정보를 관리하세요
               </Typography>
             </div>
@@ -192,7 +192,7 @@ const Profile = () => {
           {/* Profile Image */}
           <div className="flex justify-center mb-8">
             <div className="relative">
-              <div className="w-24 h-24 bg-muted rounded-full overflow-hidden border-4 border-border">
+              <div className="w-24 h-24 bg-gray-100 rounded-full overflow-hidden border-4 border-gray-300">
                 {profileImagePreview ? (
                   <img 
                     src={profileImagePreview} 
@@ -201,13 +201,13 @@ const Profile = () => {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <User className="w-8 h-8 text-muted-foreground" />
+                    <User className="w-8 h-8 text-gray-600" />
                   </div>
                 )}
               </div>
               <Button
                 size="icon"
-                className="absolute -bottom-1 -right-1 rounded-full w-8 h-8"
+                className="absolute -bottom-1 -right-1 rounded-full w-8 h-8 bg-black text-white hover:bg-gray-800"
                 onClick={() => document.getElementById('profile-image')?.click()}
               >
                 <Camera className="w-4 h-4" />
@@ -234,10 +234,10 @@ const Profile = () => {
                   value={profileData.nickname}
                   onChange={handleInputChange}
                   placeholder="닉네임을 입력하세요"
-                  className={errors.nickname ? 'border-destructive' : ''}
+                  className={errors.nickname ? 'border-red-500' : 'border-gray-300 focus:border-black'}
                 />
                 {errors.nickname && (
-                  <Typography variant="caption" className="text-destructive">
+                  <Typography variant="caption" className="text-red-600">
                     {errors.nickname}
                   </Typography>
                 )}
@@ -252,10 +252,10 @@ const Profile = () => {
                   value={profileData.name}
                   onChange={handleInputChange}
                   placeholder="이름을 입력하세요"
-                  className={errors.name ? 'border-destructive' : ''}
+                  className={errors.name ? 'border-red-500' : 'border-gray-300 focus:border-black'}
                 />
                 {errors.name && (
-                  <Typography variant="caption" className="text-destructive">
+                  <Typography variant="caption" className="text-red-600">
                     {errors.name}
                   </Typography>
                 )}
@@ -292,7 +292,7 @@ const Profile = () => {
                   </SelectContent>
                 </Select>
                 {errors.birthYear && (
-                  <Typography variant="caption" className="text-destructive">
+                  <Typography variant="caption" className="text-red-600">
                     {errors.birthYear}
                   </Typography>
                 )}
@@ -309,9 +309,9 @@ const Profile = () => {
                   onChange={handleInputChange}
                   placeholder="이메일을 입력하세요"
                   disabled
-                  className="bg-muted"
+                  className="bg-gray-100 border-gray-300"
                 />
-                <Typography variant="caption" className="text-muted-foreground">
+                <Typography variant="caption" className="text-gray-600">
                   이메일은 변경할 수 없습니다
                 </Typography>
               </div>
@@ -362,7 +362,7 @@ const Profile = () => {
 
             {/* Action Buttons */}
             <div className="space-y-3">
-              <Button onClick={handleSave} size="lg" className="w-full">
+              <Button onClick={handleSave} size="lg" className="w-full bg-black text-white hover:bg-gray-800">
                 <Save className="w-4 h-4" />
                 저장하기
               </Button>
@@ -371,7 +371,7 @@ const Profile = () => {
                 onClick={handleLogout} 
                 variant="outline" 
                 size="lg" 
-                className="w-full text-destructive border-destructive hover:bg-destructive hover:text-destructive-foreground"
+                className="w-full text-black border-gray-300 hover:bg-gray-100"
               >
                 <LogOut className="w-4 h-4" />
                 로그아웃
