@@ -66,7 +66,7 @@ const Index = () => {
       </Section>
 
       {/* AI 진단 홍보 Section */}
-      <Section spacing="lg" className="snap-start section-animate relative min-h-screen bg-cover bg-center bg-no-repeat" style={{
+      <Section spacing="hero" className="snap-start section-animate relative min-h-screen bg-cover bg-center bg-no-repeat" style={{
         backgroundImage: 'url(/lovable-uploads/4b880f1c-82a6-4d57-b319-c498801381b7.png)'
       }}>
         <Container size="xl">
@@ -87,7 +87,7 @@ const Index = () => {
       </Section>
 
       {/* AI 안면 분석 Section */}
-      <Section spacing="default" className="snap-start section-animate relative min-h-screen bg-cover bg-center bg-no-repeat" style={{
+      <Section spacing="hero" className="snap-start section-animate relative min-h-screen bg-cover bg-center bg-no-repeat" style={{
         backgroundImage: 'url(/lovable-uploads/998aef6a-ec7c-44c1-adaf-e0ccde09df4c.png)'
       }}>
         <Container size="xl">
