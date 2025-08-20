@@ -612,7 +612,7 @@ const Analysis = () => {
             </DialogTrigger>
             
             <DialogContent className="max-w-md h-[500px] flex flex-col p-0">
-              <DialogHeader className="p-4 border-b">
+              <DialogHeader className="p-4 border-b border-black">
                 <DialogTitle className="flex items-center gap-2">
                   <MessageCircle className="w-5 h-5 text-black" />
                   피부 분석 상담 챗봇
@@ -648,14 +648,14 @@ const Analysis = () => {
               </ScrollArea>
               
               {/* 메시지 입력 영역 */}
-              <div className="p-4 border-t">
+              <div className="p-4 border-t border-black">
                 <div className="flex gap-2">
                   <Input
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="궁금한 점을 물어보세요..."
-                    className="flex-1"
+                    className="flex-1 border-black focus:border-black"
                   />
                   <Button 
                     onClick={sendMessage}
