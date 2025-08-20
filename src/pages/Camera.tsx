@@ -69,21 +69,21 @@ const Camera = () => {
     if (deviceInfo?.isDesktop) {
       // 웹에서는 얼굴 감지 상태 표시
       return (
-        <div className="text-center p-4 bg-white rounded-xl border border-[#759393]/20 mb-6 shadow-sm">
+        <div className="text-center p-4 bg-white rounded-xl mb-6 shadow-sm" style={{ borderColor: '#333333', borderWidth: '1px' }}>
           <div className="flex items-center justify-center mb-2">
             <div className={`w-2 h-2 rounded-full mr-2 ${
-              isConnected ? 'bg-[#759393] animate-pulse' : 'bg-gray-400'
-            }`} />
-            <span className="text-sm text-gray-600">
+              isConnected ? 'animate-pulse' : ''
+            }`} style={{ backgroundColor: isConnected ? '#333333' : '#999999' }} />
+            <span className="text-sm font-sans" style={{ color: '#333333' }}>
               {isConnected ? 'AI 얼굴 감지 연결됨' : '연결 중...'}
             </span>
           </div>
           
-          <p className="text-[#759393] font-medium mb-2 font-sans">
+          <p className="font-medium mb-2 font-sans" style={{ color: '#333333' }}>
             {countdown.isActive ? `자동 촬영까지 ${countdown.remaining}초` : '얼굴을 인식하고 있습니다'}
           </p>
           
-          <p className="text-sm text-gray-500 font-sans">
+          <p className="text-sm font-sans" style={{ color: '#333333' }}>
             {faceDetection?.feedback || '카메라 앞에 얼굴을 위치시켜 주세요'}
           </p>
           
@@ -98,11 +98,11 @@ const Camera = () => {
     } else {
       // 모바일에서는 수동 촬영 안내
       return (
-        <div className="text-center p-4 bg-white rounded-xl border border-[#759393]/20 mb-6 shadow-sm">
-          <p className="text-[#759393] font-medium mb-2 font-sans">
+        <div className="text-center p-4 bg-white rounded-xl mb-6 shadow-sm" style={{ borderColor: '#333333', borderWidth: '1px' }}>
+          <p className="font-medium mb-2 font-sans" style={{ color: '#333333' }}>
             환부를 프레임 안에 맞춰주세요
           </p>
-          <p className="text-sm text-gray-500 font-sans">
+          <p className="text-sm font-sans" style={{ color: '#333333' }}>
             아래 촬영 버튼을 눌러 사진을 찍어주세요
           </p>
         </div>
@@ -111,20 +111,20 @@ const Camera = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6">
+    <div className="min-h-screen p-6" style={{ backgroundColor: '#EEEBDE' }}>
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
         <div className="mb-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-[#759393] hover:text-[#5f7c7c] transition-colors mb-8">
+          <Link to="/" className="inline-flex items-center gap-2 transition-colors mb-8" style={{ color: '#333333' }}>
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm font-medium font-sans">돌아가기</span>
           </Link>
           
           <div className="text-center space-y-3">
-            <h1 className="text-3xl font-bold text-[#759393] font-sans">
+            <h1 className="text-3xl font-bold font-sans" style={{ color: '#333333' }}>
               환부 촬영
             </h1>
-            <p className="text-gray-600 font-sans">
+            <p className="font-sans" style={{ color: '#333333' }}>
               정확한 분석을 위해 환부를 정면에서 촬영해주세요
             </p>
           </div>
@@ -135,11 +135,15 @@ const Camera = () => {
           <div className="flex items-center">
             <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
               isComplete 
-                ? 'bg-[#759393] border-[#759393] text-white' 
+                ? 'text-white' 
                 : countdown.isActive
-                ? 'border-[#759393] text-[#759393] bg-[#759393]/10'
-                : 'border-[#759393]/40 text-[#759393] bg-white shadow-sm'
-            }`}>
+                ? 'bg-white/50'
+                : 'bg-white shadow-sm'
+            }`} style={{ 
+              backgroundColor: isComplete ? '#333333' : undefined,
+              borderColor: '#333333',
+              color: isComplete ? 'white' : '#333333'
+            }}>
               {isComplete ? (
                 <Check className="w-7 h-7" />
               ) : countdown.isActive ? (
@@ -330,7 +334,8 @@ const Camera = () => {
             <>
               {!isActive ? (
                 <Button 
-                  className="w-full h-12 text-lg bg-[#759393] hover:bg-[#5f7c7c] text-white font-sans border-none"
+                  className="w-full h-12 text-lg text-white font-sans border-none hover:opacity-90"
+                  style={{ backgroundColor: '#333333' }}
                   onClick={() => {
                     console.log('Camera start button clicked');
                     startCamera();
@@ -342,7 +347,8 @@ const Camera = () => {
               ) : !deviceInfo?.isDesktop ? (
                 // 모바일: 수동 촬영 버튼
                 <Button 
-                  className="w-full h-12 text-lg bg-[#759393] hover:bg-[#5f7c7c] text-white font-sans border-none"
+                  className="w-full h-12 text-lg text-white font-sans border-none hover:opacity-90"
+                  style={{ backgroundColor: '#333333' }}
                   onClick={() => {
                     console.log('Manual capture button clicked');
                     manualCapture();
@@ -375,7 +381,10 @@ const Camera = () => {
                   
                   <Button
                     variant="outline"
-                    className="w-full h-12 border-[#759393] text-[#759393] hover:bg-[#759393] hover:text-white font-sans"
+                    className="w-full h-12 font-sans hover:text-white"
+                    style={{ borderColor: '#333333', color: '#333333' }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#333333'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                     onClick={() => document.getElementById('file-input')?.click()}
                   >
                     <Upload className="w-5 h-5 mr-2" />
@@ -395,7 +404,8 @@ const Camera = () => {
           ) : (
             <div className="space-y-3">
               <Button 
-                className="w-full h-16 text-lg bg-[#759393] hover:bg-[#5f7c7c] text-white font-sans border-none"
+                className="w-full h-16 text-lg text-white font-sans border-none hover:opacity-90"
+                style={{ backgroundColor: '#333333' }}
                 onClick={() => navigate('/questionnaire', { state: { image: capturedImage } })}
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
@@ -404,7 +414,10 @@ const Camera = () => {
               
               <Button 
                 variant="outline"
-                className="w-full h-12 text-lg border-[#759393] text-[#759393] hover:bg-[#759393] hover:text-white font-sans"
+                className="w-full h-12 text-lg font-sans hover:text-white"
+                style={{ borderColor: '#333333', color: '#333333' }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#333333'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                 onClick={() => navigate('/analysis', { state: { image: capturedImage } })}
               >
                 <CameraIcon className="w-5 h-5 mr-2" />
