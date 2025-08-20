@@ -294,7 +294,7 @@ const Camera = () => {
             <>
               {!isActive ? (
                 <Button 
-                  className="w-full h-12 text-lg bg-black text-white font-sans border-none hover:bg-gray-800" 
+            className="w-full h-12 text-lg bg-black text-white font-sans border-none hover:bg-white hover:text-black"
                   onClick={() => {
                     console.log('Camera start button clicked');
                     startCamera();
