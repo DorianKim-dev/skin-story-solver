@@ -622,7 +622,7 @@ const Analysis = () => {
           <div className="mt-4 p-3 bg-orange-50/80 backdrop-blur-sm rounded-xl border border-orange-200">
             <p className="text-sm text-orange-700 text-center flex items-center justify-center gap-2">
               <Sparkles className="w-4 h-4" />
-              현재 데모 결과가 표시되고 있습니다. 실제 분석을 위해서는 사진을 촬영해주세요. 궁금한 점이 있으신 분들은 오른쪽 하단에 챗봇 버튼을 눌러 이용해주세요.
+              궁금한 점이 있으신 분들은 오른쪽 하단에 챗봇 버튼을 눌러 이용해주세요.
             </p>
           </div>
         )}
