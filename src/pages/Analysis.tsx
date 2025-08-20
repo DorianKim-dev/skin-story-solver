@@ -480,7 +480,6 @@ const Analysis = () => {
           <CardContent className="p-6">
             <div className="mb-4">
               <h2 className="text-xl font-semibold">추천 병원</h2>
-              <p className="text-sm text-muted-foreground">근처 전문 병원을 추천해드립니다</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {getDummyHospitals().map((hospital, index) => (
