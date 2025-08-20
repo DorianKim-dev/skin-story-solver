@@ -622,7 +622,7 @@ const Analysis = () => {
           <div className="mt-4 p-3 bg-orange-50/80 backdrop-blur-sm rounded-xl border border-orange-200">
             <p className="text-sm text-orange-700 text-center flex items-center justify-center gap-2">
               <Sparkles className="w-4 h-4" />
-              궁금한 점이 있으신 분들은 위의 AI 챗봇 상담 버튼을 눌러 이용해주세요.
+              궁금한 점이 있으신 분들은 오른쪽 하단에 챗봇 버튼을 눌러 이용해주세요.
             </p>
           </div>
         )}
@@ -657,8 +657,16 @@ const Analysis = () => {
         )}
       </div>
 
-      {/* 챗봇 다이얼로그 */}
+      {/* 플로팅 챗봇 버튼 */}
       <Dialog open={isChatOpen} onOpenChange={setIsChatOpen}>
+        <DialogTrigger asChild>
+          <Button 
+            className="fixed bottom-28 right-6 w-14 h-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-[9999]"
+            size="icon"
+          >
+            <MessageCircle className="w-6 h-6 text-white" />
+          </Button>
+        </DialogTrigger>
         
         <DialogContent className="max-w-md h-[500px] flex flex-col p-0">
           <DialogHeader className="p-4 border-b">
