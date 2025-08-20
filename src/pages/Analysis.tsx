@@ -251,11 +251,11 @@ const Analysis = () => {
   // 로딩 상태
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
+      <div className="min-h-screen bg-white p-4 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-16 h-16 mx-auto mb-4 animate-spin text-primary" />
-          <h2 className="text-2xl font-bold text-gradient-primary mb-2">AI 분석 중...</h2>
-          <p className="text-muted-foreground">잠시만 기다려주세요.</p>
+          <Loader2 className="w-16 h-16 mx-auto mb-4 animate-spin text-black" />
+          <h2 className="text-2xl font-bold text-black mb-2">AI 분석 중...</h2>
+          <p className="text-gray-600">잠시만 기다려주세요.</p>
         </div>
       </div>
     );
@@ -264,7 +264,7 @@ const Analysis = () => {
   // 에러 상태 또는 결과 없음
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
+      <div className="min-h-screen bg-white p-4 flex items-center justify-center">
         <div className="text-center max-w-md">
           <AlertCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
           <h2 className="text-2xl font-bold text-red-600 mb-2">분석 실패</h2>
@@ -285,26 +285,26 @@ const Analysis = () => {
   // 분석 결과가 없는 경우 (빈 상태)
   if (!analysisResult) {
     return (
-      <div className="min-h-screen bg-gradient-glass p-4">
+      <div className="min-h-screen bg-white p-4">
         <div className="max-w-4xl mx-auto">
           {/* 헤더 */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gradient-primary mb-2">
+            <h1 className="text-3xl font-bold text-black mb-2">
               피부 분석 결과
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-gray-600">
               AI 피부 분석을 시작해보세요
             </p>
           </div>
 
           {/* 빈 상태 카드 */}
-          <Card className="glass-card mb-8">
+          <Card className="bg-white border border-gray-200 mb-8">
             <CardContent className="p-8 text-center">
-              <div className="w-24 h-24 bg-gradient-glow rounded-full flex items-center justify-center mx-auto mb-6">
-                <Camera className="w-12 h-12 text-primary" />
+              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Camera className="w-12 h-12 text-black" />
               </div>
-              <h2 className="text-2xl font-bold text-primary mb-4">분석 결과가 없습니다</h2>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+              <h2 className="text-2xl font-bold text-black mb-4">분석 결과가 없습니다</h2>
+              <p className="text-gray-600 mb-6 max-w-md mx-auto">
                 피부 상태를 분석하려면 먼저 사진을 촬영해주세요. 
                 AI가 즉시 분석하여 결과를 제공합니다.
               </p>
@@ -330,37 +330,37 @@ const Analysis = () => {
 
           {/* 기능 소개 카드들 */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <Card className="glass-card">
+            <Card className="bg-white border border-gray-200">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Sparkles className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Sparkles className="w-6 h-6 text-black" />
                 </div>
                 <h3 className="font-semibold mb-2">AI 분석</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600">
                   고도화된 AI 모델로 정확한 피부 상태 분석
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="glass-card">
+            <Card className="bg-white border border-gray-200">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <TrendingUp className="w-6 h-6 text-green-600" />
+                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-6 h-6 text-black" />
                 </div>
                 <h3 className="font-semibold mb-2">신뢰성 점수</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600">
                   분석 결과의 신뢰도를 백분율로 제공
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="glass-card">
+            <Card className="bg-white border border-gray-200">
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <Info className="w-6 h-6 text-purple-600" />
+                <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                  <Info className="w-6 h-6 text-black" />
                 </div>
                 <h3 className="font-semibold mb-2">전문가 추천</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600">
                   근처 병원 찾기 및 전문의 상담 연결
                 </p>
               </CardContent>
@@ -381,31 +381,31 @@ const Analysis = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-glass p-4 pt-20">
+    <div className="min-h-screen bg-white p-4 pt-20">
       <div className="max-w-4xl mx-auto">
         {/* 헤더 */}
         <div className="mb-8">
           <div className="text-center space-y-2">
-            <Typography variant="h2" className="text-gradient-primary">
+            <Typography variant="h2" className="text-black">
               피부 분석 결과
             </Typography>
-            <Typography variant="body" className="text-muted-foreground">
+            <Typography variant="body" className="text-gray-600">
               AI가 분석한 환부의 상태입니다
             </Typography>
             <div className="mt-3 flex justify-center gap-2">
               {questionnaireData && (
-                <Badge className="bg-green-100 text-green-800 border-green-200">
+                <Badge className="bg-gray-100 text-black border-gray-300">
                   설문조사 데이터 포함
                 </Badge>
               )}
               {isFromStorage && (
-                <Badge className="bg-blue-100 text-blue-800 border-blue-200 flex items-center gap-1">
+                <Badge className="bg-gray-100 text-black border-gray-300 flex items-center gap-1">
                   <Clock className="w-3 h-3" />
                   저장된 결과
                 </Badge>
               )}
               {!uploadedImage && !isFromStorage && (
-                <Badge className="bg-orange-100 text-orange-800 border-orange-200 flex items-center gap-1">
+                <Badge className="bg-gray-100 text-black border-gray-300 flex items-center gap-1">
                   <Sparkles className="w-3 h-3" />
                   데모 결과
                 </Badge>
@@ -415,14 +415,14 @@ const Analysis = () => {
         </div>
 
         {/* 사용자 업로드 이미지와 예상 질환 */}
-        <Card className="glass-card mb-6 overflow-hidden">
+        <Card className="bg-white border border-gray-200 mb-6 overflow-hidden">
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* 업로드된 사진 */}
               <div className="space-y-4 flex flex-col justify-center">
                 <h2 className="text-xl font-semibold mb-3 mx-[13px] my-0">분석 이미지</h2>
-                <div className="aspect-square bg-gradient-glow rounded-2xl p-3">
-                  <div className="w-full h-full bg-white/50 rounded-xl flex items-center justify-center relative overflow-hidden">
+                <div className="aspect-square bg-gray-100 rounded-2xl p-3">
+                  <div className="w-full h-full bg-white rounded-xl flex items-center justify-center relative overflow-hidden border border-gray-200">
                     <img 
                       src={getImageUrl()} 
                       alt="분석 이미지" 
@@ -443,7 +443,7 @@ const Analysis = () => {
                       }}
                     />
                     <div className="absolute top-3 left-3">
-                      <Badge className="bg-primary text-white">
+                      <Badge className="bg-black text-white">
                         {uploadedImage ? '환부 촬영' : '샘플 이미지'}
                       </Badge>
                     </div>
@@ -455,33 +455,33 @@ const Analysis = () => {
               <div className="space-y-4">
                 <h2 className="text-xl font-semibold mb-3">분석 결과</h2>
                 
-                <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-primary/20">
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="font-semibold text-lg">예상 질환</h3>
-                    <Badge className="bg-[#FFB7AF]/20 text-[#F98D92] border-[#F98D92] border hover:bg-[#FFB7AF]/30 transition-colors duration-200">
+                    <Badge className="bg-gray-100 text-black border-gray-300 hover:bg-gray-200 transition-colors duration-200">
                       {analysisResult.confidence}% 일치
                     </Badge>
                   </div>
-                  <p className="text-2xl font-bold text-primary mb-2">
+                  <p className="text-2xl font-bold text-black mb-2">
                     {analysisResult.predicted_disease}
                   </p>
                   
                   {/* 신뢰도 바 */}
                   <div className="mb-4">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-muted-foreground">신뢰도</span>
+                      <span className="text-sm text-gray-600">신뢰도</span>
                       <span className="font-semibold">{analysisResult.confidence}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div 
-                        className="bg-primary h-2 rounded-full transition-all duration-500" 
+                        className="bg-black h-2 rounded-full transition-all duration-500" 
                         style={{ width: `${analysisResult.confidence}%` }}
                       ></div>
                     </div>
                   </div>
 
                   {analysisResult.confidence < 70 && (
-                    <div className="flex items-center gap-2 text-amber-600 text-sm p-3 bg-amber-50 rounded-lg border border-amber-200">
+                    <div className="flex items-center gap-2 text-gray-700 text-sm p-3 bg-gray-100 rounded-lg border border-gray-300">
                       <AlertCircle className="w-4 h-4" />
                       <span>정확한 진단을 위해 전문의 상담을 권장합니다</span>
                     </div>
@@ -489,15 +489,15 @@ const Analysis = () => {
                 </div>
 
                 {/* 진단 소견 */}
-                <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-primary/20">
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                   <div className="flex items-center gap-2 mb-3">
-                    <Info className="w-4 h-4 text-primary" />
+                    <Info className="w-4 h-4 text-black" />
                     <h3 className="font-semibold text-lg">진단 소견</h3>
                   </div>
                   <p className="text-gray-700 leading-relaxed mb-4 text-sm">
                     {analysisResult.summary}
                   </p>
-                  <div className="bg-cream/30 rounded-lg p-3">
+                  <div className="bg-gray-100 rounded-lg p-3">
                     <p className="text-sm text-gray-600">
                       {analysisResult.recommendation}
                     </p>
@@ -510,14 +510,14 @@ const Analysis = () => {
 
         {/* 유사질환 박스 */}
         {analysisResult.similar_diseases && analysisResult.similar_diseases.length > 0 && (
-          <Card className="glass-card mb-8">
+          <Card className="bg-white border border-gray-200 mb-8">
             <CardContent className="p-6">
               <div className="mb-4">
                 <h2 className="text-xl font-semibold">유사질환</h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {analysisResult.similar_diseases.slice(0, 2).map((item, index) => (
-                  <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
+                  <div key={index} className="bg-gray-50 rounded-xl p-4 border border-gray-200 hover:border-gray-300 transition-all duration-200">
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="font-medium text-gray-800">{item.name}</h3>
                       <Badge variant="outline" className="text-xs">
@@ -535,17 +535,17 @@ const Analysis = () => {
         )}
 
         {/* 병원 추천 */}
-        <Card className="glass-card mb-8">
+        <Card className="bg-white border border-gray-200 mb-8">
           <CardContent className="p-6">
             <div className="mb-4">
               <h2 className="text-xl font-semibold">추천 병원</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {getDummyHospitals().map((hospital, index) => (
-                <div key={index} className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200 hover:border-primary/40 transition-all duration-200">
+                <div key={index} className="bg-gray-50 rounded-xl p-4 border border-gray-200 hover:border-gray-300 transition-all duration-200">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="font-semibold text-gray-800 text-lg">{hospital.name}</h3>
-                    <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary/20">
+                    <Badge variant="outline" className="text-xs bg-gray-100 text-black border-gray-300">
                       전문병원
                     </Badge>
                   </div>
@@ -558,7 +558,7 @@ const Analysis = () => {
                     
                     <div className="flex items-center gap-2">
                       <Phone className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                      <a href={`tel:${hospital.phone}`} className="text-sm text-primary hover:underline">
+                      <a href={`tel:${hospital.phone}`} className="text-sm text-black hover:underline">
                         {hospital.phone}
                       </a>
                     </div>
@@ -569,14 +569,14 @@ const Analysis = () => {
                         href={hospital.website} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="text-sm text-primary hover:underline"
+                        className="text-sm text-black hover:underline"
                       >
                         병원 웹사이트
                       </a>
                     </div>
                   </div>
                   
-                  <div className="bg-primary/5 rounded-lg p-3">
+                  <div className="bg-gray-100 rounded-lg p-3">
                     <p className="text-xs text-gray-500 mb-1">전문 분야</p>
                     <p className="text-sm font-medium text-gray-700">{hospital.specialty}</p>
                   </div>
@@ -592,7 +592,7 @@ const Analysis = () => {
           <Button 
             onClick={startNewAnalysis}
             size="lg"
-            className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+            className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-black text-black hover:bg-black hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
           >
             <Camera className="w-5 h-5 relative z-10" />
             <span className="relative z-10">새 사진 분석</span>
@@ -603,9 +603,9 @@ const Analysis = () => {
             <DialogTrigger asChild>
               <Button 
                 size="lg"
-                className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+                className="w-40 relative flex items-center justify-center gap-2 bg-transparent border-2 border-gray-400 text-gray-600 hover:bg-gray-400 hover:text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/10 to-teal-400/10"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-100/10 to-gray-200/10"></div>
                 <MessageCircle className="w-5 h-5 relative z-10" />
                 <span className="relative z-10">AI 상담</span>
               </Button>
@@ -614,7 +614,7 @@ const Analysis = () => {
             <DialogContent className="max-w-md h-[500px] flex flex-col p-0">
               <DialogHeader className="p-4 border-b">
                 <DialogTitle className="flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5 text-primary" />
+                  <MessageCircle className="w-5 h-5 text-black" />
                   피부 분석 상담 챗봇
                 </DialogTitle>
               </DialogHeader>
@@ -630,7 +630,7 @@ const Analysis = () => {
                       <div
                         className={`max-w-[80%] p-3 rounded-lg ${
                           message.isUser
-                            ? 'bg-primary text-white'
+                            ? 'bg-black text-white'
                             : 'bg-gray-100 text-gray-800'
                         }`}
                       >
@@ -675,7 +675,7 @@ const Analysis = () => {
               onClick={() => analysisStorage.clearResult()}
               variant="outline"
               size="sm"
-              className="text-red-600 border-red-200 hover:bg-red-50"
+              className="text-black border-gray-300 hover:bg-gray-100"
             >
               결과 삭제
             </Button>
@@ -684,8 +684,8 @@ const Analysis = () => {
 
         {/* 저장된 결과 안내 */}
         {isFromStorage && (
-          <div className="mt-4 p-3 bg-blue-50/80 backdrop-blur-sm rounded-xl border border-blue-200">
-            <p className="text-sm text-blue-700 text-center flex items-center justify-center gap-2">
+          <div className="mt-4 p-3 bg-gray-100 rounded-xl border border-gray-300">
+            <p className="text-sm text-gray-700 text-center flex items-center justify-center gap-2">
               <Clock className="w-4 h-4" />
               이 결과는 30분간 임시 저장됩니다. 새로운 분석을 원하시면 '새 사진 분석'을 클릭하세요.
             </p>
@@ -694,8 +694,8 @@ const Analysis = () => {
 
         {/* 더미 데이터 안내 */}
         {!uploadedImage && !isFromStorage && (
-          <div className="mt-4 p-3 bg-orange-50/80 backdrop-blur-sm rounded-xl border border-orange-200">
-            <p className="text-sm text-orange-700 text-center flex items-center justify-center gap-2">
+          <div className="mt-4 p-3 bg-gray-100 rounded-xl border border-gray-300">
+            <p className="text-sm text-gray-700 text-center flex items-center justify-center gap-2">
               <Sparkles className="w-4 h-4" />
               궁금한 점이 있으신 분들은 위의 'AI 상담' 버튼을 눌러 이용해주세요.
             </p>
@@ -703,7 +703,7 @@ const Analysis = () => {
         )}
 
         {/* 면책조항 */}
-        <div className="mt-8 p-4 bg-gray-50/80 backdrop-blur-sm rounded-xl border border-gray-200">
+        <div className="mt-8 p-4 bg-gray-100 rounded-xl border border-gray-300">
           <p className="text-xs text-gray-500 text-center leading-relaxed">
             ※ 본 결과는 AI의 예측값으로 참고용입니다. 정확한 진단은 반드시 전문의의 상담을 받으시기 바랍니다.
             <br />
