@@ -294,6 +294,16 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {features.map((feature, index) => <div key={index} className="group">
                   <div className="bg-card/90 backdrop-blur-sm rounded-xl p-8 h-full border border-border hover:border-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                    {/* AI 피부 분석인 경우 이미지 추가 */}
+                    {feature.title === 'AI 피부 분석' && (
+                      <div className="mb-6 rounded-lg overflow-hidden">
+                        <img 
+                          src="/lovable-uploads/1e75dfcd-f726-462f-aec5-a7c72a9c7908.png" 
+                          alt="AI 피부 분석 인터페이스" 
+                          className="w-full h-48 object-cover"
+                        />
+                      </div>
+                    )}
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
                       <feature.icon className="w-6 h-6 text-primary" />
                     </div>
