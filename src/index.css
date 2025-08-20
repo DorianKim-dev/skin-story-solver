@@ -8,30 +8,31 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Pink beauty palette - improved contrast */
-    --background: 0 0% 98%; /* off-white for softer look */
-    --foreground: 0 0% 15%; /* dark gray for better readability */
+    /* Beautiful mint-coral palette */
+    --background: 192 23% 95%; /* #E8F2F4 - 연한 아이스 블루 */
+    --foreground: 200 8% 30%; /* #94AEB1 - 깊은 그레이 블루 */
 
     --card: 0 0% 100%; /* pure white */
-    --card-foreground: 0 0% 15%;
+    --card-foreground: 200 8% 30%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 200 8% 30%;
 
-    /* Primary – Medium Pink */
-    --primary: 355 89% 65%; /* #F98D92 darker version for buttons */
-    --primary-foreground: 0 0% 100%; /* white text on pink */
-    --primary-soft: 10 100% 85%; /* #FFB7AF for backgrounds */
-    --primary-glow: 349 91% 70%; /* #FB96A1 for hover states */
+    /* Primary – Soft Mint Grey */
+    --primary: 188 17% 65%; /* #A8C4C7 - 부드러운 민트 그레이 */
+    --primary-foreground: 0 0% 100%;
+    --primary-soft: 192 23% 95%; /* #E8F2F4 for backgrounds */
+    --primary-glow: 188 21% 70%; /* #B5D0D3 for hover states */
 
-    /* Pink tones */
-    --cream: 10 100% 92%;        /* very light pink background */
-    --cream-dark: 321 55% 70%;   /* #ECA8C4 darker for better contrast */
-    --cream-light: 0 0% 100%; /* pure white */
-    --luxury-gold: 349 91% 70%;  /* #FB96A1 */
+    /* Mint-coral tones */
+    --mint-light: 192 23% 95%;   /* #E8F2F4 - 연한 아이스 블루 */
+    --mint-bright: 188 21% 70%;  /* #B5D0D3 - 밝은 더스티 블루 */
+    --mint-medium: 188 14% 65%;  /* #9BB8BB - 중간톤 민트 그레이 */
+    --coral-soft: 10 50% 75%;    /* #E8A5A0 - 부드러운 산호색 */
+    --coral-light: 11 67% 83%;   /* #F2B8B3 - 연한 피치 핑크 */
 
-    /* Secondary – Lavender Pink */
-    --secondary: 321 55% 65%;         /* #ECA8C4 darker version */
+    /* Secondary – Soft Coral */
+    --secondary: 10 50% 75%; /* #E8A5A0 - 부드러운 산고색 */
     --secondary-foreground: 0 0% 100%;
 
     --glass: 10 100% 95%;
