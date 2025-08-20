@@ -494,7 +494,7 @@ const Analysis = () => {
                   <p className="text-gray-700 leading-relaxed mb-4 text-sm">
                     {analysisResult.summary}
                   </p>
-                  <div className="bg-primary-soft/20 rounded-lg p-3">
+                  <div className="bg-cream/30 rounded-lg p-3">
                     <p className="text-sm text-gray-600">
                       {analysisResult.recommendation}
                     </p>
