@@ -251,7 +251,7 @@ const Analysis = () => {
   // 로딩 상태
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
+      <div className="min-h-screen p-4 flex items-center justify-center" style={{ backgroundColor: '#759292' }}>
         <div className="text-center">
           <Loader2 className="w-16 h-16 mx-auto mb-4 animate-spin text-primary" />
           <h2 className="text-2xl font-bold text-gradient-primary mb-2">AI 분석 중...</h2>
@@ -264,7 +264,7 @@ const Analysis = () => {
   // 에러 상태 또는 결과 없음
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-glass p-4 flex items-center justify-center">
+      <div className="min-h-screen p-4 flex items-center justify-center" style={{ backgroundColor: '#759292' }}>
         <div className="text-center max-w-md">
           <AlertCircle className="w-16 h-16 mx-auto mb-4 text-red-500" />
           <h2 className="text-2xl font-bold text-red-600 mb-2">분석 실패</h2>
@@ -285,7 +285,7 @@ const Analysis = () => {
   // 분석 결과가 없는 경우 (빈 상태)
   if (!analysisResult) {
     return (
-      <div className="min-h-screen bg-gradient-glass p-4">
+      <div className="min-h-screen p-4" style={{ backgroundColor: '#759292' }}>
         <div className="max-w-4xl mx-auto">
           {/* 헤더 */}
           <div className="text-center mb-8">
@@ -381,7 +381,7 @@ const Analysis = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-glass p-4">
+    <div className="min-h-screen p-4" style={{ backgroundColor: '#759292' }}>
       <div className="max-w-4xl mx-auto">
         {/* 헤더 */}
         <div className="mb-8">
