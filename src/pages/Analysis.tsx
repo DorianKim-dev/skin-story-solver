@@ -385,6 +385,11 @@ const Analysis = () => {
       <div className="max-w-4xl mx-auto">
         {/* 헤더 */}
         <div className="mb-8">
+          <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6">
+            <ArrowLeft className="w-4 h-4" />
+            <Typography variant="bodySmall">돌아가기</Typography>
+          </Link>
+          
           <div className="text-center space-y-2">
             <Typography variant="h2" className="text-gradient-primary">
               피부 분석 결과

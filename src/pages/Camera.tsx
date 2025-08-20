@@ -115,6 +115,11 @@ const Camera = () => {
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
         <div className="mb-10">
+          <Link to="/" className="inline-flex items-center gap-2 transition-colors mb-8" style={{ color: '#333333' }}>
+            <ArrowLeft className="w-4 h-4" />
+            <span className="text-sm font-medium font-sans">돌아가기</span>
+          </Link>
+          
           <div className="text-center space-y-3">
             <h1 className="text-3xl font-bold font-sans" style={{ color: '#333333' }}>
               환부 촬영
