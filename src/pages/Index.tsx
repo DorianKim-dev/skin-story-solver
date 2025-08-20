@@ -126,7 +126,7 @@ const Index = () => {
   }, []);
   return (
     <div className="theme-home-bright h-screen bg-background overflow-hidden">
-      <div ref={containerRef} className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth">
+      <div ref={containerRef} className="h-full overflow-y-auto snap-y snap-mandatory scroll-smooth hide-scrollbar">
         {/* Hero Section - Linear Style */}
         <Section spacing="hero" className="relative gradient-hero snap-start min-h-screen flex items-center">
         <Container size="xl">
