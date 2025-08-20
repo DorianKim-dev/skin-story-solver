@@ -44,7 +44,7 @@ const Index = () => {
     title: '전문의 매칭',
     description: '필요할 때 정확한 연결'
   }];
-  return <div className="theme-home-bright h-screen bg-white overflow-y-auto snap-y snap-mandatory scroll-root">
+  return <div className="theme-home-bright min-h-screen bg-white snap-y snap-mandatory scroll-root">
       {/* Hero Section - Linear Style */}
       <Section spacing="hero" className="relative snap-start section-animate min-h-screen bg-cover bg-center bg-no-repeat" style={{
       backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)'
