@@ -527,18 +527,6 @@ const Analysis = () => {
           </CardContent>
         </Card>
         
-        {/* 액션 버튼들 */}
-        <div className="grid grid-cols-1 gap-4">
-          <Card className="glass-card hover:shadow-lg transition-all duration-300 cursor-pointer group">
-            <CardContent className="p-6 text-center" onClick={() => navigate('/')}>
-              <div className="w-16 h-16 bg-primary-soft/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <TrendingUp className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-2">홈으로 돌아가기</h3>
-              <p className="text-sm text-muted-foreground">메인 페이지로 이동</p>
-            </CardContent>
-          </Card>
-        </div>
 
         {/* 분석 관련 버튼들 */}
         <div className="mt-6 flex justify-center gap-3">
