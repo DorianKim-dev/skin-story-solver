@@ -532,11 +532,10 @@ const Analysis = () => {
         <div className="mt-6 flex justify-center gap-3">
           <Button 
             onClick={startNewAnalysis}
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-1"
+            size="lg"
+            className="flex items-center gap-2 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
-            <Camera className="w-3 h-3" />
+            <Camera className="w-5 h-5" />
             새 사진 분석
           </Button>
 
