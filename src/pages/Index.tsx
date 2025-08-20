@@ -304,6 +304,16 @@ const Index = () => {
                         />
                       </div>
                     )}
+                    {/* 전문 병원 매칭인 경우 이미지 추가 */}
+                    {feature.title === '전문 병원 매칭' && (
+                      <div className="mb-6 rounded-lg overflow-hidden">
+                        <img 
+                          src="/lovable-uploads/8ebc4825-8aeb-4cc3-bd98-aa28ac45449c.png" 
+                          alt="전문 병원 시설" 
+                          className="w-full h-48 object-cover"
+                        />
+                      </div>
+                    )}
                     <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
                       <feature.icon className="w-6 h-6 text-primary" />
                     </div>
