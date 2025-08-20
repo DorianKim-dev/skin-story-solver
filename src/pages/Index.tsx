@@ -52,8 +52,8 @@ const Index = () => {
           {/* Minimal top nav with equal spacing */}
           <div className="grid grid-cols-4 items-center py-4 text-sm text-white/80">
             <Link to="/camera" className="text-center hover:text-white">Camera</Link>
-            <Link to="/analysis" className="text-center hover:text-white">결과</Link>
-            <Link to="/profile" className="text-center hover:text-white">마이페이지</Link>
+            <Link to="/analysis" className="text-center hover:text-white">Results</Link>
+            <Link to="/profile" className="text-center hover:text-white">My Page</Link>
             {isAuthenticated ? (
               <button onClick={logout} className="text-center hover:text-white">Logout</button>
             ) : (
