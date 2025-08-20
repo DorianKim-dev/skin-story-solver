@@ -74,56 +74,22 @@ const Index = () => {
       </Section>
 
       {/* AI 진단 홍보 Section */}
-      <Section spacing="lg" background="muted" className="snap-start section-animate">
+      <Section spacing="lg" className="snap-start section-animate relative min-h-screen bg-cover bg-center bg-no-repeat" style={{
+        backgroundImage: 'url(/lovable-uploads/4b880f1c-82a6-4d57-b319-c498801381b7.png)'
+      }}>
         <Container size="xl">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div ref={benefits.ref} className={`space-y-6 fade-enter ${benefits.inView ? 'fade-enter-active' : ''}`}>
-              <Typography variant="h3">AI 피부질환 진단의 장점</Typography>
-              <Typography variant="subtitle" className="max-w-prose">
-                빠르고 정확한 분석으로 조기 발견과 맞춤 치료를 돕습니다.
-              </Typography>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="bg-card border border-border rounded-xl p-5 flex gap-3 items-start">
-                  <ShieldCheck className="w-5 h-5 text-primary shrink-0" />
-                  <div>
-                    <Typography variant="h4" className="mb-1">스마트 피부 진단</Typography>
-                    <Typography variant="bodySmall">다양한 피부 이미지 학습으로 높은 신뢰도의 분석 제공</Typography>
-                  </div>
-                </div>
-                <div className="bg-card border border-border rounded-xl p-5 flex gap-3 items-start">
-                  <Timer className="w-5 h-5 text-primary shrink-0" />
-                  <div>
-                    <Typography variant="h4" className="mb-1">즉시 결과</Typography>
-                    <Typography variant="bodySmall">촬영 후 몇 초 내 결과 확인 및 다음 단계 안내</Typography>
-                  </div>
-                </div>
-                <div className="bg-card border border-border rounded-xl p-5 flex gap-3 items-start">
-                  <Sparkles className="w-5 h-5 text-primary shrink-0" />
-                  <div>
-                    <Typography variant="h4" className="mb-1">맞춤 가이드</Typography>
-                    <Typography variant="bodySmall">피부 증상에 맞춘 병원 추천</Typography>
-                  </div>
-                </div>
-                <div className="bg-card border border-border rounded-xl p-5 flex gap-3 items-start">
-                  <MousePointerClick className="w-5 h-5 text-primary shrink-0" />
-                  <div>
-                    <Typography variant="h4" className="mb-1">편리한 사용성</Typography>
-                    <Typography variant="bodySmall">누구나 쉽게 사용할 수 있는 직관적인 인터페이스</Typography>
-                  </div>
-                </div>
-              </div>
-              <div className="pt-2">
-                <Link to="/camera">
-                  <Button size="lg">
-                    <Camera className="w-5 h-5" />
-                    지금 바로 분석하기
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <div ref={featuresRef.ref} className={`order-first md:order-last fade-enter ${featuresRef.inView ? 'fade-enter-active' : ''}`}>
-              <img src="/lovable-uploads/7723b9f9-13eb-40e3-b772-a09469caceb7.png" alt="AI 피부 진단 데모 이미지" loading="lazy" className="w-full h-auto rounded-2xl shadow-xl ring-1 ring-border object-cover" />
-            </div>
+          <div className="flex flex-col items-center justify-center min-h-screen text-center space-y-8">
+            <h2 className="text-4xl md:text-5xl font-sans font-bold text-white">
+              AI로 피부 질환 진단을 빠르고 쉽게 받아보세요
+            </h2>
+            <Link to="/camera">
+              <Button 
+                size="lg" 
+                className="bg-transparent border-2 border-white text-white font-sans hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 text-lg"
+              >
+                AI분석하기
+              </Button>
+            </Link>
           </div>
         </Container>
       </Section>
