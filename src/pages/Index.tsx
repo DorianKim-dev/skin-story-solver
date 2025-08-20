@@ -300,7 +300,7 @@ const Index = () => {
                         <img 
                           src="/lovable-uploads/1e75dfcd-f726-462f-aec5-a7c72a9c7908.png" 
                           alt="AI 피부 분석 인터페이스" 
-                          className="w-full h-48 object-cover"
+                          className="w-full h-64 object-cover"
                         />
                       </div>
                     )}
@@ -310,7 +310,7 @@ const Index = () => {
                         <img 
                           src="/lovable-uploads/8ebc4825-8aeb-4cc3-bd98-aa28ac45449c.png" 
                           alt="전문 병원 시설" 
-                          className="w-full h-48 object-cover"
+                          className="w-full h-64 object-cover"
                         />
                       </div>
                     )}
