@@ -50,14 +50,6 @@ const Index = () => {
       backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)'
     }}>
         <Container size="xl">
-          {/* Minimal top nav with equal spacing */}
-          <div className="grid grid-cols-4 items-center py-4 text-sm text-white/80">
-            <Link to="/camera" className="text-center hover:text-white">Camera</Link>
-            <Link to="/analysis" className="text-center hover:text-white">Results</Link>
-            <Link to="/profile" className="text-center hover:text-white">My Page</Link>
-            {isAuthenticated ? <button onClick={logout} className="text-center hover:text-white">Logout</button> : <Link to="/login" className="text-center hover:text-white">Login</Link>}
-          </div>
-
           {/* Content */}
           <div className="relative z-10 flex items-center justify-center py-20 min-h-[60vh]">
             <div ref={hero.ref} className={`w-full max-w-2xl text-center space-y-6 fade-enter ${hero.inView ? 'fade-enter-active' : ''} mt-28 md:mt-40`}>
