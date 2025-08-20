@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Camera, Sparkles, TrendingUp, AlertCircle, Info, Loader2, RefreshCw, Clock, MapPin, Phone, Globe, MessageCircle, Send, X } from 'lucide-react';
+import { Camera, Sparkles, TrendingUp, AlertCircle, Info, Loader2, RefreshCw, Clock, MapPin, Phone, Globe, MessageCircle, Send, X, ArrowLeft } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { aiService, AnalysisResult } from '@/services/aiService';
 import { analysisStorage } from '@/utils/analysisStorage';
@@ -383,13 +383,24 @@ const Analysis = () => {
     <div className="min-h-screen bg-gradient-glass p-4">
       <div className="max-w-4xl mx-auto">
         {/* 헤더 */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gradient-primary mb-2">
-            피부 분석 결과
-          </h1>
-          <p className="text-muted-foreground">
-            AI가 분석한 환부의 상태입니다
-          </p>
+        <div className="flex items-center mb-8">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate('/')}
+            className="mr-4 p-2"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Button>
+          <div className="flex-1 text-center">
+            <h1 className="text-3xl font-bold text-gradient-primary mb-2">
+              피부 분석 결과
+            </h1>
+            <p className="text-muted-foreground">
+              AI가 분석한 환부의 상태입니다
+            </p>
+          </div>
+        </div>
           <div className="mt-3 flex justify-center gap-2">
             {questionnaireData && (
               <Badge className="bg-green-100 text-green-800 border-green-200">
@@ -728,7 +739,6 @@ const Analysis = () => {
           </div>
         )}
       </div>
-
     </div>
   );
 };
