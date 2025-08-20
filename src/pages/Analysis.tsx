@@ -455,7 +455,7 @@ const Analysis = () => {
                 <div className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-primary/20">
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="font-semibold text-lg">예상 질환</h3>
-                    <Badge className="bg-[#FFB7AF] text-[#F98D92] border-2 border-[#F98D92] hover:bg-[#FFB7AF]/80">
+                    <Badge className={getConfidenceColor(analysisResult.confidence)}>
                       {analysisResult.confidence}% 일치
                     </Badge>
                   </div>
