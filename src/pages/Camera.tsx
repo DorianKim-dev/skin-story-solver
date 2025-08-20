@@ -302,10 +302,16 @@ const Camera = () => {
                     <span className="text-gray-400 text-sm font-sans">또는</span>
                   </div>
                   
-                  <Button variant="outline" className="w-full h-12 font-sans hover:text-white" style={{
+                  <Button variant="outline" className="w-full h-12 font-sans" style={{
               borderColor: '#333333',
               color: '#333333'
-            }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#333333'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'} onClick={() => document.getElementById('file-input')?.click()}>
+            }} onMouseEnter={e => {
+              e.currentTarget.style.backgroundColor = '#333333';
+              e.currentTarget.style.color = 'white';
+            }} onMouseLeave={e => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = '#333333';
+            }} onClick={() => document.getElementById('file-input')?.click()}>
                     <Upload className="w-5 h-5 mr-2" />
                     갤러리에서 선택
                   </Button>
