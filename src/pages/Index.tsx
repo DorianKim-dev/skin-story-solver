@@ -67,7 +67,7 @@ const Index = () => {
 
       {/* AI 진단 홍보 Section */}
       <Section spacing="hero" className="snap-start section-animate relative min-h-screen bg-cover bg-center bg-no-repeat" style={{
-        backgroundImage: 'url(/lovable-uploads/4b880f1c-82a6-4d57-b319-c498801381b7.png)'
+        backgroundImage: 'url(/lovable-uploads/1c392563-bd95-46c2-9777-49846f5725d8.png)'
       }}>
         <Container size="xl">
           <div className="flex flex-col items-center justify-center min-h-screen text-center space-y-8">
