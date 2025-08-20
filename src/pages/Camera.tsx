@@ -69,26 +69,26 @@ const Camera = () => {
     if (deviceInfo?.isDesktop) {
       // 웹에서는 얼굴 감지 상태 표시
       return (
-        <div className="text-center p-4 bg-white/30 backdrop-blur-sm rounded-xl border border-primary/20 mb-6">
+        <div className="text-center p-4 bg-white rounded-xl border border-[#759393]/20 mb-6 shadow-sm">
           <div className="flex items-center justify-center mb-2">
             <div className={`w-2 h-2 rounded-full mr-2 ${
-              isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'
+              isConnected ? 'bg-[#759393] animate-pulse' : 'bg-gray-400'
             }`} />
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm text-gray-600">
               {isConnected ? 'AI 얼굴 감지 연결됨' : '연결 중...'}
             </span>
           </div>
           
-          <p className="text-primary font-medium mb-2">
+          <p className="text-[#759393] font-medium mb-2 font-sans">
             {countdown.isActive ? `자동 촬영까지 ${countdown.remaining}초` : '얼굴을 인식하고 있습니다'}
           </p>
           
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-500 font-sans">
             {faceDetection?.feedback || '카메라 앞에 얼굴을 위치시켜 주세요'}
           </p>
           
           {faceDetection && (
-            <div className="mt-2 text-xs text-muted-foreground">
+            <div className="mt-2 text-xs text-gray-400">
               감지된 얼굴: {faceDetection.face_count}개 | 
               신뢰도: {(faceDetection.confidence * 100).toFixed(1)}%
             </div>
@@ -98,11 +98,11 @@ const Camera = () => {
     } else {
       // 모바일에서는 수동 촬영 안내
       return (
-        <div className="text-center p-4 bg-white/30 backdrop-blur-sm rounded-xl border border-primary/20 mb-6">
-          <p className="text-primary font-medium mb-2">
+        <div className="text-center p-4 bg-white rounded-xl border border-[#759393]/20 mb-6 shadow-sm">
+          <p className="text-[#759393] font-medium mb-2 font-sans">
             환부를 프레임 안에 맞춰주세요
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-500 font-sans">
             아래 촬영 버튼을 눌러 사진을 찍어주세요
           </p>
         </div>
@@ -111,41 +111,41 @@ const Camera = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-glass p-4">
+    <div className="min-h-screen bg-white p-6">
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
-        <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6">
+        <div className="mb-10">
+          <Link to="/" className="inline-flex items-center gap-2 text-[#759393] hover:text-[#5f7c7c] transition-colors mb-8">
             <ArrowLeft className="w-4 h-4" />
-            <Typography variant="bodySmall">돌아가기</Typography>
+            <span className="text-sm font-medium font-sans">돌아가기</span>
           </Link>
           
-          <div className="text-center space-y-2">
-            <Typography variant="h2" className="text-gradient-primary">
+          <div className="text-center space-y-3">
+            <h1 className="text-3xl font-bold text-[#759393] font-sans">
               환부 촬영
-            </Typography>
-            <Typography variant="body" className="text-muted-foreground">
+            </h1>
+            <p className="text-gray-600 font-sans">
               정확한 분석을 위해 환부를 정면에서 촬영해주세요
-            </Typography>
+            </p>
           </div>
         </div>
 
         {/* 진행 상황 */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-10">
           <div className="flex items-center">
-            <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
+            <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
               isComplete 
-                ? 'bg-primary border-primary text-white' 
+                ? 'bg-[#759393] border-[#759393] text-white' 
                 : countdown.isActive
-                ? 'border-orange-500 text-orange-600 bg-orange-50'
-                : 'border-primary text-primary bg-primary-soft/20'
+                ? 'border-[#759393] text-[#759393] bg-[#759393]/10'
+                : 'border-[#759393]/40 text-[#759393] bg-white shadow-sm'
             }`}>
               {isComplete ? (
-                <Check className="w-6 h-6" />
+                <Check className="w-7 h-7" />
               ) : countdown.isActive ? (
                 <span className="text-lg font-bold">{countdown.remaining}</span>
               ) : (
-                <CameraIcon className="w-6 h-6" />
+                <CameraIcon className="w-7 h-7" />
               )}
             </div>
           </div>
@@ -153,132 +153,130 @@ const Camera = () => {
 
         {!isComplete ? (
           /* 촬영 화면 */
-          <Card className="glass-card mb-6 overflow-hidden">
-            <CardContent className="p-0">
-              <div className="aspect-[4/3] bg-gradient-to-br from-primary-soft/10 to-primary-glow/10 relative flex items-center justify-center overflow-hidden">
-                {/* 실제 카메라 비디오 스트림 */}
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  playsInline
-                  muted
-                  className={`absolute inset-0 w-full h-full object-cover transform ${
-                    isActive ? 'block' : 'hidden'
-                  }`}
-                  style={{
-                    transform: deviceInfo?.isDesktop ? 'scaleX(-1)' : 'none' // 전면 카메라 미러링
-                  }}
-                  onError={(e) => {
-                    console.error('Video error:', e);
-                    toast.error('비디오 스트림 오류가 발생했습니다');
-                  }}
-                  onLoadedMetadata={() => {
-                    console.log('Video metadata loaded');
-                    if (videoRef.current) {
-                      console.log('Video dimensions:', videoRef.current.videoWidth, 'x', videoRef.current.videoHeight);
-                    }
-                  }}
-                />
-                <canvas
-                  ref={canvasRef}
-                  className="hidden"
-                  width="1280"
-                  height="720"
-                />
-                
-                {/* 카메라가 비활성 상태일 때 */}
-                {!isActive && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary-soft/20 to-primary-glow/20 flex items-center justify-center">
+          <div className="mb-8 overflow-hidden">
+            <div className="aspect-[4/3] bg-gray-50 relative flex items-center justify-center overflow-hidden rounded-2xl border-2 border-[#759393]/20">
+              {/* 실제 카메라 비디오 스트림 */}
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+                className={`absolute inset-0 w-full h-full object-cover transform ${
+                  isActive ? 'block' : 'hidden'
+                }`}
+                style={{
+                  transform: deviceInfo?.isDesktop ? 'scaleX(-1)' : 'none' // 전면 카메라 미러링
+                }}
+                onError={(e) => {
+                  console.error('Video error:', e);
+                  toast.error('비디오 스트림 오류가 발생했습니다');
+                }}
+                onLoadedMetadata={() => {
+                  console.log('Video metadata loaded');
+                  if (videoRef.current) {
+                    console.log('Video dimensions:', videoRef.current.videoWidth, 'x', videoRef.current.videoHeight);
+                  }
+                }}
+              />
+              <canvas
+                ref={canvasRef}
+                className="hidden"
+                width="1280"
+                height="720"
+              />
+              
+              {/* 카메라가 비활성 상태일 때 */}
+              {!isActive && (
+                <div className="absolute inset-0 bg-gray-50 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-[#759393]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#759393]/30">
+                      <CameraIcon className="w-8 h-8 text-[#759393]" />
+                    </div>
+                    <div className="bg-white rounded-lg p-4 border border-[#759393]/20 shadow-sm">
+                      <p className="text-[#759393] font-medium mb-1 font-sans">
+                        카메라를 시작해주세요
+                      </p>
+                      <p className="text-sm text-gray-500 font-sans">
+                        {deviceInfo ? `${deviceInfo.isDesktop ? '얼굴 감지 모드로 자동 촬영' : '수동 촬영 모드'}` : '디바이스 감지 중...'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 웹에서의 얼굴 감지 가이드라인 */}
+              {deviceInfo?.isDesktop && isActive && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                  <div className="w-72 h-72 border-2 border-dashed border-[#759393]/60 rounded-2xl flex items-center justify-center">
                     <div className="text-center">
-                      <div className="w-16 h-16 bg-primary/30 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-primary/50">
-                        <CameraIcon className="w-8 h-8 text-primary" />
-                      </div>
-                      <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 border border-primary/30">
-                        <p className="text-primary font-medium mb-1">
-                          카메라를 시작해주세요
+                      {countdown.isActive ? (
+                        <div className="bg-[#759393]/90 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 border border-white/50">
+                          <span className="text-3xl font-bold text-white">{countdown.remaining}</span>
+                        </div>
+                      ) : (
+                        <div className="w-16 h-16 bg-[#759393]/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#759393]/50">
+                          <CameraIcon className="w-8 h-8 text-[#759393]" />
+                        </div>
+                      )}
+                      
+                      <div className="bg-white/95 rounded-lg p-4 border border-[#759393]/20 max-w-xs shadow-sm">
+                        <p className="text-[#759393] font-medium mb-1 font-sans">
+                          {countdown.isActive ? '촬영 준비 중...' : '얼굴 인식 중'}
                         </p>
-                        <p className="text-sm text-muted-foreground">
-                          {deviceInfo ? `${deviceInfo.isDesktop ? '얼굴 감지 모드로 자동 촬영' : '수동 촬영 모드'}` : '디바이스 감지 중...'}
+                        <p className="text-sm text-gray-500 font-sans">
+                          {faceDetection?.feedback || '얼굴을 카메라 앞에 위치시켜 주세요'}
                         </p>
                       </div>
                     </div>
                   </div>
-                )}
+                </div>
+              )}
 
-                {/* 웹에서의 얼굴 감지 가이드라인 */}
-                {deviceInfo?.isDesktop && isActive && (
-                  <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                    <div className="w-72 h-72 border-2 border-dashed border-primary/80 rounded-2xl flex items-center justify-center">
-                      <div className="text-center">
-                        {countdown.isActive ? (
-                          <div className="bg-primary/90 backdrop-blur-sm rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 border border-white/50">
-                            <span className="text-3xl font-bold text-white">{countdown.remaining}</span>
-                          </div>
-                        ) : (
-                          <div className="w-16 h-16 bg-primary/30 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-primary/50">
-                            <CameraIcon className="w-8 h-8 text-primary" />
-                          </div>
-                        )}
-                        
-                        <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 border border-primary/30 max-w-xs">
-                          <p className="text-primary font-medium mb-1">
-                            {countdown.isActive ? '촬영 준비 중...' : '얼굴 인식 중'}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {faceDetection?.feedback || '얼굴을 카메라 앞에 위치시켜 주세요'}
-                          </p>
-                        </div>
+              {/* 모바일에서의 촬영 가이드 */}
+              {!deviceInfo?.isDesktop && isActive && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                  <div className="w-80 h-80 border-2 border-dashed border-[#759393]/60 rounded-2xl flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-[#759393]/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#759393]/50">
+                        <CameraIcon className="w-8 h-8 text-[#759393]" />
+                      </div>
+                      <div className="bg-white/95 rounded-lg p-4 border border-[#759393]/20 shadow-sm">
+                        <p className="text-[#759393] font-medium mb-1 font-sans">
+                          환부를 프레임 안에 맞춰주세요
+                        </p>
+                        <p className="text-sm text-gray-500 font-sans">
+                          촬영 버튼을 눌러 사진을 찍어주세요
+                        </p>
                       </div>
                     </div>
                   </div>
-                )}
-
-                {/* 모바일에서의 촬영 가이드 */}
-                {!deviceInfo?.isDesktop && isActive && (
-                  <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                    <div className="w-80 h-80 border-2 border-dashed border-primary/80 rounded-2xl flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-primary/30 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-4 border border-primary/50">
-                          <CameraIcon className="w-8 h-8 text-primary" />
-                        </div>
-                        <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 border border-primary/30">
-                          <p className="text-primary font-medium mb-1">
-                            환부를 프레임 안에 맞춰주세요
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            촬영 버튼을 눌러 사진을 찍어주세요
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+                </div>
+              )}
+            </div>
+          </div>
         ) : (
           /* 촬영 완료 미리보기 */
-          <Card className="glass-card mb-6">
-            <CardContent className="p-6">
-              <h2 className="text-xl font-bold text-center mb-6">촬영 완료</h2>
+          <div className="mb-8">
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-center mb-6 text-[#759393] font-sans">촬영 완료</h2>
               <div className="flex justify-center mb-6">
                 <div className="relative group max-w-xs">
-                  <div className="aspect-square bg-gradient-glow rounded-2xl p-3">
-                    <div className="w-full h-full bg-white/50 rounded-xl flex items-center justify-center relative overflow-hidden">
+                  <div className="aspect-square bg-[#759393]/10 rounded-2xl p-3 border border-[#759393]/20">
+                    <div className="w-full h-full bg-white rounded-xl flex items-center justify-center relative overflow-hidden">
                       <img 
                         src={capturedImage} 
                         alt="촬영된 이미지" 
                         className="w-full h-full object-cover rounded-xl"
                       />
                       <div className="absolute top-3 left-3">
-                        <Badge className="bg-primary text-sm">
+                        <Badge className="bg-[#759393] text-white text-sm font-sans">
                           환부 촬영
                         </Badge>
                       </div>
                       <Button
                         variant="outline"
                         size="sm"
-                        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 hover:bg-white"
+                        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity bg-white hover:bg-gray-50 border-[#759393]/30 text-[#759393] font-sans"
                         onClick={retake}
                       >
                         <RotateCcw className="w-4 h-4 mr-1" />
@@ -289,21 +287,21 @@ const Camera = () => {
                 </div>
               </div>
               <div className="text-center">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-500 font-sans">
                   환부가 선명하게 촬영되었는지 확인해주세요
                 </p>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         )}
 
         {/* 에러 메시지 */}
         {error && (
-          <div className="mb-4 p-4 bg-red-100 border border-red-300 rounded-lg flex items-start">
+          <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start">
             <AlertCircle className="w-5 h-5 text-red-500 mr-2 mt-0.5" />
             <div>
-              <p className="text-red-700 text-sm font-medium">{error}</p>
-              <p className="text-red-600 text-xs mt-1">
+              <p className="text-red-700 text-sm font-medium font-sans">{error}</p>
+              <p className="text-red-600 text-xs mt-1 font-sans">
                 문제가 지속되면 페이지를 새로고침하거나 브라우저 설정에서 카메라 권한을 확인해주세요.
               </p>
             </div>
@@ -312,7 +310,7 @@ const Camera = () => {
 
         {/* 디버깅 정보 (개발 모드에서만 표시) */}
         {process.env.NODE_ENV === 'development' && (
-          <div className="mb-4 p-3 bg-gray-100 border rounded-lg text-xs">
+          <div className="mb-4 p-3 bg-gray-50 border rounded-lg text-xs">
             <p><strong>디버깅 정보:</strong></p>
             <p>• 카메라 활성: {isActive ? '✅' : '❌'}</p>
             <p>• 디바이스: {deviceInfo ? `${deviceInfo.isDesktop ? 'Desktop' : deviceInfo.isMobile ? 'Mobile' : 'Tablet'}` : '감지 중...'}</p>
@@ -332,7 +330,7 @@ const Camera = () => {
             <>
               {!isActive ? (
                 <Button 
-                  className="w-full h-12 text-lg btn-k-beauty animate-glow"
+                  className="w-full h-12 text-lg bg-[#759393] hover:bg-[#5f7c7c] text-white font-sans border-none"
                   onClick={() => {
                     console.log('Camera start button clicked');
                     startCamera();
@@ -344,7 +342,7 @@ const Camera = () => {
               ) : !deviceInfo?.isDesktop ? (
                 // 모바일: 수동 촬영 버튼
                 <Button 
-                  className="w-full h-12 text-lg btn-k-beauty animate-glow"
+                  className="w-full h-12 text-lg bg-[#759393] hover:bg-[#5f7c7c] text-white font-sans border-none"
                   onClick={() => {
                     console.log('Manual capture button clicked');
                     manualCapture();
@@ -358,7 +356,7 @@ const Camera = () => {
                 // 웹에서 카메라 활성 시 중지 버튼 추가
                 <Button 
                   variant="outline"
-                  className="w-full h-12 text-lg border-red-300 text-red-600 hover:bg-red-50"
+                  className="w-full h-12 text-lg border-red-300 text-red-600 hover:bg-red-50 font-sans"
                   onClick={() => {
                     console.log('Stop camera button clicked');
                     stopCamera();
@@ -372,12 +370,12 @@ const Camera = () => {
               {!countdown.isActive && (
                 <>
                   <div className="text-center">
-                    <span className="text-muted-foreground text-sm">또는</span>
+                    <span className="text-gray-400 text-sm font-sans">또는</span>
                   </div>
                   
                   <Button
                     variant="outline"
-                    className="w-full h-12 border-primary text-primary hover:bg-primary hover:text-white"
+                    className="w-full h-12 border-[#759393] text-[#759393] hover:bg-[#759393] hover:text-white font-sans"
                     onClick={() => document.getElementById('file-input')?.click()}
                   >
                     <Upload className="w-5 h-5 mr-2" />
@@ -397,7 +395,7 @@ const Camera = () => {
           ) : (
             <div className="space-y-3">
               <Button 
-                className="w-full h-16 text-lg btn-k-beauty animate-glow"
+                className="w-full h-16 text-lg bg-[#759393] hover:bg-[#5f7c7c] text-white font-sans border-none"
                 onClick={() => navigate('/questionnaire', { state: { image: capturedImage } })}
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
@@ -406,14 +404,14 @@ const Camera = () => {
               
               <Button 
                 variant="outline"
-                className="w-full h-12 text-lg border-primary text-primary hover:bg-primary hover:text-white"
+                className="w-full h-12 text-lg border-[#759393] text-[#759393] hover:bg-[#759393] hover:text-white font-sans"
                 onClick={() => navigate('/analysis', { state: { image: capturedImage } })}
               >
                 <CameraIcon className="w-5 h-5 mr-2" />
                 바로 분석하기
               </Button>
               
-              <p className="text-xs text-center text-muted-foreground">
+              <p className="text-xs text-center text-gray-500 font-sans">
                 설문조사를 통해 더 정확한 분석을 받을 수 있습니다
               </p>
             </div>
@@ -423,7 +421,7 @@ const Camera = () => {
           {isComplete && (
             <Button 
               variant="outline"
-              className="w-full h-12 text-lg border-primary text-primary hover:bg-primary hover:text-white mt-3"
+              className="w-full h-12 text-lg border-[#759393] text-[#759393] hover:bg-[#759393] hover:text-white mt-3 font-sans"
               onClick={() => {
                 console.log('Retake button clicked');
                 retake();
@@ -436,9 +434,9 @@ const Camera = () => {
         </div>
         
         {/* 촬영 가이드 */}
-        <div className="mt-8 p-4 bg-white/30 backdrop-blur-sm rounded-xl border border-primary/20">
-          <h3 className="font-medium text-primary mb-2">📸 촬영 가이드</h3>
-          <ul className="text-sm text-muted-foreground space-y-1">
+        <div className="mt-8 p-4 bg-white rounded-xl border border-[#759393]/20 shadow-sm">
+          <h3 className="font-medium text-[#759393] mb-2 font-sans">📸 촬영 가이드</h3>
+          <ul className="text-sm text-gray-600 space-y-1 font-sans">
             <li>• 충분한 조명이 있는 곳에서 촬영해주세요</li>
             <li>• 환부가 선명하게 보이도록 가까이서 촬영해주세요</li>
             <li>• 손이나 그림자로 가리지 않도록 주의해주세요</li>
