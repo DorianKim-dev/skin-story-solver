@@ -160,9 +160,7 @@ const Camera = () => {
               {/* 카메라가 비활성 상태일 때 */}
               {!isActive && <div className="absolute inset-0 bg-gray-50 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-200">
-                      <div className="w-8 h-8 rounded bg-gray-300"></div>
-                    </div>
+                    
                     <div className="bg-white rounded-lg p-4 border border-[#759393]/20 shadow-sm">
                       <p className="text-[#759393] font-medium mb-1 font-sans">
                         카메라를 시작해주세요
