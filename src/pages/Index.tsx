@@ -79,7 +79,7 @@ const Index = () => {
                 size="lg" 
                 className="bg-transparent border-2 border-white text-white font-sans hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 text-lg"
               >
-                AI분석하기
+                AI 종양 분석하기
               </Button>
             </Link>
           </div>
