@@ -174,9 +174,9 @@ const Analysis = () => {
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 80) return 'text-green-600 bg-green-50 border-green-200';
-    if (confidence >= 60) return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-    return 'text-red-600 bg-red-50 border-red-200';
+    if (confidence >= 80) return 'text-green-600 bg-green-50 border-green-200 hover:bg-green-100 transition-colors duration-200';
+    if (confidence >= 60) return 'text-yellow-600 bg-yellow-50 border-yellow-200 hover:bg-yellow-100 transition-colors duration-200';
+    return 'text-red-600 bg-red-50 border-red-200 hover:bg-red-100 transition-colors duration-200';
   };
 
   const getImageUrl = () => {
