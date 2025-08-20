@@ -86,38 +86,23 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* Trust + Features Section */}
-      <Section spacing="default" background="gradient" className="snap-start section-animate">
+      {/* AI 안면 분석 Section */}
+      <Section spacing="default" className="snap-start section-animate relative min-h-screen bg-cover bg-center bg-no-repeat" style={{
+        backgroundImage: 'url(/lovable-uploads/998aef6a-ec7c-44c1-adaf-e0ccde09df4c.png)'
+      }}>
         <Container size="xl">
-          <div className="text-center mb-16 space-y-4">
-            <Typography variant="h3">전문적인 피부 케어 솔루션</Typography>
-            <Typography variant="subtitle" className="max-w-2xl mx-auto">
-              AI 분석부터 병원 추천까지 통합적인 피부 관리 서비스
-            </Typography>
-            <div className="flex items-center justify-center gap-2">
-              <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium border border-primary/20">
-                의료적 신뢰도
-              </div>
-              <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-medium border border-primary/20">
-                데이터 보호
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {features.map((feature, index) => <div key={index} className="group">
-                <div className="bg-card rounded-xl p-8 h-full border border-border hover:border-primary/20 transition-all duration-300">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
-                    <feature.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <Typography variant="h4" className="mb-4 text-foreground">
-                    {feature.title}
-                  </Typography>
-                  <Typography variant="bodySmall" className="leading-relaxed">
-                    {feature.description}
-                  </Typography>
-                </div>
-              </div>)}
+          <div className="flex flex-col items-center justify-center min-h-screen text-center space-y-8">
+            <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
+              AI 기술로 얼굴을 자동 인식하고 분석
+            </h2>
+            <Link to="/camera">
+              <Button 
+                size="lg" 
+                className="bg-transparent border-2 border-white text-white font-sans hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 text-lg"
+              >
+                AI 안면부 분석하기
+              </Button>
+            </Link>
           </div>
         </Container>
       </Section>
