@@ -174,11 +174,6 @@ const Profile = () => {
         <Container size="sm" className="max-w-md">
           {/* Header */}
           <div className="mb-8">
-            <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6">
-              <ArrowLeft className="w-4 h-4" />
-              <Typography variant="bodySmall">돌아가기</Typography>
-            </Link>
-            
             {/* 개발 모드 알림 */}
             <div className="text-center mb-4">
               <div className="inline-flex bg-green-500/10 text-green-600 px-3 py-1 rounded-full text-xs font-medium border border-green-500/20">
