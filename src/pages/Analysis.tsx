@@ -399,26 +399,25 @@ const Analysis = () => {
             <p className="text-muted-foreground">
               AI가 분석한 환부의 상태입니다
             </p>
-          </div>
-        </div>
-          <div className="mt-3 flex justify-center gap-2">
-            {questionnaireData && (
-              <Badge className="bg-green-100 text-green-800 border-green-200">
-                설문조사 데이터 포함
-              </Badge>
-            )}
-            {isFromStorage && (
-              <Badge className="bg-blue-100 text-blue-800 border-blue-200 flex items-center gap-1">
-                <Clock className="w-3 h-3" />
-                저장된 결과
-              </Badge>
-            )}
-            {!uploadedImage && !isFromStorage && (
-              <Badge className="bg-orange-100 text-orange-800 border-orange-200 flex items-center gap-1">
-                <Sparkles className="w-3 h-3" />
-                데모 결과
-              </Badge>
-            )}
+            <div className="mt-3 flex justify-center gap-2">
+              {questionnaireData && (
+                <Badge className="bg-green-100 text-green-800 border-green-200">
+                  설문조사 데이터 포함
+                </Badge>
+              )}
+              {isFromStorage && (
+                <Badge className="bg-blue-100 text-blue-800 border-blue-200 flex items-center gap-1">
+                  <Clock className="w-3 h-3" />
+                  저장된 결과
+                </Badge>
+              )}
+              {!uploadedImage && !isFromStorage && (
+                <Badge className="bg-orange-100 text-orange-800 border-orange-200 flex items-center gap-1">
+                  <Sparkles className="w-3 h-3" />
+                  데모 결과
+                </Badge>
+              )}
+            </div>
           </div>
         </div>
 
