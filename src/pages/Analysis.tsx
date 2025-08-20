@@ -381,7 +381,7 @@ const Analysis = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-glass p-4">
+    <div className="min-h-screen bg-gradient-glass p-4 pt-20">
       <div className="max-w-4xl mx-auto">
         {/* 헤더 */}
         <div className="mb-8">

@@ -111,7 +111,7 @@ const Camera = () => {
   };
 
   return (
-    <div className="min-h-screen p-6" style={{ backgroundColor: '#EEEBDE' }}>
+    <div className="min-h-screen p-6 pt-20" style={{ backgroundColor: '#EEEBDE' }}>
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
         <div className="mb-10">
