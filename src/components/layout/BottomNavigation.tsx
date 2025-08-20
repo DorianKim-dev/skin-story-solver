@@ -13,7 +13,6 @@ const BottomNavigation = () => {
     const baseItems = [
       { path: '/', icon: Home, label: '홈' },
       { path: '/camera', icon: Camera, label: '분석' },
-      { path: '/hospital', icon: Search, label: '병원' },
       { path: '/analysis', icon: BarChart3, label: '결과' },
     ];
 

@@ -9,7 +9,7 @@ import Layout from "./components/layout/Layout";
 import Index from "./pages/Index";
 import Camera from "./pages/Camera";
 import Analysis from "./pages/Analysis";
-import HospitalSearch from "./pages/HospitalSearch";
+
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
@@ -41,11 +41,6 @@ const App = () => (
                 </ProtectedRoute>
               } />
               <Route path="/analysis" element={<Analysis />} />
-              <Route path="/hospital" element={
-                <ProtectedRoute>
-                  <HospitalSearch />
-                </ProtectedRoute>
-              } />
               <Route path="/profile" element={
                 <ProtectedRoute>
                   <Profile />
