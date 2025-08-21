@@ -56,37 +56,35 @@ const Index = () => {
   }];
   return <div className="theme-home-bright min-h-screen bg-white overflow-x-hidden">
       {/* Hero Section with Fixed Background */}
-      <Section 
-        spacing="hero" 
-        className="relative min-h-screen parallax-section"
-        style={{
-          backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)',
-          backgroundAttachment: 'fixed',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover'
-        }}
+      {/* Hero Section */}
+<Section 
+  spacing="hero" 
+  className="relative min-h-screen bg-fixed bg-cover bg-center bg-no-repeat"
+  style={{
+    backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)'
+  }}
+>
+  <Container size="xl">
+    <div className="relative z-10 flex items-center justify-center py-20 min-h-screen">
+      <div 
+        ref={hero.ref} 
+        className={`w-full max-w-2xl text-center space-y-6 mt-20 transition-all duration-1000 ease-out ${
+          hero.inView 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-10'
+        }`}
       >
-        <Container size="xl">
-          <div className="relative z-10 flex items-center justify-center py-20 min-h-screen">
-            <div 
-              ref={hero.ref} 
-              className="w-full max-w-2xl text-center space-y-6 mt-20"
-              style={{
-                transform: `translateY(${scrollY * 0.5}px)`,
-                transition: 'transform 0.1s ease-out'
-              }}
-            >
-              <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
-                Diagnose. Match. Heal.
-              </div>
-              <Typography variant="h2" className="max-w-xl mx-auto text-white/90 text-center">
-                AI가 제안하는 당신만의 피부 솔루션
-              </Typography>
-            </div>
-          </div>
-        </Container>
-      </Section>
+        <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
+          Diagnose. Match. Heal.
+        </div>
+        <Typography variant="h2" className="max-w-xl mx-auto text-white/90 text-center">
+          AI가 제안하는 당신만의 피부 솔루션
+        </Typography>
+      </div>
+    </div>
+  </Container>
+</Section>
+
 
       {/* AI 진단 홍보 Section */}
 <Section 
