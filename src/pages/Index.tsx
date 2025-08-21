@@ -56,42 +56,49 @@ const Index = () => {
   }];
   return <div className="theme-home-bright min-h-screen bg-white overflow-x-hidden">
       {/* Hero Section with Fixed Background */}
-      <Section 
-        spacing="hero" 
-        className="relative min-h-screen parallax-section"
-        style={{
-          backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)',
-          backgroundAttachment: 'fixed',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover'
-        }}
-      >
-        <Container size="xl">
-          <div className="relative z-10 flex items-center justify-center py-20 min-h-screen">
-            <div 
-              ref={hero.ref} 
-              className="w-full max-w-2xl text-center space-y-6 mt-20"
-              style={{
-                transform: `translateY(${scrollY * 0.5}px)`,
-                transition: 'transform 0.1s ease-out'
-              }}
-            >
-              <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
-                Diagnose. Match. Heal.
-              </div>
-              <Typography variant="h2" className="max-w-xl mx-auto text-white/90 text-center">
-                AI가 제안하는 당신만의 피부 솔루션
-              </Typography>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* AI 진단 홍보 Section */}
+      {/* 첫 번째 Hero Section */}
 <Section 
   spacing="hero" 
-  className="relative min-h-screen bg-fixed bg-cover bg-center bg-no-repeat"
+  className="relative min-h-screen"
+>
+  <Container size="xl">
+    <div className="sticky top-0 h-screen flex items-center justify-center">
+      <div 
+        ref={hero.ref} 
+        className="w-full max-w-2xl text-center space-y-6"
+        style={{
+          transform: `translateY(${scrollY * 0.5}px)`,
+          transition: 'transform 0.1s ease-out'
+        }}
+      >
+        <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
+          Diagnose. Match. Heal.
+        </div>
+        <Typography variant="h2" className="max-w-xl mx-auto text-white/90 text-center">
+          AI가 제안하는 당신만의 피부 솔루션
+        </Typography>
+      </div>
+    </div>
+  </Container>
+
+  {/* Hero 배경 (고정된 느낌 주기 위해 absolute) */}
+  <div 
+    className="absolute inset-0 bg-cover bg-center"
+    style={{
+      backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)',
+      backgroundAttachment: 'fixed',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      zIndex: -1
+    }}
+  />
+</Section>
+
+{/* 두 번째 Section */}
+<Section 
+  spacing="hero" 
+  className="relative min-h-screen bg-cover bg-center bg-no-repeat"
   style={{
     backgroundImage: 'url(/lovable-uploads/e737c29e-2c53-4377-945c-75e21ea3a41d.png)'
   }}
@@ -119,6 +126,7 @@ const Index = () => {
     </div>
   </Container>
 </Section>
+
 
 {/* AI 안면 분석 Section */}
 <Section 
