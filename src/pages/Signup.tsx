@@ -26,7 +26,6 @@ const Signup = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -119,34 +118,35 @@ const Signup = () => {
     if (/[0-9]/.test(formData.password)) score++;
     if (/[^A-Za-z0-9]/.test(formData.password)) score++;
     
-    if (score <= 2) return { score, text: '약함', color: 'text-red-500' };
-    if (score <= 3) return { score, text: '보통', color: 'text-yellow-500' };
-    return { score, text: '강함', color: 'text-green-500' };
+    if (score <= 2) return { score, text: '약함', color: 'text-black' };
+    if (score <= 3) return { score, text: '보통', color: 'text-black' };
+    return { score, text: '강함', color: 'text-black' };
   };
 
   const passwordStrength = getPasswordStrength();
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md">
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 text-black hover:underline mb-6">
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm">돌아가기</span>
           </Link>
         </div>
 
-        <Card>
+        <Card className="bg-white border border-black">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">회원가입</CardTitle>
-            <p className="text-gray-600">새 계정을 만들어 서비스를 시작하세요</p>
+            <CardTitle className="text-2xl text-black">회원가입</CardTitle>
+            <p className="text-black">새 계정을 만들어 서비스를 시작하세요</p>
           </CardHeader>
           
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-4">
+                {/* 아이디 */}
                 <div className="space-y-2">
-                  <Label htmlFor="username">아이디</Label>
+                  <Label htmlFor="username" className="text-black">아이디</Label>
                   <Input
                     id="username"
                     name="username"
@@ -154,15 +154,16 @@ const Signup = () => {
                     value={formData.username}
                     onChange={handleInputChange}
                     placeholder="아이디를 입력하세요"
-                    className={errors.username ? 'border-red-500' : ''}
+                    className={`bg-white text-black border ${errors.username ? 'border-black' : 'border-black'}`}
                   />
                   {errors.username && (
-                    <p className="text-sm text-red-500">{errors.username}</p>
+                    <p className="text-sm text-black">{errors.username}</p>
                   )}
                 </div>
 
+                {/* 이메일 */}
                 <div className="space-y-2">
-                  <Label htmlFor="email">이메일</Label>
+                  <Label htmlFor="email" className="text-black">이메일</Label>
                   <Input
                     id="email"
                     name="email"
@@ -170,15 +171,16 @@ const Signup = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="이메일을 입력하세요"
-                    className={errors.email ? 'border-red-500' : ''}
+                    className={`bg-white text-black border ${errors.email ? 'border-black' : 'border-black'}`}
                   />
                   {errors.email && (
-                    <p className="text-sm text-red-500">{errors.email}</p>
+                    <p className="text-sm text-black">{errors.email}</p>
                   )}
                 </div>
 
+                {/* 비밀번호 */}
                 <div className="space-y-2">
-                  <Label htmlFor="password">비밀번호</Label>
+                  <Label htmlFor="password" className="text-black">비밀번호</Label>
                   <div className="relative">
                     <Input
                       id="password"
@@ -187,13 +189,13 @@ const Signup = () => {
                       value={formData.password}
                       onChange={handleInputChange}
                       placeholder="비밀번호를 입력하세요"
-                      className={errors.password ? 'border-red-500 pr-10' : 'pr-10'}
+                      className={`bg-white text-black border pr-10 ${errors.password ? 'border-black' : 'border-black'}`}
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="absolute right-0 top-0 h-full px-3"
+                      className="absolute right-0 top-0 h-full px-3 text-black"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -201,12 +203,9 @@ const Signup = () => {
                   </div>
                   {formData.password && (
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 h-1 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="flex-1 h-1 bg-black rounded-full overflow-hidden">
                         <div 
-                          className={`h-full transition-all duration-300 ${
-                            passwordStrength.score <= 2 ? 'bg-red-500' :
-                            passwordStrength.score <= 3 ? 'bg-yellow-500' : 'bg-green-500'
-                          }`}
+                          className="h-full bg-black transition-all duration-300"
                           style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
                         />
                       </div>
@@ -216,12 +215,13 @@ const Signup = () => {
                     </div>
                   )}
                   {errors.password && (
-                    <p className="text-sm text-red-500">{errors.password}</p>
+                    <p className="text-sm text-black">{errors.password}</p>
                   )}
                 </div>
 
+                {/* 비밀번호 확인 */}
                 <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">비밀번호 확인</Label>
+                  <Label htmlFor="confirmPassword" className="text-black">비밀번호 확인</Label>
                   <div className="relative">
                     <Input
                       id="confirmPassword"
@@ -230,13 +230,13 @@ const Signup = () => {
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
                       placeholder="비밀번호를 다시 입력하세요"
-                      className={errors.confirmPassword ? 'border-red-500 pr-10' : 'pr-10'}
+                      className={`bg-white text-black border pr-10 ${errors.confirmPassword ? 'border-black' : 'border-black'}`}
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="absolute right-0 top-0 h-full px-3"
+                      className="absolute right-0 top-0 h-full px-3 text-black"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     >
                       {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -245,24 +245,23 @@ const Signup = () => {
                   {formData.confirmPassword && formData.password && (
                     <div className="flex items-center gap-2">
                       {formData.password === formData.confirmPassword ? (
-                        <Check className="w-4 h-4 text-green-500" />
+                        <Check className="w-4 h-4 text-black" />
                       ) : (
-                        <X className="w-4 h-4 text-red-500" />
+                        <X className="w-4 h-4 text-black" />
                       )}
-                      <span className={`text-sm ${
-                        formData.password === formData.confirmPassword ? 'text-green-500' : 'text-red-500'
-                      }`}>
+                      <span className="text-sm text-black">
                         {formData.password === formData.confirmPassword ? '비밀번호가 일치합니다' : '비밀번호가 일치하지 않습니다'}
                       </span>
                     </div>
                   )}
                   {errors.confirmPassword && (
-                    <p className="text-sm text-red-500">{errors.confirmPassword}</p>
+                    <p className="text-sm text-black">{errors.confirmPassword}</p>
                   )}
                 </div>
 
+                {/* 주소 */}
                 <div className="space-y-2">
-                  <Label htmlFor="address">주소</Label>
+                  <Label htmlFor="address" className="text-black">주소</Label>
                   <Input
                     id="address"
                     name="address"
@@ -270,27 +269,27 @@ const Signup = () => {
                     value={formData.address}
                     onChange={handleInputChange}
                     placeholder="주소를 입력하세요"
-                    className={errors.address ? 'border-red-500' : ''}
+                    className={`bg-white text-black border ${errors.address ? 'border-black' : 'border-black'}`}
                   />
                   {errors.address && (
-                    <p className="text-sm text-red-500">{errors.address}</p>
+                    <p className="text-sm text-black">{errors.address}</p>
                   )}
                 </div>
               </div>
 
-              <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+              <Button type="submit" size="lg" className="w-full bg-black text-white hover:bg-black/80" disabled={isLoading}>
                 {isLoading ? '회원가입 중...' : '회원가입'}
               </Button>
             </form>
 
-            {/* Social Login */}
+            {/* 소셜 로그인 */}
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200"></div>
+                  <div className="w-full border-t border-black"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-gray-500">또는</span>
+                  <span className="px-4 bg-white text-black">또는</span>
                 </div>
               </div>
               
@@ -298,9 +297,9 @@ const Signup = () => {
             </div>
 
             <div className="mt-6 text-center">
-              <p className="text-gray-600">
+              <p className="text-black">
                 이미 계정이 있으신가요?{' '}
-                <Link to="/login" className="text-blue-600 hover:underline font-medium">
+                <Link to="/login" className="text-black underline font-medium">
                   로그인
                 </Link>
               </p>
