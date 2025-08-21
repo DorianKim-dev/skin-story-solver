@@ -1,148 +1,158 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Camera, Search, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerClick } from 'lucide-react';
 
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
+  
+  // 개별 섹션 상태
+  const [heroInView, setHeroInView] = useState(false);
+  const [secondInView, setSecondInView] = useState(false);
+  const [thirdInView, setThirdInView] = useState(false);
+  
+  // refs
+  const heroRef = useRef(null);
+  const secondRef = useRef(null);
+  const thirdRef = useRef(null);
 
-  // Simple implementation of useInView hook functionality - 더 강력한 버전
-  const useInView = () => {
-    const ref = useRef(null);
-    const [inView, setInView] = useState(false);
-    
-    useEffect(() => {
-      const el = ref.current;
-      console.log('🔧 useInView useEffect - Element:', el); // 디버깅
-      
-      if (!el) {
-        console.log('❌ No element found for IntersectionObserver');
-        return;
-      }
-      
-      // 더 관대한 설정으로 변경
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          console.log('👁️ IntersectionObserver triggered:', {
-            isIntersecting: entry.isIntersecting,
-            intersectionRatio: entry.intersectionRatio,
-            boundingClientRect: entry.boundingClientRect,
-            target: entry.target.className
-          });
-          setInView(entry.isIntersecting);
-        }, 
-        {
-          threshold: [0, 0.1, 0.5, 1.0], // 여러 단계에서 감지
-          rootMargin: '50px 0px 50px 0px' // 더 넓은 마진
-        }
-      );
-      
-      observer.observe(el);
-      console.log('✅ Observer attached to element with class:', el.className);
-      
-      return () => {
-        console.log('🧹 Observer disconnected');
-        observer.disconnect();
-      };
-    }, []);
-    
-    // 추가: 강제로 뷰포트 체크하는 함수
-    const checkVisibility = () => {
-      const el = ref.current;
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-        console.log('🔍 Manual visibility check:', {
-          element: el.className,
-          rect: rect,
-          isVisible: isVisible,
-          windowHeight: window.innerHeight
+  // 🔧 수정된 intersection observer 설정
+  useEffect(() => {
+    const observerOptions = {
+      threshold: [0, 0.1, 0.3, 0.5, 0.7, 1.0],
+      rootMargin: '100px 0px 100px 0px' // 더 관대한 마진
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        const ratio = entry.intersectionRatio;
+        const isIntersecting = entry.isIntersecting;
+        
+        console.log('👁️ Observer triggered:', {
+          target: entry.target.dataset.section,
+          isIntersecting,
+          ratio: ratio.toFixed(2),
+          rect: {
+            top: Math.round(entry.boundingClientRect.top),
+            bottom: Math.round(entry.boundingClientRect.bottom),
+            height: Math.round(entry.boundingClientRect.height)
+          }
         });
-      }
-    };
-    
-    // 3초마다 수동으로 체크
-    useEffect(() => {
-      const interval = setInterval(checkVisibility, 3000);
-      return () => clearInterval(interval);
-    }, []);
-    
-    return {
-      ref,
-      inView
-    };
-  };
 
-  // Scroll handler for parallax effect
+        // 더 관대한 조건: 10% 이상 보이거나 교차하고 있으면 true
+        const shouldBeVisible = isIntersecting && ratio > 0.1;
+        
+        // 각 섹션별로 상태 업데이트
+        if (entry.target === heroRef.current) {
+          setHeroInView(shouldBeVisible);
+          console.log('🟡 Hero state updated:', shouldBeVisible);
+        } else if (entry.target === secondRef.current) {
+          setSecondInView(shouldBeVisible);
+          console.log('🟢 Second state updated:', shouldBeVisible);
+        } else if (entry.target === thirdRef.current) {
+          setThirdInView(shouldBeVisible);
+          console.log('🔵 Third state updated:', shouldBeVisible);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // 모든 ref가 준비될 때까지 기다린 후 observe 시작
+    const observeElements = () => {
+      const elements = [
+        { ref: heroRef, name: 'Hero' },
+        { ref: secondRef, name: 'Second' },
+        { ref: thirdRef, name: 'Third' }
+      ];
+
+      elements.forEach(({ ref, name }) => {
+        if (ref.current) {
+          ref.current.dataset.section = name; // 디버깅용 식별자
+          observer.observe(ref.current);
+          console.log(`✅ ${name} observer attached`);
+        } else {
+          console.log(`❌ ${name} ref not ready`);
+        }
+      });
+    };
+
+    // DOM이 준비된 후 관찰 시작
+    const timer = setTimeout(observeElements, 100);
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+      console.log('🧹 All observers disconnected');
+    };
+  }, []); // 의존성 배열을 비워서 한 번만 실행
+
+  // Scroll handler
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const hero = useInView();
-  const secondSection = useInView();
-  const thirdSection = useInView();
+  // 수동 가시성 검사 함수
+  const manualVisibilityCheck = useCallback(() => {
+    const sections = [
+      { ref: heroRef, name: 'Hero', state: heroInView },
+      { ref: secondRef, name: 'Second', state: secondInView },
+      { ref: thirdRef, name: 'Third', state: thirdInView }
+    ];
 
-  // 🔍 디버깅: ref가 제대로 연결되었는지 확인
+    sections.forEach(({ ref, name, state }) => {
+      if (ref.current) {
+        const rect = ref.current.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        const visibilityPercentage = Math.max(0, Math.min(100, 
+          ((window.innerHeight - rect.top) / (window.innerHeight + rect.height)) * 100
+        ));
+
+        console.log(`🔍 ${name} Manual Check:`, {
+          top: Math.round(rect.top),
+          bottom: Math.round(rect.bottom),
+          height: Math.round(rect.height),
+          windowHeight: window.innerHeight,
+          isVisible,
+          visibilityPercentage: Math.round(visibilityPercentage),
+          currentState: state
+        });
+      }
+    });
+  }, [heroInView, secondInView, thirdInView]);
+
+  // 3초마다 수동 체크
   useEffect(() => {
-    console.log('🔗 Refs check:');
-    console.log('Hero ref:', hero.ref.current);
-    console.log('Second ref:', secondSection.ref.current);
-    console.log('Third ref:', thirdSection.ref.current);
-  }, [hero.ref, secondSection.ref, thirdSection.ref]);
+    const interval = setInterval(manualVisibilityCheck, 3000);
+    return () => clearInterval(interval);
+  }, [manualVisibilityCheck]);
 
-  // 🔍 디버깅 1단계: 현재 상태 확인
-  console.log('🟡 Hero inView:', hero.inView);
-  console.log('🟢 Second Section inView:', secondSection.inView);
-  console.log('🔵 Third Section inView:', thirdSection.inView);
+  // 디버깅 로그
+  console.log('🟡 Hero inView:', heroInView);
+  console.log('🟢 Second Section inView:', secondInView);
+  console.log('🔵 Third Section inView:', thirdInView);
+  console.log('📏 Scroll Y position:', scrollY);
 
-  // 🔍 디버깅 2단계: 상태 변화 감시
-  useEffect(() => {
-    console.log('🔥 Hero inView changed:', hero.inView);
-  }, [hero.inView]);
-
-  useEffect(() => {
-    console.log('🟢 Second Section inView changed:', secondSection.inView);
-  }, [secondSection.inView]);
-
-  useEffect(() => {
-    console.log('🔵 Third Section inView changed:', thirdSection.inView);
-  }, [thirdSection.inView]);
-
-  // 🔍 디버깅 3단계: 스크롤 위치 확인
-  useEffect(() => {
-    console.log('📏 Scroll Y position:', scrollY);
-  }, [scrollY]);
-
-  const features = [{
-    icon: Camera,
-    title: '정밀 분석',
-    description: '간결한 촬영, 신뢰할 수 있는 결과'
-  }, {
-    icon: Search,
-    title: '전문의 매칭',
-    description: '필요할 때 정확한 연결'
-  }];
-
-  // Components
-  const Button = ({ children, size, className, ...props }) => (
+  // Components (간소화)
+  const Button = ({ children, className, ...props }) => (
     <button className={className} {...props}>
       {children}
     </button>
   );
 
-  const Section = ({ children, spacing, className, style, ...props }) => (
+  const Section = ({ children, className, style, ...props }) => (
     <section className={className} style={style} {...props}>
       {children}
     </section>
   );
 
-  const Container = ({ children, size }) => (
+  const Container = ({ children }) => (
     <div className="mx-auto px-6 max-w-7xl">
       {children}
     </div>
   );
 
-  const Typography = ({ variant, children, className }) => (
+  const Typography = ({ children, className }) => (
     <h2 className={className}>{children}</h2>
   );
 
@@ -152,9 +162,8 @@ const Index = () => {
 
   return (
     <div className="theme-home-bright min-h-screen bg-white overflow-x-hidden">
-      {/* Hero Section with Fixed Background */}
+      {/* Hero Section */}
       <Section 
-        spacing="hero" 
         className="relative min-h-screen parallax-section"
         style={{
           backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)',
@@ -164,22 +173,27 @@ const Index = () => {
           backgroundSize: 'cover'
         }}
       >
-        <Container size="xl">
+        <Container>
           <div className="relative z-10 flex items-center justify-center py-20 min-h-screen">
             <div 
-              ref={hero.ref} 
-              className="w-full max-w-2xl text-center space-y-6 mt-20"
+              ref={heroRef}
+              className={`w-full max-w-2xl text-center space-y-6 mt-20 transition-all duration-1000 ease-out ${
+                heroInView 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-10'
+              }`}
               style={{
                 transform: `translateY(${scrollY * 0.5}px)`,
-                transition: 'transform 0.1s ease-out'
               }}
-              // 🔍 디버깅: 첫 번째 섹션 요소 확인
-              onClick={() => console.log('🟡 Hero section clicked, inView:', hero.inView)}
+              onClick={() => {
+                console.log('🟡 Hero section clicked, inView:', heroInView);
+                manualVisibilityCheck();
+              }}
             >
               <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
                 Diagnose. Match. Heal.
               </div>
-              <Typography variant="h2" className="max-w-xl mx-auto text-white/90 text-center">
+              <Typography className="max-w-xl mx-auto text-white/90 text-center">
                 AI가 제안하는 당신만의 피부 솔루션
               </Typography>
             </div>
@@ -187,27 +201,24 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* AI 진단 홍보 Section */}
+      {/* Second Section */}
       <Section 
-        spacing="hero" 
         className="relative min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/lovable-uploads/e737c29e-2c53-4377-945c-75e21ea3a41d.png)'
         }}
       >
-        <Container size="xl">
+        <Container>
           <div 
-            ref={secondSection.ref}
+            ref={secondRef}
             className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
-              secondSection.inView 
+              secondInView 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
             }`}
-            // 🔍 디버깅: 두 번째 섹션 상태 확인
             onClick={() => {
-              console.log('🟢 Second section clicked');
-              console.log('🟢 Current inView:', secondSection.inView);
-              console.log('🟢 Current classes:', secondSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10');
+              console.log('🟢 Second section clicked, inView:', secondInView);
+              manualVisibilityCheck();
             }}
           >
             <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
@@ -215,7 +226,6 @@ const Index = () => {
             </h2>
             <Link to="/camera">
               <Button 
-                size="lg" 
                 className="bg-transparent border-2 border-white text-white font-sans hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 text-lg"
               >
                 AI 종양 분석하기
@@ -225,28 +235,24 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* AI 안면 분석 Section */}
+      {/* Third Section */}
       <Section 
-        spacing="hero" 
         className="relative min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)'
         }}
       >
-        <Container size="xl">
+        <Container>
           <div 
-            ref={thirdSection.ref}
+            ref={thirdRef}
             className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
-              thirdSection.inView 
+              thirdInView 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
             }`}
-            // 🔍 디버깅: 세 번째 섹션 상태 확인 (가장 중요!)
             onClick={() => {
-              console.log('🔵 Third section clicked');
-              console.log('🔵 Current inView:', thirdSection.inView);
-              console.log('🔵 Current classes:', thirdSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10');
-              console.log('🔵 Element ref:', thirdSection.ref.current);
+              console.log('🔵 Third section clicked, inView:', thirdInView);
+              manualVisibilityCheck();
             }}
             onMouseEnter={() => console.log('🔵 Mouse entered third section')}
           >
@@ -255,7 +261,6 @@ const Index = () => {
             </h2>
             <Link to="/camera">
               <Button 
-                size="lg" 
                 className="bg-transparent border-2 border-white text-white font-sans hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 text-lg"
               >
                 AI 안면부 분석하기
@@ -265,7 +270,7 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* 🔍 디버깅 패널 (화면 오른쪽 상단에 표시) */}
+      {/* 개선된 디버깅 패널 */}
       <div 
         style={{
           position: 'fixed',
@@ -278,46 +283,21 @@ const Index = () => {
           fontSize: '14px',
           zIndex: 9999,
           fontFamily: 'monospace',
-          minWidth: '250px'
+          minWidth: '280px'
         }}
       >
-        <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>📊 Debug Panel</div>
-        <div>🟡 Hero: {hero.inView ? '✅ TRUE' : '❌ FALSE'}</div>
-        <div>🟢 Second: {secondSection.inView ? '✅ TRUE' : '❌ FALSE'}</div>
-        <div>🔵 Third: {thirdSection.inView ? '✅ TRUE' : '❌ FALSE'}</div>
+        <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>📊 Debug Panel (Fixed)</div>
+        <div>🟡 Hero: {heroInView ? '✅ TRUE' : '❌ FALSE'}</div>
+        <div>🟢 Second: {secondInView ? '✅ TRUE' : '❌ FALSE'}</div>
+        <div>🔵 Third: {thirdInView ? '✅ TRUE' : '❌ FALSE'}</div>
         <div>📏 Scroll: {Math.round(scrollY)}px</div>
         <div style={{ marginTop: '10px', fontSize: '12px', opacity: 0.8 }}>
-          <div>Hero Ref: {hero.ref.current ? '✅' : '❌'}</div>
-          <div>Second Ref: {secondSection.ref.current ? '✅' : '❌'}</div>
-          <div>Third Ref: {thirdSection.ref.current ? '✅' : '❌'}</div>
+          <div>Hero Ref: {heroRef.current ? '✅' : '❌'}</div>
+          <div>Second Ref: {secondRef.current ? '✅' : '❌'}</div>
+          <div>Third Ref: {thirdRef.current ? '✅' : '❌'}</div>
         </div>
         <button 
-          onClick={() => {
-            // 수동 가시성 체크
-            [hero, secondSection, thirdSection].forEach((section, index) => {
-              const names = ['Hero', 'Second', 'Third'];
-              const el = section.ref.current;
-              if (el) {
-                const rect = el.getBoundingClientRect();
-                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-                console.log(`🔍 ${names[index]} Manual Check:`, {
-                  top: rect.top,
-                  bottom: rect.bottom,
-                  height: rect.height,
-                  windowHeight: window.innerHeight,
-                  isVisible: isVisible
-                });
-                
-                // 강제로 inView 상태 업데이트 시도
-                if (isVisible && !section.inView) {
-                  console.log(`🔧 Forcing ${names[index]} to be visible`);
-                  // 강제로 상태 변경 (디버깅용)
-                  section.ref.current.style.opacity = '1';
-                  section.ref.current.style.transform = 'translateY(0)';
-                }
-              }
-            });
-          }}
+          onClick={manualVisibilityCheck}
           style={{
             marginTop: '10px',
             padding: '5px 10px',
@@ -329,8 +309,11 @@ const Index = () => {
             fontSize: '12px'
           }}
         >
-          Manual Check + Force Fix
+          Manual Visibility Check
         </button>
+        <div style={{ marginTop: '10px', fontSize: '11px', opacity: 0.7 }}>
+          Fixed: Single observer, better timing, more tolerant thresholds
+        </div>
       </div>
     </div>
   );
