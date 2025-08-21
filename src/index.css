@@ -67,6 +67,8 @@ All colors MUST be HSL.
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-quick: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-medium: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 1rem;
 
@@ -161,27 +163,259 @@ All colors MUST be HSL.
 }
 
 @layer components {
+  /* ============================================
+     1. 스크롤 스냅 (Scroll Snap) 
+     ============================================ */
+  
+  /* 스크롤 스냅 컨테이너 */
+  .scroll-snap-container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+    scroll-behavior: smooth;
+  }
+  
+  /* 스크롤 스냅 섹션 */
+  .scroll-snap-section {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    scroll-snap-stop: always;
+  }
+  
+  /* 부드러운 스크롤 */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+
+  /* ============================================
+     2. 섹션 진입 애니메이션 (Scroll Reveal)
+     ============================================ */
+  
+  /* 페이드 인 + 슬라이드 업 */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: var(--transition-medium);
+    transition-delay: 0.1s;
+  }
+  
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* 좌측에서 슬라이드 인 */
+  .scroll-reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: var(--transition-medium);
+  }
+  
+  .scroll-reveal-left.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* 우측에서 슬라이드 인 */
+  .scroll-reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: var(--transition-medium);
+  }
+  
+  .scroll-reveal-right.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* 스케일 + 페이드 */
+  .scroll-reveal-scale {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    transition: var(--transition-medium);
+  }
+  
+  .scroll-reveal-scale.revealed {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  
+  /* 스태거 애니메이션 (순차적 등장) */
+  .scroll-reveal-stagger:nth-child(1) { transition-delay: 0.1s; }
+  .scroll-reveal-stagger:nth-child(2) { transition-delay: 0.2s; }
+  .scroll-reveal-stagger:nth-child(3) { transition-delay: 0.3s; }
+  .scroll-reveal-stagger:nth-child(4) { transition-delay: 0.4s; }
+  .scroll-reveal-stagger:nth-child(5) { transition-delay: 0.5s; }
+
+  /* ============================================
+     3. 호버 오버레이 (Hover Overlay)
+     ============================================ */
+  
+  /* 기본 호버 오버레이 */
+  .hover-overlay {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .hover-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: var(--transition-quick);
+    z-index: 1;
+  }
+  
+  .hover-overlay:hover::before {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  /* 호버시 나타나는 콘텐츠 */
+  .hover-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-quick);
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .hover-overlay:hover .hover-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  
+  /* 호버 콘텐츠 애니메이션 변형 */
+  .hover-content-slide-up {
+    transform: translate(-50%, -50%) translateY(20px);
+  }
+  
+  .hover-overlay:hover .hover-content-slide-up {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  
+  .hover-content-scale {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  
+  .hover-overlay:hover .hover-content-scale {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* ============================================
+     4. 이미지 카드 호버 효과
+     ============================================ */
+  
+  .image-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    transition: var(--transition-medium);
+  }
+  
+  .image-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .image-card .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      180deg, 
+      transparent 0%, 
+      rgba(0, 0, 0, 0.7) 100%
+    );
+    opacity: 0;
+    transition: var(--transition-quick);
+  }
+  
+  .image-card:hover .image-overlay {
+    opacity: 1;
+  }
+  
+  .image-card .card-content {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    color: white;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: var(--transition-quick);
+  }
+  
+  .image-card:hover .card-content {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* ============================================
+     기존 스타일들
+     ============================================ */
+  
   /* 글래스모피즘 카드 */
   .glass-card {
     @apply bg-white/70 backdrop-blur-sm border border-white/30 shadow-lg;
+    transition: var(--transition-medium);
+  }
+  
+  .glass-card:hover {
+    @apply shadow-xl;
+    transform: translateY(-4px);
   }
   
   /* 럭셔리 크림 카드 */
   .luxury-card {
     @apply bg-gradient-to-br from-cream-light to-cream backdrop-blur-md border border-luxury-gold/20 shadow-2xl;
+    transition: var(--transition-medium);
+  }
+  
+  .luxury-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 25px 50px hsla(355, 89%, 65%, 0.2);
   }
   
   /* K-Beauty 버튼 스타일 */
   .btn-k-beauty {
-    @apply bg-gradient-to-r from-primary to-primary-glow text-white px-6 py-3 rounded-2xl font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300;
+    @apply bg-gradient-to-r from-primary to-primary-glow text-white px-6 py-3 rounded-2xl font-medium shadow-lg;
+    transition: var(--transition-medium);
+  }
+  
+  .btn-k-beauty:hover {
+    @apply shadow-xl;
+    transform: translateY(-2px) scale(1.05);
   }
   
   .btn-luxury {
-    @apply bg-gradient-to-r from-luxury-gold to-cream-dark text-foreground px-8 py-4 rounded-full font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-500;
+    @apply bg-gradient-to-r from-luxury-gold to-cream-dark text-foreground px-8 py-4 rounded-full font-semibold shadow-xl;
+    transition: var(--transition-medium);
+  }
+  
+  .btn-luxury:hover {
+    @apply shadow-2xl;
+    transform: translateY(-3px) scale(1.05);
   }
   
   .btn-glass {
-    @apply bg-white/20 backdrop-blur-sm border border-white/30 text-foreground hover:bg-white/30 transition-all duration-300;
+    @apply bg-white/20 backdrop-blur-sm border border-white/30 text-foreground;
+    transition: var(--transition-quick);
+  }
+  
+  .btn-glass:hover {
+    @apply bg-white/30;
+    transform: translateY(-2px);
   }
 
   /* 커스텀 그라데이션 */
@@ -238,6 +472,27 @@ All colors MUST be HSL.
   .animate-flow {
     animation: flow 8s ease-in-out infinite;
   }
+  
+  /* 새로운 애니메이션들 */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.6s ease-out;
+  }
 }
 
 @layer utilities {
@@ -257,7 +512,28 @@ All colors MUST be HSL.
   .hide-scrollbar::-webkit-scrollbar {
     display: none;  /* Safari and Chrome */
   }
+  
+  /* 부드러운 전환 유틸리티 */
+  .transition-quick {
+    transition: var(--transition-quick);
+  }
+  
+  .transition-medium {
+    transition: var(--transition-medium);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
 }
+
+/* ============================================
+   키프레임 애니메이션들
+   ============================================ */
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
@@ -288,4 +564,54 @@ All colors MUST be HSL.
   25% { transform: translateX(20px) scale(1.05); }
   50% { transform: translateX(-10px) scale(0.95); }
   75% { transform: translateX(15px) scale(1.02); }
+}
+
+/* 새로운 애니메이션들 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideInLeft {
+  from { 
+    opacity: 0; 
+    transform: translateX(-50px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(50px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
 }
