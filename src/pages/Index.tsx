@@ -4,21 +4,44 @@ import { Camera, Search, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerC
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
 
-  // Simple implementation of useInView hook functionality
+  // Simple implementation of useInView hook functionality - 수정된 버전
   const useInView = () => {
     const ref = useRef(null);
     const [inView, setInView] = useState(false);
+    
     useEffect(() => {
       const el = ref.current;
-      if (!el) return;
-      const observer = new IntersectionObserver(([entry]) => {
-        setInView(entry.isIntersecting);
-      }, {
-        threshold: 0.3
-      });
+      console.log('🔧 useInView useEffect - Element:', el); // 디버깅
+      
+      if (!el) {
+        console.log('❌ No element found for IntersectionObserver');
+        return;
+      }
+      
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          console.log('👁️ IntersectionObserver triggered:', {
+            isIntersecting: entry.isIntersecting,
+            intersectionRatio: entry.intersectionRatio,
+            target: entry.target
+          });
+          setInView(entry.isIntersecting);
+        }, 
+        {
+          threshold: 0.1, // 0.3에서 0.1로 변경 (더 민감하게)
+          rootMargin: '0px 0px -10% 0px' // 약간의 마진 추가
+        }
+      );
+      
       observer.observe(el);
-      return () => observer.disconnect();
+      console.log('✅ Observer attached to element');
+      
+      return () => {
+        console.log('🧹 Observer disconnected');
+        observer.disconnect();
+      };
     }, []);
+    
     return {
       ref,
       inView
@@ -35,6 +58,14 @@ const Index = () => {
   const hero = useInView();
   const secondSection = useInView();
   const thirdSection = useInView();
+
+  // 🔍 디버깅: ref가 제대로 연결되었는지 확인
+  useEffect(() => {
+    console.log('🔗 Refs check:');
+    console.log('Hero ref:', hero.ref.current);
+    console.log('Second ref:', secondSection.ref.current);
+    console.log('Third ref:', thirdSection.ref.current);
+  }, [hero.ref, secondSection.ref, thirdSection.ref]);
 
   // 🔍 디버깅 1단계: 현재 상태 확인
   console.log('🟡 Hero inView:', hero.inView);
@@ -217,19 +248,26 @@ const Index = () => {
           position: 'fixed',
           top: '10px',
           right: '10px',
-          backgroundColor: 'rgba(0,0,0,0.8)',
+          backgroundColor: 'rgba(0,0,0,0.9)',
           color: 'white',
-          padding: '10px',
-          borderRadius: '5px',
-          fontSize: '12px',
+          padding: '15px',
+          borderRadius: '8px',
+          fontSize: '14px',
           zIndex: 9999,
-          fontFamily: 'monospace'
+          fontFamily: 'monospace',
+          minWidth: '200px'
         }}
       >
-        <div>🟡 Hero: {hero.inView ? 'TRUE' : 'FALSE'}</div>
-        <div>🟢 Second: {secondSection.inView ? 'TRUE' : 'FALSE'}</div>
-        <div>🔵 Third: {thirdSection.inView ? 'TRUE' : 'FALSE'}</div>
+        <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>📊 Debug Panel</div>
+        <div>🟡 Hero: {hero.inView ? '✅ TRUE' : '❌ FALSE'}</div>
+        <div>🟢 Second: {secondSection.inView ? '✅ TRUE' : '❌ FALSE'}</div>
+        <div>🔵 Third: {thirdSection.inView ? '✅ TRUE' : '❌ FALSE'}</div>
         <div>📏 Scroll: {Math.round(scrollY)}px</div>
+        <div style={{ marginTop: '10px', fontSize: '12px', opacity: 0.8 }}>
+          <div>Hero Ref: {hero.ref.current ? '✅' : '❌'}</div>
+          <div>Second Ref: {secondSection.ref.current ? '✅' : '❌'}</div>
+          <div>Third Ref: {thirdSection.ref.current ? '✅' : '❌'}</div>
+        </div>
       </div>
     </div>
   );
