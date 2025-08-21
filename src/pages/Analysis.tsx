@@ -490,7 +490,7 @@ const Analysis = () => {
           </CardContent>
         </Card>
 
-        {/* 유사질환 박스 */}
+       {/* 유사질환 박스 */}
 {analysisResult.similar_diseases && analysisResult.similar_diseases.length > 0 && (
   <Card className="bg-white border border-gray-200 mb-8">
     <CardContent className="p-6">
@@ -499,7 +499,7 @@ const Analysis = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {analysisResult.similar_diseases.slice(0, 2).map((item, index) => {
-          const circleRadius = 12; // 원 크기
+          const circleRadius = 12; // 그래프 크기 그대로 유지
           const circleCircumference = 2 * Math.PI * circleRadius;
           const progress = (item.confidence / 100) * circleCircumference;
 
@@ -510,10 +510,9 @@ const Analysis = () => {
             >
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-medium text-gray-800">{item.name}</h3>
-                
-                {/* 신뢰도 텍스트 왼쪽, 원형 그래프 오른쪽 */}
+
+                {/* 퍼센트 + 원형 그래프 + 신뢰도 */}
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-600 font-sans">신뢰도</span>
                   <div className="relative w-8 h-8 flex-shrink-0">
                     <svg className="w-8 h-8">
                       <circle
@@ -539,10 +538,11 @@ const Analysis = () => {
                         transform="rotate(-90 16 16)"
                       />
                     </svg>
-                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-gray-800">
+                    <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-gray-800">
                       {item.confidence}%
                     </span>
                   </div>
+                  <span className="text-sm text-gray-600 font-sans">신뢰도</span>
                 </div>
               </div>
 
@@ -554,10 +554,6 @@ const Analysis = () => {
     </CardContent>
   </Card>
 )}
-
-
-
-
 
         {/* 병원 추천 */}
         <Card className="bg-white border border-gray-200 mb-8">
