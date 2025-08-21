@@ -271,9 +271,17 @@ const Signup = () => {
                 </div>
               </div>
 
-              <Button type="submit" size="lg" className="w-full bg-black text-white hover:bg-black/80" disabled={isLoading}>
-                {isLoading ? '회원가입 중...' : '회원가입'}
-              </Button>
+            <Button
+  type="submit"
+  size="lg"
+  className="w-full bg-black text-white font-sans relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition duration-300 group overflow-hidden
+  hover:bg-white hover:text-black border-2 border-transparent hover:border-black
+  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+  disabled={isLoading}
+>
+  {isLoading ? '회원가입 중...' : '회원가입'}
+</Button>
+
             </form>
 
             {/* 소셜 로그인 */}
