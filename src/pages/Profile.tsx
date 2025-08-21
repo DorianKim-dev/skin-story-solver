@@ -362,20 +362,28 @@ const Profile = () => {
 
             {/* Action Buttons */}
             <div className="space-y-3">
-              <Button onClick={handleSave} size="lg" className="w-full bg-black text-white hover:bg-gray-800">
-                <Save className="w-4 h-4" />
-                저장하기
-              </Button>
+           <Button
+  onClick={handleSave}
+  size="lg"
+  className="w-full h-16 text-lg bg-black text-white font-sans border-2 border-transparent hover:bg-white hover:text-black hover:border-black 
+  relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden
+  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+>
+  <Save className="w-5 h-5 mr-2 relative z-10" />
+  <span className="relative z-10">저장하기</span>
+</Button>
               
-              <Button 
-                onClick={handleLogout} 
-                variant="outline" 
-                size="lg" 
-                className="w-full text-black border-gray-300 hover:bg-gray-100"
-              >
-                <LogOut className="w-4 h-4" />
-                로그아웃
-              </Button>
+             <Button
+  onClick={handleLogout}
+  variant="outline"
+  size="lg"
+  className="w-full h-16 text-lg font-sans bg-white border-2 border-black text-black relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden
+  hover:bg-black hover:text-white
+  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+>
+  <LogOut className="w-5 h-5 mr-2 relative z-10" />
+  <span className="relative z-10">로그아웃</span>
+</Button>
             </div>
           </div>
         </Container>
