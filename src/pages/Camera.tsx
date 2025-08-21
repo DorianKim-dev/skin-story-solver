@@ -355,28 +355,32 @@ const Camera = () => {
           ) : (
             <div className="space-y-3">
               <Button 
-                className="w-full h-16 text-lg bg-black text-white font-sans border-none hover:bg-gray-800" 
-                onClick={() => navigate('/questionnaire', {
-                  state: {
-                    image: capturedImage
-                  }
-                })}
-              >
-                <MessageCircle className="w-5 h-5 mr-2" />
-                설문조사 후 분석하기
-              </Button>
+  className="w-full h-16 text-lg font-sans bg-black text-white relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden 
+  hover:bg-white hover:text-black hover:border-2 hover:border-black
+  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+  onClick={() => navigate('/questionnaire', {
+    state: {
+      image: capturedImage
+    }
+  })}
+>
+  <MessageCircle className="w-5 h-5 mr-2 relative z-10" />
+  <span className="relative z-10">설문조사 후 분석하기</span>
+</Button>
+
               
-              <Button 
-                variant="outline" 
-                className="w-full h-12 text-lg font-sans border-gray-300 text-black hover:bg-black hover:text-white transition-colors" 
-                onClick={() => navigate('/analysis', {
-                  state: {
-                    image: capturedImage
-                  }
-                })}
-              >
-                바로 분석하기
-              </Button>
+             <Button 
+  className="w-full h-12 text-lg font-sans bg-white border-2 border-black text-black relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden 
+  hover:bg-black hover:text-white 
+  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+  onClick={() => navigate('/analysis', {
+    state: {
+      image: capturedImage
+    }
+  })}
+>
+  <span className="relative z-10">바로 분석하기</span>
+</Button>
               
               <p className="text-xs text-center text-gray-500 font-sans">
                 설문조사를 통해 더 정확한 분석을 받을 수 있습니다
@@ -387,16 +391,17 @@ const Camera = () => {
           {/* 재촬영 버튼 (촬영 완료 시에만 표시) */}
           {isComplete && (
             <Button 
-              variant="outline" 
-              className="w-full h-12 text-lg border-gray-300 text-black hover:bg-black hover:text-white mt-3 font-sans transition-colors" 
-              onClick={() => {
-                console.log('Retake button clicked');
-                retake();
-              }}
-            >
-              <RotateCcw className="w-5 h-5 mr-2" />
-              다시 촬영하기
-            </Button>
+  className="w-full h-12 text-lg font-sans bg-white border-2 border-black text-black relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden mt-3
+  hover:bg-black hover:text-white 
+  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+  onClick={() => {
+    console.log('Retake button clicked');
+    retake();
+  }}
+>
+  <RotateCcw className="w-5 h-5 mr-2 relative z-10" />
+  <span className="relative z-10">다시 촬영하기</span>
+</Button>
           )}
         </div>
         
