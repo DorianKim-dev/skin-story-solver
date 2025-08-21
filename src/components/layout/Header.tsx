@@ -6,7 +6,7 @@ const Header = () => {
   const { isAuthenticated, logout } = useAuthContext();
   const location = useLocation();
   
-  const isDarkPage = ['/camera', '/analysis', '/profile'].includes(location.pathname);
+  const isDarkPage = ['/camera', '/analysis', '/profile', '/login', '/signup', '/questionnaire'].includes(location.pathname);
   const textColor = isDarkPage ? 'text-black' : 'text-white/80';
   const hoverColor = isDarkPage ? 'hover:text-black/80' : 'hover:text-white';
 

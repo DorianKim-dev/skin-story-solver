@@ -243,30 +243,30 @@ const Questionnaire = () => {
   const showOptions = currentQuestion?.type === 'select' && !isCompleted;
 
   return (
-    <div className="min-h-screen bg-gradient-glass p-4">
+    <div className="min-h-screen bg-white pt-24 p-4">
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-gradient-primary mb-2">
+          <h1 className="text-2xl font-bold text-black mb-2">
             피부 분석 설문조사
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-black">
             정확한 분석을 위해 몇 가지 질문에 답해주세요
           </p>
           <div className="mt-4">
-            <Badge variant="outline" className="px-4 py-2">
+            <Badge variant="outline" className="px-4 py-2 border-black text-black">
               {currentQuestionIndex + 1} / {questions.length}
             </Badge>
           </div>
           {isAuthenticated && (
-            <p className="text-sm text-blue-600 mt-2">
+            <p className="text-sm text-black mt-2">
               💡 개인정보는 자동으로 프로필에 저장됩니다
             </p>
           )}
         </div>
 
         {/* 채팅 영역 */}
-        <Card className="glass-card mb-4" style={{ height: '60vh' }}>
+        <Card className="bg-white border border-black mb-4" style={{ height: '60vh' }}>
           <CardContent className="p-0 h-full flex flex-col">
             {/* 메시지 영역 */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
@@ -281,13 +281,13 @@ const Questionnaire = () => {
                     <Avatar className="w-8 h-8">
                       {message.type === 'bot' ? (
                         <>
-                          <AvatarFallback className="bg-primary text-primary-foreground">
+                          <AvatarFallback className="bg-black text-white">
                             <Bot className="w-4 h-4" />
                           </AvatarFallback>
                         </>
                       ) : (
                         <>
-                          <AvatarFallback className="bg-secondary">
+                          <AvatarFallback className="bg-white border border-black text-black">
                             <User className="w-4 h-4" />
                           </AvatarFallback>
                         </>
@@ -296,8 +296,8 @@ const Questionnaire = () => {
                     <div
                       className={`rounded-2xl px-4 py-2 ${
                         message.type === 'user'
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-secondary text-secondary-foreground'
+                          ? 'bg-black text-white'
+                          : 'bg-white border border-black text-black'
                       }`}
                     >
                       <p className="text-sm">{message.content}</p>
@@ -311,15 +311,15 @@ const Questionnaire = () => {
                 <div className="flex justify-start">
                   <div className="flex items-start gap-2">
                     <Avatar className="w-8 h-8">
-                      <AvatarFallback className="bg-primary text-primary-foreground">
+                      <AvatarFallback className="bg-black text-white">
                         <Bot className="w-4 h-4" />
                       </AvatarFallback>
                     </Avatar>
-                    <div className="bg-secondary rounded-2xl px-4 py-2">
+                    <div className="bg-white border border-black rounded-2xl px-4 py-2">
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-2 h-2 bg-black rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-black rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-2 h-2 bg-black rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                       </div>
                     </div>
                   </div>
@@ -328,12 +328,12 @@ const Questionnaire = () => {
             </div>
 
             {/* 입력 영역 */}
-            <div className="border-t p-4">
+            <div className="border-t border-black p-4">
               {isCompleted ? (
                 <div className="text-center">
                   <Button 
                     onClick={handleStartAnalysis}
-                    className="bg-gradient-primary hover:bg-primary/90 text-white"
+                    className="bg-black text-white hover:bg-black/80"
                     size="lg"
                   >
                     <ArrowRight className="w-4 h-4 mr-2" />
@@ -350,7 +350,7 @@ const Questionnaire = () => {
                           key={index}
                           variant="outline"
                           onClick={() => handleOptionSelect(option)}
-                          className="text-sm h-auto py-2 px-3 whitespace-normal"
+                          className="text-sm h-auto py-2 px-3 whitespace-normal border-black text-black hover:bg-black hover:text-white"
                         >
                           {option}
                         </Button>
@@ -371,12 +371,13 @@ const Questionnaire = () => {
                             handleSendAnswer(currentInput);
                           }
                         }}
-                        className="flex-1"
+                        className="flex-1 bg-white border-black text-black"
                       />
                       <Button 
                         onClick={() => handleSendAnswer(currentInput)}
                         disabled={!currentInput.trim()}
                         size="icon"
+                        className="bg-black text-white hover:bg-black/80"
                       >
                         <Send className="w-4 h-4" />
                       </Button>
@@ -389,10 +390,10 @@ const Questionnaire = () => {
         </Card>
 
         {/* 진행 상황 */}
-        <div className="text-center text-sm text-muted-foreground">
+        <div className="text-center text-sm text-black">
           간소화된 5단계 설문조사 • 완료 후 AI 분석이 시작됩니다
           {isAuthenticated && (
-            <div className="mt-1 text-blue-600">
+            <div className="mt-1 text-black">
               ✨ 로그인 상태에서 개인정보가 자동 저장됩니다
             </div>
           )}
