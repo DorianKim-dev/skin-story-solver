@@ -126,45 +126,16 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* AI 진단 홍보 Section - 호버 오버레이 효과 추가 */}
+      {/* AI 진단 홍보 Section - 기존 콘텐츠 보이게 수정 */}
       <Section 
         spacing="hero" 
         className="relative min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/lovable-uploads/e737c29e-2c53-4377-945c-75e21ea3a41d.png)',
           scrollSnapAlign: 'start',
-          scrollSnapStop: 'always',
-          cursor: 'pointer'
-        }}
-        onMouseEnter={(e) => {
-          const overlay = e.currentTarget.querySelector('.hover-overlay');
-          if (overlay) {
-            overlay.style.opacity = '0.2';
-          }
-          const content = e.currentTarget.querySelector('.hover-content');
-          if (content) {
-            content.style.opacity = '1';
-            content.style.transform = 'translate(-50%, -50%) translateY(0)';
-          }
-        }}
-        onMouseLeave={(e) => {
-          const overlay = e.currentTarget.querySelector('.hover-overlay');
-          if (overlay) {
-            overlay.style.opacity = '0';
-          }
-          const content = e.currentTarget.querySelector('.hover-content');
-          if (content) {
-            content.style.opacity = '0';
-            content.style.transform = 'translate(-50%, -50%) translateY(20px)';
-          }
+          scrollSnapStop: 'always'
         }}
       >
-        {/* 호버 오버레이 */}
-        <div 
-          className="hover-overlay absolute inset-0 bg-black transition-all duration-300"
-          style={{ opacity: 0 }}
-        ></div>
-        
         <Container size="xl">
           <div 
             ref={secondSection.ref}
@@ -187,69 +158,18 @@ const Index = () => {
             </Link>
           </div>
         </Container>
-        
-        {/* 호버시 나타나는 콘텐츠 */}
-        <div 
-          className="hover-content absolute top-1/2 left-1/2 text-center transition-all duration-300"
-          style={{
-            transform: 'translate(-50%, -50%) translateY(20px)',
-            opacity: 0,
-            zIndex: 10
-          }}
-        >
-          <h2 className="text-3xl md:text-4xl font-sans font-bold text-white mb-6">
-            AI 기술로 종양을 정밀 분석
-          </h2>
-          <Link to="/camera">
-            <Button 
-              size="lg" 
-              className="bg-white text-black font-sans hover:bg-gray-100 transition-all duration-200 px-8 py-4 text-lg"
-            >
-              AI 종양 분석하기
-            </Button>
-          </Link>
-        </div>
       </Section>
 
-      {/* AI 안면 분석 Section - 호버 오버레이 효과 추가 */}
+      {/* AI 안면 분석 Section - 기존 콘텐츠 보이게 수정 */}
       <Section 
         spacing="hero" 
         className="relative min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)',
           scrollSnapAlign: 'start',
-          scrollSnapStop: 'always',
-          cursor: 'pointer'
-        }}
-        onMouseEnter={(e) => {
-          const overlay = e.currentTarget.querySelector('.hover-overlay');
-          if (overlay) {
-            overlay.style.opacity = '0.2';
-          }
-          const content = e.currentTarget.querySelector('.hover-content');
-          if (content) {
-            content.style.opacity = '1';
-            content.style.transform = 'translate(-50%, -50%) translateY(0)';
-          }
-        }}
-        onMouseLeave={(e) => {
-          const overlay = e.currentTarget.querySelector('.hover-overlay');
-          if (overlay) {
-            overlay.style.opacity = '0';
-          }
-          const content = e.currentTarget.querySelector('.hover-content');
-          if (content) {
-            content.style.opacity = '0';
-            content.style.transform = 'translate(-50%, -50%) translateY(20px)';
-          }
+          scrollSnapStop: 'always'
         }}
       >
-        {/* 호버 오버레이 */}
-        <div 
-          className="hover-overlay absolute inset-0 bg-black transition-all duration-300"
-          style={{ opacity: 0 }}
-        ></div>
-        
         <Container size="xl">
           <div 
             ref={thirdSection.ref}
@@ -272,28 +192,6 @@ const Index = () => {
             </Link>
           </div>
         </Container>
-        
-        {/* 호버시 나타나는 콘텐츠 */}
-        <div 
-          className="hover-content absolute top-1/2 left-1/2 text-center transition-all duration-300"
-          style={{
-            transform: 'translate(-50%, -50%) translateY(20px)',
-            opacity: 0,
-            zIndex: 10
-          }}
-        >
-          <h2 className="text-3xl md:text-4xl font-sans font-bold text-white mb-6">
-            AI 기술로 얼굴을 자동 인식하고 분석
-          </h2>
-          <Link to="/camera">
-            <Button 
-              size="lg" 
-              className="bg-white text-black font-sans hover:bg-gray-100 transition-all duration-200 px-8 py-4 text-lg"
-            >
-              AI 안면부 분석하기
-            </Button>
-          </Link>
-        </div>
       </Section>
     </div>
   );
