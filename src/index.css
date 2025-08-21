@@ -157,26 +157,32 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  /* Enhanced body and html for scroll snap */
+  html,
   body {
+    height: 100%;
+    margin: 0;
+    scroll-behavior: smooth;
     @apply bg-background text-foreground font-inter;
   }
 }
 
 @layer components {
   /* ============================================
-     1. 스크롤 스냅 (Scroll Snap) 
+     1. 스크롤 스냅 (Scroll Snap) - 향상된 버전
      ============================================ */
   
   /* 스크롤 스냅 컨테이너 */
   .scroll-snap-container {
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
     height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
   }
   
   /* 스크롤 스냅 섹션 */
   .scroll-snap-section {
+    height: 100vh;
     scroll-snap-align: start;
     min-height: 100vh;
     scroll-snap-stop: always;
@@ -188,18 +194,20 @@ All colors MUST be HSL.
   }
 
   /* ============================================
-     2. 섹션 진입 애니메이션 (Scroll Reveal)
+     2. 섹션 진입 애니메이션 (Scroll Reveal) - 향상된 버전
      ============================================ */
   
-  /* 페이드 인 + 슬라이드 업 */
-  .scroll-reveal {
+  /* 통합된 페이드 슬라이드 업 */
+  .scroll-reveal,
+  .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: var(--transition-medium);
     transition-delay: 0.1s;
   }
   
-  .scroll-reveal.revealed {
+  .scroll-reveal.revealed,
+  .reveal.visible {
     opacity: 1;
     transform: translateY(0);
   }
@@ -248,7 +256,7 @@ All colors MUST be HSL.
   .scroll-reveal-stagger:nth-child(5) { transition-delay: 0.5s; }
 
   /* ============================================
-     3. 호버 오버레이 (Hover Overlay)
+     3. 호버 오버레이 (Hover Overlay) - 향상된 버전
      ============================================ */
   
   /* 기본 호버 오버레이 */
@@ -311,7 +319,7 @@ All colors MUST be HSL.
   }
 
   /* ============================================
-     4. 이미지 카드 호버 효과
+     4. 이미지 카드 호버 효과 - 향상된 버전
      ============================================ */
   
   .image-card {
@@ -326,23 +334,35 @@ All colors MUST be HSL.
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   }
   
-  .image-card .image-overlay {
+  .image-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: var(--transition-medium);
+  }
+  
+  .image-card .image-overlay,
+  .image-card-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-      180deg, 
-      transparent 0%, 
-      rgba(0, 0, 0, 0.7) 100%
-    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
     opacity: 0;
+    transform: translateY(20px);
     transition: var(--transition-quick);
   }
   
-  .image-card:hover .image-overlay {
+  .image-card:hover .image-overlay,
+  .image-card:hover .image-card-overlay {
     opacity: 1;
+    transform: translateY(0);
   }
   
   .image-card .card-content {
@@ -362,7 +382,7 @@ All colors MUST be HSL.
   }
 
   /* ============================================
-     기존 스타일들
+     5. 부드러운 전환 통일 (Unified Smooth Transitions)
      ============================================ */
   
   /* 글래스모피즘 카드 */
@@ -416,6 +436,14 @@ All colors MUST be HSL.
   .btn-glass:hover {
     @apply bg-white/30;
     transform: translateY(-2px);
+  }
+  
+  /* 통일된 전환 효과 - 추가된 요소들 */
+  button,
+  a,
+  .card,
+  .image-card-overlay {
+    transition: all 0.3s ease-in-out;
   }
 
   /* 커스텀 그라데이션 */
@@ -566,7 +594,7 @@ All colors MUST be HSL.
   75% { transform: translateX(15px) scale(1.02); }
 }
 
-/* 새로운 애니메이션들 */
+/* 새로운 통합 애니메이션들 */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -580,6 +608,17 @@ All colors MUST be HSL.
   to { 
     opacity: 1; 
     transform: translateY(0); 
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
