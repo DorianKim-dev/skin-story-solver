@@ -355,8 +355,7 @@ const Camera = () => {
           ) : (
             <div className="space-y-3">
               <Button 
-  className="w-full h-16 text-lg font-sans bg-black text-white relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden 
-  hover:bg-white hover:text-black hover:border-2 hover:border-black
+  className="w-full h-16 text-lg bg-black text-white font-sans border-2 border-transparent hover:bg-white hover:text-black hover:border-black relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden 
   before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
   onClick={() => navigate('/questionnaire', {
     state: {
@@ -367,6 +366,7 @@ const Camera = () => {
   <MessageCircle className="w-5 h-5 mr-2 relative z-10" />
   <span className="relative z-10">설문조사 후 분석하기</span>
 </Button>
+
 
               
              <Button 
