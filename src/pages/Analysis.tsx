@@ -511,8 +511,9 @@ const Analysis = () => {
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-medium text-gray-800">{item.name}</h3>
                 
-                {/* 퍼센트 + 원형 그래프 + 신뢰도 */}
+                {/* 신뢰도 텍스트 왼쪽, 원형 그래프 오른쪽 */}
                 <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600 font-sans">신뢰도</span>
                   <div className="relative w-8 h-8 flex-shrink-0">
                     <svg className="w-8 h-8">
                       <circle
@@ -538,11 +539,10 @@ const Analysis = () => {
                         transform="rotate(-90 16 16)"
                       />
                     </svg>
-                    <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-gray-800">
+                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-gray-800">
                       {item.confidence}%
                     </span>
                   </div>
-                  <span className="text-sm text-gray-600 font-sans">신뢰도</span>
                 </div>
               </div>
 
@@ -554,6 +554,7 @@ const Analysis = () => {
     </CardContent>
   </Card>
 )}
+
 
 
 
