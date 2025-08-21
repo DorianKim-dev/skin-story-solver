@@ -120,37 +120,42 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* AI 안면 분석 Section */}
-      <Section 
-        spacing="hero" 
-        className="relative min-h-screen bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)'
-        }}
-      >
-        <Container size="xl">
-          <div 
-            ref={thirdSection.ref}
-            className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
-              thirdSection.inView 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-10'
-            }`}
-          >
-            <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
-              AI 기술로 얼굴을 자동 인식하고 분석
-            </h2>
-            <Link to="/camera">
-              <Button 
-                size="lg" 
-                className="bg-transparent border-2 border-white text-white font-sans hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 text-lg"
-              >
-                AI 안면부 분석하기
-              </Button>
-            </Link>
-          </div>
-        </Container>
-      </Section>
+     {/* AI 안면 분석 Section */}
+<Section 
+  spacing="hero" 
+  className="relative min-h-screen parallax-section"
+  style={{
+    backgroundImage: 'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)',
+    backgroundAttachment: 'fixed',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover'
+  }}
+>
+  <Container size="xl">
+    <div 
+      ref={thirdSection.ref}
+      className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
+        thirdSection.inView 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-10'
+      }`}
+    >
+      <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
+        AI 기술로 얼굴을 자동 인식하고 분석
+      </h2>
+      <Link to="/camera">
+        <Button 
+          size="lg" 
+          className="bg-transparent border-2 border-white text-white font-sans hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 text-lg"
+        >
+          AI 안면부 분석하기
+        </Button>
+      </Link>
+    </div>
+  </Container>
+</Section>
+
     </div>;
 };
 export default Index;
