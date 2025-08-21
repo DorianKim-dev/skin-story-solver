@@ -24,7 +24,6 @@ const Login = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -32,15 +31,12 @@ const Login = () => {
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {};
-    
     if (!formData.email.trim()) {
       newErrors.email = '이메일을 입력해주세요';
     }
-    
     if (!formData.password) {
       newErrors.password = '비밀번호를 입력해주세요';
     }
-    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -49,33 +45,21 @@ const Login = () => {
     e.preventDefault();
     if (validateForm()) {
       setIsLoading(true);
-      console.log('로그인 요청 데이터:', formData); // 디버깅용
-      
       try {
         const response = await authService.login(formData);
-        console.log('로그인 성공 응답:', response); // 디버깅용
-        
         if (response.success) {
-          // 로그인 성공 시 토큰 저장 및 사용자 정보 업데이트
           const { accessToken, refreshToken, user } = response.data;
-          
           localStorage.setItem('accessToken', accessToken);
           localStorage.setItem('refreshToken', refreshToken);
           localStorage.setItem('userId', user.id.toString());
           localStorage.setItem('userInfo', JSON.stringify(user));
-          
-          // AuthContext의 로그인 함수 호출
           authLogin(user, accessToken, refreshToken);
-          
           toast.success(`${user.name}님, 환영합니다!`);
           navigate('/');
         } else {
           toast.error(response.message || '로그인에 실패했습니다.');
         }
       } catch (error: any) {
-        console.error('로그인 실패:', error);
-        console.error('에러 응답 상세:', error.response?.data); // 상세 에러 정보
-        
         const errorMessage = error.response?.data?.message || 
                             error.response?.data?.error || 
                             '로그인에 실패했습니다.';
@@ -87,20 +71,20 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-black flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 text-white hover:text-gray-300 transition-colors mb-6">
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm">돌아가기</span>
           </Link>
         </div>
 
-        <Card>
+        <Card className="bg-black border border-white text-white">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">로그인</CardTitle>
-            <p className="text-gray-600">계정에 로그인하여 서비스를 이용하세요</p>
+            <CardTitle className="text-2xl text-white">로그인</CardTitle>
+            <p className="text-gray-300">계정에 로그인하여 서비스를 이용하세요</p>
           </CardHeader>
           
           <CardContent>
@@ -108,7 +92,7 @@ const Login = () => {
               <div className="space-y-4">
                 {/* Email */}
                 <div className="space-y-2">
-                  <Label htmlFor="email">이메일</Label>
+                  <Label htmlFor="email" className="text-white">이메일</Label>
                   <Input
                     id="email"
                     name="email"
@@ -116,7 +100,7 @@ const Login = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="이메일을 입력하세요"
-                    className={errors.email ? 'border-red-500' : ''}
+                    className={`bg-black text-white border ${errors.email ? 'border-red-500' : 'border-white'}`}
                   />
                   {errors.email && (
                     <p className="text-sm text-red-500">
@@ -127,7 +111,7 @@ const Login = () => {
 
                 {/* Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="password">비밀번호</Label>
+                  <Label htmlFor="password" className="text-white">비밀번호</Label>
                   <div className="relative">
                     <Input
                       id="password"
@@ -136,13 +120,13 @@ const Login = () => {
                       value={formData.password}
                       onChange={handleInputChange}
                       placeholder="비밀번호를 입력하세요"
-                      className={errors.password ? 'border-red-500 pr-10' : 'pr-10'}
+                      className={`bg-black text-white border pr-10 ${errors.password ? 'border-red-500' : 'border-white'}`}
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="absolute right-0 top-0 h-full px-3"
+                      className="absolute right-0 top-0 h-full px-3 text-white"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
@@ -161,7 +145,7 @@ const Login = () => {
               </div>
 
               {/* Submit Button */}
-              <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+              <Button type="submit" size="lg" className="w-full bg-white text-black hover:bg-gray-200" disabled={isLoading}>
                 {isLoading ? '로그인 중...' : '로그인'}
               </Button>
             </form>
@@ -170,10 +154,10 @@ const Login = () => {
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200"></div>
+                  <div className="w-full border-t border-white"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-gray-500">또는</span>
+                  <span className="px-4 bg-black text-white">또는</span>
                 </div>
               </div>
               
@@ -182,9 +166,9 @@ const Login = () => {
 
             {/* Sign up link */}
             <div className="mt-6 text-center">
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 계정이 없으신가요?{' '}
-                <Link to="/signup" className="text-blue-600 hover:underline font-medium">
+                <Link to="/signup" className="text-white hover:underline font-medium">
                   회원가입
                 </Link>
               </p>
