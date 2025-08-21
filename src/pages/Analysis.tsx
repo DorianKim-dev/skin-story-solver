@@ -499,7 +499,7 @@ const Analysis = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {analysisResult.similar_diseases.slice(0, 2).map((item, index) => {
-          const circleRadius = 18; // 그래프 크기 키움
+          const circleRadius = 18; // 그래프 크기
           const circleCircumference = 2 * Math.PI * circleRadius;
           const progress = (item.confidence / 100) * circleCircumference;
 
@@ -539,7 +539,7 @@ const Analysis = () => {
                         transform="rotate(-90 24 24)"
                       />
                     </svg>
-                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-gray-800">
+                    <span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-gray-800">
                       {item.confidence}%
                     </span>
                   </div>
