@@ -467,18 +467,19 @@ const Analysis = () => {
                   </p>
                   
                   {/* 신뢰도 바 */}
-                  <div className="mb-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-gray-600">신뢰도</span>
-                      <span className="font-semibold">{analysisResult.confidence}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-primary h-2 rounded-full transition-all duration-500" 
-                        style={{ width: `${analysisResult.confidence}%` }}
-                      ></div>
-                    </div>
-                  </div>
+<div className="mb-4">
+  <div className="flex justify-between items-center mb-2">
+    <span className="text-sm text-gray-600">신뢰도</span>
+    <span className="font-semibold">{analysisResult.confidence}%</span>
+  </div>
+  <div className="w-full bg-gray-200 rounded-full h-2">
+    <div 
+      className="bg-blue-500 h-2 rounded-full transition-all duration-500" 
+      style={{ width: `${analysisResult.confidence}%` }}
+    ></div>
+  </div>
+</div>
+
 
                   {analysisResult.confidence < 70 && (
                     <div className="flex items-center gap-2 text-gray-700 text-sm p-3 bg-gray-100 rounded-lg border border-gray-300">
