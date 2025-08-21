@@ -1,139 +1,133 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Camera, Search, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerClick } from 'lucide-react';
 
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   
-  // 개별 섹션 상태
-  const [heroInView, setHeroInView] = useState(false);
-  const [secondInView, setSecondInView] = useState(false);
-  const [thirdInView, setThirdInView] = useState(false);
+  // 간단한 상태 관리
+  const [visibleSections, setVisibleSections] = useState({
+    hero: false,
+    second: false,
+    third: false
+  });
   
   // refs
   const heroRef = useRef(null);
   const secondRef = useRef(null);
   const thirdRef = useRef(null);
 
-  // 🔧 수정된 intersection observer 설정
+  // 🔥 완전히 새로운 접근: 스크롤 기반 가시성 체크
   useEffect(() => {
-    const observerOptions = {
-      threshold: [0, 0.1, 0.3, 0.5, 0.7, 1.0],
-      rootMargin: '100px 0px 100px 0px' // 더 관대한 마진
-    };
-
-    const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        const ratio = entry.intersectionRatio;
-        const isIntersecting = entry.isIntersecting;
-        
-        console.log('👁️ Observer triggered:', {
-          target: entry.target.dataset.section,
-          isIntersecting,
-          ratio: ratio.toFixed(2),
-          rect: {
-            top: Math.round(entry.boundingClientRect.top),
-            bottom: Math.round(entry.boundingClientRect.bottom),
-            height: Math.round(entry.boundingClientRect.height)
-          }
-        });
-
-        // 더 관대한 조건: 10% 이상 보이거나 교차하고 있으면 true
-        const shouldBeVisible = isIntersecting && ratio > 0.1;
-        
-        // 각 섹션별로 상태 업데이트
-        if (entry.target === heroRef.current) {
-          setHeroInView(shouldBeVisible);
-          console.log('🟡 Hero state updated:', shouldBeVisible);
-        } else if (entry.target === secondRef.current) {
-          setSecondInView(shouldBeVisible);
-          console.log('🟢 Second state updated:', shouldBeVisible);
-        } else if (entry.target === thirdRef.current) {
-          setThirdInView(shouldBeVisible);
-          console.log('🔵 Third state updated:', shouldBeVisible);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    // 모든 ref가 준비될 때까지 기다린 후 observe 시작
-    const observeElements = () => {
-      const elements = [
-        { ref: heroRef, name: 'Hero' },
-        { ref: secondRef, name: 'Second' },
-        { ref: thirdRef, name: 'Third' }
+    const checkVisibility = () => {
+      const sections = [
+        { ref: heroRef, key: 'hero', name: 'Hero' },
+        { ref: secondRef, key: 'second', name: 'Second' },
+        { ref: thirdRef, key: 'third', name: 'Third' }
       ];
 
-      elements.forEach(({ ref, name }) => {
+      const newVisibility = {};
+      
+      sections.forEach(({ ref, key, name }) => {
         if (ref.current) {
-          ref.current.dataset.section = name; // 디버깅용 식별자
-          observer.observe(ref.current);
-          console.log(`✅ ${name} observer attached`);
+          const rect = ref.current.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          
+          // 더 관대한 조건: 요소의 30% 이상이 보이면 visible
+          const visibleHeight = Math.max(0, 
+            Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0)
+          );
+          const totalHeight = rect.height;
+          const visibilityPercentage = (visibleHeight / totalHeight) * 100;
+          
+          const isVisible = visibilityPercentage > 30;
+          newVisibility[key] = isVisible;
+          
+          console.log(`📊 ${name} Visibility:`, {
+            top: Math.round(rect.top),
+            bottom: Math.round(rect.bottom),
+            height: Math.round(totalHeight),
+            visibleHeight: Math.round(visibleHeight),
+            percentage: Math.round(visibilityPercentage),
+            isVisible,
+            windowHeight
+          });
         } else {
-          console.log(`❌ ${name} ref not ready`);
+          newVisibility[key] = false;
         }
+      });
+
+      // 상태 업데이트 (변경된 것만)
+      setVisibleSections(prev => {
+        let hasChanged = false;
+        const updated = { ...prev };
+        
+        Object.keys(newVisibility).forEach(key => {
+          if (prev[key] !== newVisibility[key]) {
+            hasChanged = true;
+            updated[key] = newVisibility[key];
+            console.log(`🔄 ${key} visibility changed: ${prev[key]} → ${newVisibility[key]}`);
+          }
+        });
+        
+        return hasChanged ? updated : prev;
       });
     };
 
-    // DOM이 준비된 후 관찰 시작
-    const timer = setTimeout(observeElements, 100);
+    // 스크롤 이벤트에 체크 함수 연결
+    const handleScroll = () => {
+      const newScrollY = window.scrollY;
+      setScrollY(newScrollY);
+      
+      // 스크롤할 때마다 가시성 체크
+      checkVisibility();
+    };
+
+    // 초기 체크
+    setTimeout(checkVisibility, 100);
+    
+    // 스크롤 이벤트 리스너
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // 리사이즈 시에도 체크
+    window.addEventListener('resize', checkVisibility, { passive: true });
 
     return () => {
-      clearTimeout(timer);
-      observer.disconnect();
-      console.log('🧹 All observers disconnected');
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkVisibility);
     };
-  }, []); // 의존성 배열을 비워서 한 번만 실행
-
-  // Scroll handler
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 수동 가시성 검사 함수
-  const manualVisibilityCheck = useCallback(() => {
+  // 수동 체크 함수 (디버깅용)
+  const manualCheck = () => {
+    console.log('🔍 Manual check triggered');
     const sections = [
-      { ref: heroRef, name: 'Hero', state: heroInView },
-      { ref: secondRef, name: 'Second', state: secondInView },
-      { ref: thirdRef, name: 'Third', state: thirdInView }
+      { ref: heroRef, name: 'Hero', visible: visibleSections.hero },
+      { ref: secondRef, name: 'Second', visible: visibleSections.second },
+      { ref: thirdRef, name: 'Third', visible: visibleSections.third }
     ];
 
-    sections.forEach(({ ref, name, state }) => {
+    sections.forEach(({ ref, name, visible }) => {
       if (ref.current) {
         const rect = ref.current.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-        const visibilityPercentage = Math.max(0, Math.min(100, 
-          ((window.innerHeight - rect.top) / (window.innerHeight + rect.height)) * 100
-        ));
-
-        console.log(`🔍 ${name} Manual Check:`, {
-          top: Math.round(rect.top),
-          bottom: Math.round(rect.bottom),
-          height: Math.round(rect.height),
-          windowHeight: window.innerHeight,
-          isVisible,
-          visibilityPercentage: Math.round(visibilityPercentage),
-          currentState: state
+        console.log(`🔍 ${name}:`, {
+          currentState: visible,
+          rect: {
+            top: Math.round(rect.top),
+            bottom: Math.round(rect.bottom),
+            height: Math.round(rect.height)
+          },
+          windowHeight: window.innerHeight
         });
       }
     });
-  }, [heroInView, secondInView, thirdInView]);
-
-  // 3초마다 수동 체크
-  useEffect(() => {
-    const interval = setInterval(manualVisibilityCheck, 3000);
-    return () => clearInterval(interval);
-  }, [manualVisibilityCheck]);
+  };
 
   // 디버깅 로그
-  console.log('🟡 Hero inView:', heroInView);
-  console.log('🟢 Second Section inView:', secondInView);
-  console.log('🔵 Third Section inView:', thirdInView);
-  console.log('📏 Scroll Y position:', scrollY);
+  console.log('🟡 Hero visible:', visibleSections.hero);
+  console.log('🟢 Second visible:', visibleSections.second);
+  console.log('🔵 Third visible:', visibleSections.third);
 
-  // Components (간소화)
+  // Components
   const Button = ({ children, className, ...props }) => (
     <button className={className} {...props}>
       {children}
@@ -178,7 +172,7 @@ const Index = () => {
             <div 
               ref={heroRef}
               className={`w-full max-w-2xl text-center space-y-6 mt-20 transition-all duration-1000 ease-out ${
-                heroInView 
+                visibleSections.hero 
                   ? 'opacity-100 translate-y-0' 
                   : 'opacity-0 translate-y-10'
               }`}
@@ -186,8 +180,8 @@ const Index = () => {
                 transform: `translateY(${scrollY * 0.5}px)`,
               }}
               onClick={() => {
-                console.log('🟡 Hero section clicked, inView:', heroInView);
-                manualVisibilityCheck();
+                console.log('🟡 Hero clicked, visible:', visibleSections.hero);
+                manualCheck();
               }}
             >
               <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
@@ -212,13 +206,13 @@ const Index = () => {
           <div 
             ref={secondRef}
             className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
-              secondInView 
+              visibleSections.second 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
             }`}
             onClick={() => {
-              console.log('🟢 Second section clicked, inView:', secondInView);
-              manualVisibilityCheck();
+              console.log('🟢 Second clicked, visible:', visibleSections.second);
+              manualCheck();
             }}
           >
             <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
@@ -246,13 +240,13 @@ const Index = () => {
           <div 
             ref={thirdRef}
             className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
-              thirdInView 
+              visibleSections.third 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
             }`}
             onClick={() => {
-              console.log('🔵 Third section clicked, inView:', thirdInView);
-              manualVisibilityCheck();
+              console.log('🔵 Third clicked, visible:', visibleSections.third);
+              manualCheck();
             }}
             onMouseEnter={() => console.log('🔵 Mouse entered third section')}
           >
@@ -270,7 +264,7 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* 개선된 디버깅 패널 */}
+      {/* 간소화된 디버깅 패널 */}
       <div 
         style={{
           position: 'fixed',
@@ -283,13 +277,13 @@ const Index = () => {
           fontSize: '14px',
           zIndex: 9999,
           fontFamily: 'monospace',
-          minWidth: '280px'
+          minWidth: '300px'
         }}
       >
-        <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>📊 Debug Panel (Fixed)</div>
-        <div>🟡 Hero: {heroInView ? '✅ TRUE' : '❌ FALSE'}</div>
-        <div>🟢 Second: {secondInView ? '✅ TRUE' : '❌ FALSE'}</div>
-        <div>🔵 Third: {thirdInView ? '✅ TRUE' : '❌ FALSE'}</div>
+        <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>📊 Scroll-Based Detection</div>
+        <div>🟡 Hero: {visibleSections.hero ? '✅ VISIBLE' : '❌ HIDDEN'}</div>
+        <div>🟢 Second: {visibleSections.second ? '✅ VISIBLE' : '❌ HIDDEN'}</div>
+        <div>🔵 Third: {visibleSections.third ? '✅ VISIBLE' : '❌ HIDDEN'}</div>
         <div>📏 Scroll: {Math.round(scrollY)}px</div>
         <div style={{ marginTop: '10px', fontSize: '12px', opacity: 0.8 }}>
           <div>Hero Ref: {heroRef.current ? '✅' : '❌'}</div>
@@ -297,7 +291,7 @@ const Index = () => {
           <div>Third Ref: {thirdRef.current ? '✅' : '❌'}</div>
         </div>
         <button 
-          onClick={manualVisibilityCheck}
+          onClick={manualCheck}
           style={{
             marginTop: '10px',
             padding: '5px 10px',
@@ -309,10 +303,10 @@ const Index = () => {
             fontSize: '12px'
           }}
         >
-          Manual Visibility Check
+          Manual Check
         </button>
         <div style={{ marginTop: '10px', fontSize: '11px', opacity: 0.7 }}>
-          Fixed: Single observer, better timing, more tolerant thresholds
+          ✨ New: Pure scroll-based detection, no IntersectionObserver conflicts
         </div>
       </div>
     </div>
