@@ -677,7 +677,7 @@ const Analysis = () => {
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="궁금한 점을 물어보세요..."
-                    className="flex-1 border border-black focus:border-black hover:border-black focus:ring-0 focus:ring-offset-0 focus:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+                    className="flex-1 border-black focus:border-black hover:border-black focus:ring-2 focus:ring-black focus:ring-offset-0 focus:outline-none"
                   />
                   <Button 
                     onClick={sendMessage}
