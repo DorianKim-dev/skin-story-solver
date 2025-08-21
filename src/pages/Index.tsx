@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Typography } from '@/components/ui/theme-typography';
 import { Container, Section } from '@/components/ui/theme-container';
-import { Camera, Search } from 'lucide-react';
 import { useAuthContext } from '@/contexts/AuthContext';
 
 const Index = () => {
@@ -33,24 +32,26 @@ const Index = () => {
   return (
     <div className="theme-home-bright min-h-screen bg-white overflow-x-hidden">
       {/* Hero Section */}
-      <Section
-        spacing="hero"
-        className="relative min-h-screen parallax-section"
-        style={{
-          backgroundImage:
-            'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)',
-          backgroundAttachment: 'fixed',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}
-      >
+      <Section spacing="hero" className="relative min-h-screen overflow-hidden">
+        {/* 배경 이미지 */}
+        <div
+          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-out ${
+            hero.inView ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{
+            backgroundImage:
+              'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)',
+          }}
+        />
+
         <Container size="xl">
           <div className="relative z-10 flex items-center justify-center py-20 min-h-screen">
             <div
               ref={hero.ref}
               className={`w-full max-w-2xl text-center space-y-6 mt-20 transition-all duration-1000 ease-out ${
-                hero.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                hero.inView
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-10'
               }`}
             >
               <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
@@ -68,18 +69,22 @@ const Index = () => {
       </Section>
 
       {/* AI 진단 홍보 Section */}
-      <Section
-        spacing="hero"
-        className="relative min-h-screen bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            'url(/lovable-uploads/e737c29e-2c53-4377-945c-75e21ea3a41d.png)',
-        }}
-      >
+      <Section spacing="hero" className="relative min-h-screen overflow-hidden">
+        {/* 배경 이미지 */}
+        <div
+          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-out ${
+            secondSection.inView ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{
+            backgroundImage:
+              'url(/lovable-uploads/e737c29e-2c53-4377-945c-75e21ea3a41d.png)',
+          }}
+        />
+
         <Container size="xl">
           <div
             ref={secondSection.ref}
-            className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
+            className={`relative z-10 flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
               secondSection.inView
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-10'
@@ -101,18 +106,22 @@ const Index = () => {
       </Section>
 
       {/* AI 안면 분석 Section */}
-      <Section
-        spacing="hero"
-        className="relative min-h-screen bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage:
-            'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)',
-        }}
-      >
+      <Section spacing="hero" className="relative min-h-screen overflow-hidden">
+        {/* 배경 이미지 */}
+        <div
+          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-out ${
+            thirdSection.inView ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{
+            backgroundImage:
+              'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)',
+          }}
+        />
+
         <Container size="xl">
           <div
             ref={thirdSection.ref}
-            className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
+            className={`relative z-10 flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
               thirdSection.inView
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-10'
