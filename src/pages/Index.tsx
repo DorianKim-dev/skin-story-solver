@@ -68,22 +68,23 @@ const Index = () => {
     <div className="relative z-10 flex items-center justify-center py-20 min-h-screen">
       <div 
         ref={hero.ref} 
-        className={`w-full max-w-2xl text-center space-y-6 mt-20 transition-all duration-1000 ease-out ${
+        className={`flex flex-col items-center justify-center text-center space-y-8 transition-all duration-1000 ease-out ${
           hero.inView 
             ? 'opacity-100 translate-y-0' 
             : 'opacity-0 translate-y-10'
         }`}
       >
-        <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
+        <h1 className="text-4xl md:text-6xl text-white font-sans font-bold">
           Diagnose. Match. Heal.
-        </div>
-        <Typography variant="h2" className="max-w-xl mx-auto text-white/90 text-center">
+        </h1>
+        <h2 className="text-xl md:text-2xl text-white/90 font-sans">
           AI가 제안하는 당신만의 피부 솔루션
-        </Typography>
+        </h2>
       </div>
     </div>
   </Container>
 </Section>
+
 
 
       {/* AI 진단 홍보 Section */}
