@@ -138,9 +138,17 @@ const Login = () => {
               </div>
 
               {/* Submit Button */}
-              <Button type="submit" size="lg" className="w-full bg-black text-white hover:bg-gray-800" disabled={isLoading}>
-                {isLoading ? '로그인 중...' : '로그인'}
-              </Button>
+              <Button
+  type="submit"
+  size="lg"
+  className="w-full bg-black text-white font-sans relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden
+  hover:bg-white hover:text-black hover:border-2 hover:border-black
+  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+  disabled={isLoading}
+>
+  {isLoading ? '로그인 중...' : '로그인'}
+</Button>
+
             </form>
 
             {/* Social Login */}
