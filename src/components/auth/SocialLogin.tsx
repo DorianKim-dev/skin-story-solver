@@ -127,8 +127,8 @@ const SocialLogin = ({ isSignup = false }: SocialLoginProps) => {
     key={provider.key}
     variant="outline"
     size="lg"
-    className={`w-full ${provider.bgColor} ${provider.textColor} border-0
-      hover:border-2 hover:border-black hover:bg-white hover:text-black
+    className={`w-full border-0
+      hover:border-2 hover:border-black
       ${!provider.available ? 'opacity-50 cursor-not-allowed' : ''}`}
     onClick={() => handleSocialLogin(provider.name)}
     disabled={loading === provider.key || !provider.available}
