@@ -337,7 +337,7 @@ const Camera = () => {
                   </div>
                   
 <Button 
-  className="w-full h-12 font-sans border-2 border-black text-black relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden 
+  className="w-full h-12 font-sans bg-white border-2 border-black text-black relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden 
   hover:bg-black hover:text-white 
   before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
   onClick={() => document.getElementById('file-input')?.click()}
@@ -345,6 +345,7 @@ const Camera = () => {
   <Upload className="w-5 h-5 mr-2 relative z-10" />
   <span className="relative z-10">갤러리에서 선택</span>
 </Button>
+
 
                   
                   <input id="file-input" type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
