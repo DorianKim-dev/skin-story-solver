@@ -88,48 +88,36 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* AI 진단 홍보 Section */}
-      <Section 
-        spacing="hero" 
-        className="relative min-h-screen bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url(/lovable-uploads/e737c29e-2c53-4377-945c-75e21ea3a41d.png)'
-        }}
-      >
-        <Container size="xl">
-          <div 
-            ref={secondSection.ref}
-            className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
-              secondSection.inView 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-10'
-            }`}
-          >
-            <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
-              AI 기술로 종양을 정밀 분석
-            </h2>
-            <Link to="/camera">
-              <Button 
-                size="lg" 
-                className="bg-transparent border-2 border-white text-white font-sans hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 text-lg"
-              >
-                AI 종양 분석하기
-              </Button>
-            </Link>
-          </div>
-        </Container>
-      </Section>
-
-     {/* AI 안면 분석 Section */}
+      {/* 두 번째 섹션 (배경 고정) */}
 <Section 
   spacing="hero" 
-  className="relative min-h-screen parallax-section"
+  className="relative min-h-screen"
   style={{
-    backgroundImage: 'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)',
-    backgroundAttachment: 'fixed',
+    backgroundImage: 'url(/lovable-uploads/second.png)',
+    backgroundAttachment: 'fixed', // 🔥 고정
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
+  }}
+>
+  <Container size="xl">
+    <div className="flex flex-col items-center justify-center min-h-screen text-center space-y-8 text-white">
+      <h2 className="text-3xl font-bold">두 번째 섹션</h2>
+      <p className="text-lg">배경은 고정되어 있어요.</p>
+    </div>
+  </Container>
+</Section>
+
+{/* 세 번째 섹션 (일반 배경, 위로 올라오는 느낌) */}
+<Section 
+  spacing="hero" 
+  className="relative min-h-screen bg-black bg-opacity-70"
+  style={{
+    backgroundImage: 'url(/lovable-uploads/third.png)',
+    backgroundAttachment: 'scroll', // ✅ 그냥 따라오는 스크롤
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
   }}
 >
   <Container size="xl">
@@ -141,21 +129,11 @@ const Index = () => {
           : 'opacity-0 translate-y-10'
       }`}
     >
-      <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
-        AI 기술로 얼굴을 자동 인식하고 분석
-      </h2>
-      <Link to="/camera">
-        <Button 
-          size="lg" 
-          className="bg-transparent border-2 border-white text-white font-sans hover:bg-white hover:text-black transition-all duration-300 px-8 py-4 text-lg"
-        >
-          AI 안면부 분석하기
-        </Button>
-      </Link>
+      <h2 className="text-3xl font-bold text-white">세 번째 섹션</h2>
+      <p className="text-lg text-white">아래에서 위로 올라오면서 두 번째 배경을 덮어요.</p>
     </div>
   </Container>
 </Section>
-
     </div>;
 };
 export default Index;
