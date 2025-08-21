@@ -122,33 +122,33 @@ const SocialLogin = ({ isSignup = false }: SocialLoginProps) => {
         </Button>
       )}
       
-      {socialProviders.map((provider) => (
-        <Button
-          key={provider.key}
-          variant="outline"
-          size="lg"
-          className={`w-full ${provider.bgColor} ${provider.textColor} border ${
-            !provider.available ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
-          onClick={() => handleSocialLogin(provider.name)}
-          disabled={loading === provider.key || !provider.available}
-        >
-          <div className="flex items-center justify-center gap-3">
-            {loading === provider.key ? (
-              <div className="w-5 h-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
-            ) : (
-              provider.icon
-            )}
-            <Typography variant="body" className="font-medium">
-              {loading === provider.key
-                ? '연결 중...'
-                : `${provider.name}로 ${isSignup ? '회원가입' : '로그인'}`
-              }
-              {!provider.available && ' (준비중)'}
-            </Typography>
-          </div>
-        </Button>
-      ))}
+{socialProviders.map((provider) => (
+  <Button
+    key={provider.key}
+    variant="outline"
+    size="lg"
+    className={`w-full ${provider.bgColor} ${provider.textColor} border-2 border-black
+      hover:border-black hover:bg-white hover:text-black
+      ${!provider.available ? 'opacity-50 cursor-not-allowed' : ''}`}
+    onClick={() => handleSocialLogin(provider.name)}
+    disabled={loading === provider.key || !provider.available}
+  >
+    <div className="flex items-center justify-center gap-3">
+      {loading === provider.key ? (
+        <div className="w-5 h-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+      ) : (
+        provider.icon
+      )}
+      <Typography variant="body" className="font-medium">
+        {loading === provider.key
+          ? '연결 중...'
+          : `${provider.name}로 ${isSignup ? '회원가입' : '로그인'}`
+        }
+        {!provider.available && ' (준비중)'}
+      </Typography>
+    </div>
+  </Button>
+))}
     </div>
   );
 };
