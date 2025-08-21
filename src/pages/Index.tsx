@@ -4,7 +4,7 @@ import { Camera, Search, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerC
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
 
-  // Simple implementation of useInView hook functionality (기존과 동일)
+  // 원본과 동일한 useInView hook
   const useInView = () => {
     const ref = useRef(null);
     const [inView, setInView] = useState(false);
@@ -25,7 +25,7 @@ const Index = () => {
     };
   };
 
-  // Scroll handler for parallax effect (기존과 동일)
+  // 원본과 동일한 Scroll handler for parallax effect
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
@@ -46,52 +46,43 @@ const Index = () => {
     description: '필요할 때 정확한 연결'
   }];
 
-  // 기존 컴포넌트들을 그대로 모방
-  const Button = ({ children, className = '', size, ...props }) => (
-    <button 
-      className={`${size === 'lg' ? 'px-8 py-4 text-lg' : 'px-6 py-3'} ${className}`}
-      {...props}
-    >
+  // 간단한 컴포넌트들 (원본 스타일 유지)
+  const Button = ({ children, size, className, ...props }) => (
+    <button className={className} {...props}>
       {children}
     </button>
   );
 
-  const Section = ({ children, className = '', spacing, style, ...props }) => (
-    <section 
-      className={className} 
-      style={style}
-      {...props}
-    >
+  const Section = ({ children, spacing, className, style, ...props }) => (
+    <section className={className} style={style} {...props}>
       {children}
     </section>
   );
 
-  const Container = ({ children, size = 'xl' }) => (
-    <div className={`mx-auto px-6 ${size === 'xl' ? 'max-w-7xl' : 'max-w-4xl'}`}>
+  const Container = ({ children, size }) => (
+    <div className="mx-auto px-6 max-w-7xl">
       {children}
     </div>
   );
 
-  const Typography = ({ variant, children, className = '' }) => {
-    if (variant === 'h2') {
-      return <h2 className={`text-xl md:text-2xl font-medium ${className}`}>{children}</h2>;
-    }
-    return <p className={className}>{children}</p>;
-  };
+  const Typography = ({ variant, children, className }) => (
+    <h2 className={className}>{children}</h2>
+  );
 
   const Link = ({ children, to, ...props }) => (
-    <a href={to} {...props}>
-      {children}
-    </a>
+    <a href={to} {...props}>{children}</a>
   );
 
   return (
-    <div className="theme-home-bright min-h-screen bg-white overflow-x-hidden" style={{
-      scrollSnapType: 'y mandatory',
-      overflowY: 'scroll',
-      height: '100vh'
-    }}>
-      {/* Hero Section with Fixed Background - 기존과 동일 */}
+    <div 
+      className="theme-home-bright min-h-screen bg-white overflow-x-hidden"
+      style={{
+        scrollSnapType: 'y mandatory',
+        overflowY: 'scroll', 
+        height: '100vh'
+      }}
+    >
+      {/* Hero Section with Fixed Background - 원본과 완전 동일 */}
       <Section 
         spacing="hero" 
         className="relative min-h-screen parallax-section"
@@ -101,8 +92,7 @@ const Index = () => {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
-          scrollSnapAlign: 'start',
-          scrollSnapStop: 'always'
+          scrollSnapAlign: 'start'
         }}
       >
         <Container size="xl">
@@ -112,7 +102,7 @@ const Index = () => {
               className="w-full max-w-2xl text-center space-y-6 mt-20"
               style={{
                 transform: `translateY(${scrollY * 0.5}px)`,
-                transition: 'transform 0.1s ease-out, opacity 0.3s ease-out'
+                transition: 'transform 0.1s ease-out'
               }}
             >
               <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
@@ -126,20 +116,19 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* AI 진단 홍보 Section - 기존 콘텐츠 보이게 수정 */}
+      {/* AI 진단 홍보 Section - 원본과 완전 동일 */}
       <Section 
         spacing="hero" 
         className="relative min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/lovable-uploads/e737c29e-2c53-4377-945c-75e21ea3a41d.png)',
-          scrollSnapAlign: 'start',
-          scrollSnapStop: 'always'
+          scrollSnapAlign: 'start'
         }}
       >
         <Container size="xl">
           <div 
             ref={secondSection.ref}
-            className={`relative z-10 flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
+            className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
               secondSection.inView 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
@@ -160,20 +149,19 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* AI 안면 분석 Section - 기존 콘텐츠 보이게 수정 */}
+      {/* AI 안면 분석 Section - 원본과 완전 동일 */}
       <Section 
         spacing="hero" 
         className="relative min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)',
-          scrollSnapAlign: 'start',
-          scrollSnapStop: 'always'
+          scrollSnapAlign: 'start'
         }}
       >
         <Container size="xl">
           <div 
             ref={thirdSection.ref}
-            className={`relative z-10 flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
+            className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
               thirdSection.inView 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
