@@ -299,13 +299,22 @@ const Index = () => {
               const el = section.ref.current;
               if (el) {
                 const rect = el.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
                 console.log(`🔍 ${names[index]} Manual Check:`, {
                   top: rect.top,
                   bottom: rect.bottom,
                   height: rect.height,
                   windowHeight: window.innerHeight,
-                  isVisible: rect.top < window.innerHeight && rect.bottom > 0
+                  isVisible: isVisible
                 });
+                
+                // 강제로 inView 상태 업데이트 시도
+                if (isVisible && !section.inView) {
+                  console.log(`🔧 Forcing ${names[index]} to be visible`);
+                  // 강제로 상태 변경 (디버깅용)
+                  section.ref.current.style.opacity = '1';
+                  section.ref.current.style.transform = 'translateY(0)';
+                }
               }
             });
           }}
@@ -320,7 +329,7 @@ const Index = () => {
             fontSize: '12px'
           }}
         >
-          Manual Check
+          Manual Check + Force Fix
         </button>
       </div>
     </div>
