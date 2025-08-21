@@ -4,7 +4,7 @@ import { Camera, Search, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerC
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
 
-  // Simple implementation of useInView hook functionality - 수정된 버전
+  // Simple implementation of useInView hook functionality - 더 강력한 버전
   const useInView = () => {
     const ref = useRef(null);
     const [inView, setInView] = useState(false);
@@ -18,28 +18,51 @@ const Index = () => {
         return;
       }
       
+      // 더 관대한 설정으로 변경
       const observer = new IntersectionObserver(
         ([entry]) => {
           console.log('👁️ IntersectionObserver triggered:', {
             isIntersecting: entry.isIntersecting,
             intersectionRatio: entry.intersectionRatio,
-            target: entry.target
+            boundingClientRect: entry.boundingClientRect,
+            target: entry.target.className
           });
           setInView(entry.isIntersecting);
         }, 
         {
-          threshold: 0.1, // 0.3에서 0.1로 변경 (더 민감하게)
-          rootMargin: '0px 0px -10% 0px' // 약간의 마진 추가
+          threshold: [0, 0.1, 0.5, 1.0], // 여러 단계에서 감지
+          rootMargin: '50px 0px 50px 0px' // 더 넓은 마진
         }
       );
       
       observer.observe(el);
-      console.log('✅ Observer attached to element');
+      console.log('✅ Observer attached to element with class:', el.className);
       
       return () => {
         console.log('🧹 Observer disconnected');
         observer.disconnect();
       };
+    }, []);
+    
+    // 추가: 강제로 뷰포트 체크하는 함수
+    const checkVisibility = () => {
+      const el = ref.current;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        console.log('🔍 Manual visibility check:', {
+          element: el.className,
+          rect: rect,
+          isVisible: isVisible,
+          windowHeight: window.innerHeight
+        });
+      }
+    };
+    
+    // 3초마다 수동으로 체크
+    useEffect(() => {
+      const interval = setInterval(checkVisibility, 3000);
+      return () => clearInterval(interval);
     }, []);
     
     return {
@@ -255,7 +278,7 @@ const Index = () => {
           fontSize: '14px',
           zIndex: 9999,
           fontFamily: 'monospace',
-          minWidth: '200px'
+          minWidth: '250px'
         }}
       >
         <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>📊 Debug Panel</div>
@@ -268,6 +291,37 @@ const Index = () => {
           <div>Second Ref: {secondSection.ref.current ? '✅' : '❌'}</div>
           <div>Third Ref: {thirdSection.ref.current ? '✅' : '❌'}</div>
         </div>
+        <button 
+          onClick={() => {
+            // 수동 가시성 체크
+            [hero, secondSection, thirdSection].forEach((section, index) => {
+              const names = ['Hero', 'Second', 'Third'];
+              const el = section.ref.current;
+              if (el) {
+                const rect = el.getBoundingClientRect();
+                console.log(`🔍 ${names[index]} Manual Check:`, {
+                  top: rect.top,
+                  bottom: rect.bottom,
+                  height: rect.height,
+                  windowHeight: window.innerHeight,
+                  isVisible: rect.top < window.innerHeight && rect.bottom > 0
+                });
+              }
+            });
+          }}
+          style={{
+            marginTop: '10px',
+            padding: '5px 10px',
+            backgroundColor: '#333',
+            color: 'white',
+            border: '1px solid #666',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '12px'
+          }}
+        >
+          Manual Check
+        </button>
       </div>
     </div>
   );
