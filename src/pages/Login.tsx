@@ -19,7 +19,7 @@ const Login = () => {
     email: '',
     password: ''
   });
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   const validateForm = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
     if (!formData.email.trim()) {
       newErrors.email = '이메일을 입력해주세요';
     }
@@ -60,9 +60,10 @@ const Login = () => {
           toast.error(response.message || '로그인에 실패했습니다.');
         }
       } catch (error: any) {
-        const errorMessage = error.response?.data?.message || 
-                            error.response?.data?.error || 
-                            '로그인에 실패했습니다.';
+        const errorMessage =
+          error.response?.data?.message ||
+          error.response?.data?.error ||
+          '로그인에 실패했습니다.';
         toast.error(errorMessage);
       } finally {
         setIsLoading(false);
@@ -75,7 +76,10 @@ const Login = () => {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-black hover:text-gray-600 transition-colors mb-6">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-black hover:text-gray-600 transition-colors mb-6"
+          >
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm">돌아가기</span>
           </Link>
@@ -86,13 +90,15 @@ const Login = () => {
             <CardTitle className="text-2xl text-black">로그인</CardTitle>
             <p className="text-gray-600">계정에 로그인하여 서비스를 이용하세요</p>
           </CardHeader>
-          
+
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-4">
                 {/* Email */}
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-black">이메일</Label>
+                  <Label htmlFor="email" className="text-black">
+                    이메일
+                  </Label>
                   <Input
                     id="email"
                     name="email"
@@ -100,18 +106,20 @@ const Login = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="이메일을 입력하세요"
-                    className={`bg-white text-black border ${errors.email ? 'border-red-500' : 'border-black'}`}
+                    className={`bg-white text-black border ${
+                      errors.email ? 'border-red-500' : 'border-black'
+                    } focus:ring-black focus:border-black`}
                   />
                   {errors.email && (
-                    <p className="text-sm text-red-500">
-                      {errors.email}
-                    </p>
+                    <p className="text-sm text-red-500">{errors.email}</p>
                   )}
                 </div>
 
                 {/* Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-black">비밀번호</Label>
+                  <Label htmlFor="password" className="text-black">
+                    비밀번호
+                  </Label>
                   <div className="relative">
                     <Input
                       id="password"
@@ -120,7 +128,9 @@ const Login = () => {
                       value={formData.password}
                       onChange={handleInputChange}
                       placeholder="비밀번호를 입력하세요"
-                      className={`bg-white text-black border pr-10 ${errors.password ? 'border-red-500' : 'border-black'}`}
+                      className={`bg-white text-black border pr-10 ${
+                        errors.password ? 'border-red-500' : 'border-black'
+                      } focus:ring-black focus:border-black`}
                     />
                     <Button
                       type="button"
@@ -137,15 +147,18 @@ const Login = () => {
                     </Button>
                   </div>
                   {errors.password && (
-                    <p className="text-sm text-red-500">
-                      {errors.password}
-                    </p>
+                    <p className="text-sm text-red-500">{errors.password}</p>
                   )}
                 </div>
               </div>
 
               {/* Submit Button */}
-              <Button type="submit" size="lg" className="w-full bg-black text-white hover:bg-gray-800" disabled={isLoading}>
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full bg-black text-white hover:bg-white hover:text-black hover:border hover:border-black"
+                disabled={isLoading}
+              >
                 {isLoading ? '로그인 중...' : '로그인'}
               </Button>
             </form>
@@ -160,15 +173,19 @@ const Login = () => {
                   <span className="px-4 bg-white text-black">또는</span>
                 </div>
               </div>
-              
-              <SocialLogin />
+
+              {/* SocialLogin 내부 버튼도 hover:border-black 으로 수정 필요 */}
+              <SocialLogin className="hover:border-black" />
             </div>
 
             {/* Sign up link */}
             <div className="mt-6 text-center">
               <p className="text-gray-600">
                 계정이 없으신가요?{' '}
-                <Link to="/signup" className="text-black hover:underline font-medium">
+                <Link
+                  to="/signup"
+                  className="text-black hover:underline font-medium"
+                >
                   회원가입
                 </Link>
               </p>
