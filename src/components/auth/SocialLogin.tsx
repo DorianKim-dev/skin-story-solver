@@ -95,17 +95,17 @@ const SocialLogin = ({ isSignup = false }: SocialLoginProps) => {
       available: true
     },
     {
-  name: 'Naver',
-  key: 'naver',
-  icon: (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="white">
-      <path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/>
-    </svg>
-  ),
-  bgColor: 'bg-[#03C75A]', // 초록색 그대로 유지
-  textColor: 'text-white',  // 텍스트도 흰색
-  available: true
-}
+      name: 'Naver',
+      key: 'naver',
+      icon: (
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/>
+        </svg>
+      ),
+      bgColor: 'bg-[#03C75A] hover:bg-[#02B350]',
+      textColor: 'text-white',
+      available: true
+    }
   ];
 
   return (
