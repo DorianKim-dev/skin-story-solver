@@ -127,9 +127,14 @@ const SocialLogin = ({ isSignup = false }: SocialLoginProps) => {
     key={provider.key}
     variant="outline"
     size="lg"
-    className={`w-full ${provider.bgColor} ${provider.textColor} border-0
-      hover:border-2 hover:border-black hover:bg-white hover:text-black
-      ${!provider.available ? 'opacity-50 cursor-not-allowed' : ''}`}
+    className={`
+      w-full
+      ${provider.key === 'google' ? 'border border-black' : 'border-0'}
+      hover:border-2 hover:border-black
+      transition-none
+      ${provider.key === 'naver' ? 'bg-[#03C75A] text-white' : 'bg-white text-black'}
+      ${!provider.available ? 'opacity-50 cursor-not-allowed' : ''}
+    `}
     onClick={() => handleSocialLogin(provider.name)}
     disabled={loading === provider.key || !provider.available}
   >
