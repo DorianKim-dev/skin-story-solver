@@ -1,12 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Typography } from '@/components/ui/theme-typography';
+import { Container, Section } from '@/components/ui/theme-container';
+import { Header, Navigation, Hero, Footer } from '@/components/ui/theme-layout';
 import { Camera, Search, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerClick } from 'lucide-react';
-
+import { useAuthContext } from '@/contexts/AuthContext';
 const Index = () => {
+  const {
+    isAuthenticated,
+    logout
+  } = useAuthContext();
+
   const [scrollY, setScrollY] = useState(0);
 
-  // Simple implementation of useInView hook functionality (기존과 동일)
-  const useInView = () => {
-    const ref = useRef(null);
+  // Simple implementation of useInView hook functionality
+  const useInView = <T extends HTMLElement,>() => {
+    const ref = useRef<T>(null);
     const [inView, setInView] = useState(false);
     useEffect(() => {
       const el = ref.current;
@@ -25,17 +35,16 @@ const Index = () => {
     };
   };
 
-  // Scroll handler for parallax effect (기존과 동일)
+  // Scroll handler for parallax effect
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const hero = useInView();
-  const secondSection = useInView();
-  const thirdSection = useInView();
-  
+  const hero = useInView<HTMLDivElement>();
+  const secondSection = useInView<HTMLDivElement>();
+  const thirdSection = useInView<HTMLDivElement>();
   const features = [{
     icon: Camera,
     title: '정밀 분석',
@@ -45,52 +54,11 @@ const Index = () => {
     title: '전문의 매칭',
     description: '필요할 때 정확한 연결'
   }];
-
-  // 기존 컴포넌트들을 그대로 모방
-  const Button = ({ children, className = '', size, ...props }) => (
-    <button 
-      className={`${size === 'lg' ? 'px-8 py-4 text-lg' : 'px-6 py-3'} ${className}`}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-
-  const Section = ({ children, className = '', spacing, style, ...props }) => (
-    <section 
-      className={className} 
-      style={style}
-      {...props}
-    >
-      {children}
-    </section>
-  );
-
-  const Container = ({ children, size = 'xl' }) => (
-    <div className={`mx-auto px-6 ${size === 'xl' ? 'max-w-7xl' : 'max-w-4xl'}`}>
-      {children}
-    </div>
-  );
-
-  const Typography = ({ variant, children, className = '' }) => {
-    if (variant === 'h2') {
-      return <h2 className={className}>{children}</h2>;
-    }
-    return <p className={className}>{children}</p>;
-  };
-
-  const Link = ({ children, to, ...props }) => (
-    <a href={to} {...props}>
-      {children}
-    </a>
-  );
-
-  return (
-    <div className="theme-home-bright scroll-snap-container min-h-screen bg-white overflow-x-hidden">
-      {/* Hero Section with Fixed Background - 기존과 동일 */}
+  return <div className="theme-home-bright min-h-screen bg-white overflow-x-hidden">
+      {/* Hero Section with Fixed Background */}
       <Section 
         spacing="hero" 
-        className="scroll-snap-section relative min-h-screen parallax-section"
+        className="relative min-h-screen parallax-section"
         style={{
           backgroundImage: 'url(/lovable-uploads/d89990f8-9655-40af-a548-ce462b0ff981.png)',
           backgroundAttachment: 'fixed',
@@ -120,10 +88,10 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* AI 진단 홍보 Section - 기존과 동일 */}
+      {/* AI 진단 홍보 Section */}
       <Section 
         spacing="hero" 
-        className="scroll-snap-section relative min-h-screen bg-cover bg-center bg-no-repeat"
+        className="relative min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/lovable-uploads/e737c29e-2c53-4377-945c-75e21ea3a41d.png)'
         }}
@@ -152,10 +120,10 @@ const Index = () => {
         </Container>
       </Section>
 
-      {/* AI 안면 분석 Section - 기존과 동일 */}
+      {/* AI 안면 분석 Section */}
       <Section 
         spacing="hero" 
-        className="scroll-snap-section relative min-h-screen bg-cover bg-center bg-no-repeat"
+        className="relative min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/lovable-uploads/3cf38996-cc98-4c21-b772-a8382b1405c8.png)'
         }}
@@ -183,8 +151,6 @@ const Index = () => {
           </div>
         </Container>
       </Section>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
