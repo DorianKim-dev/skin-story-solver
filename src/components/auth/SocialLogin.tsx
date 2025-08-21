@@ -129,7 +129,7 @@ const SocialLogin = ({ isSignup = false }: SocialLoginProps) => {
     size="lg"
     className={`
       w-full
-      ${provider.key === 'google' ? 'bg-white text-black border border-black' : 'bg-[#03C75A] text-white border border-black'}
+      ${provider.bgColor} ${provider.textColor} border border-black
       hover:border-2 hover:border-black
       transition-none
       ${!provider.available ? 'opacity-50 cursor-not-allowed' : ''}
