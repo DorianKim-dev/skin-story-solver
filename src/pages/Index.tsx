@@ -74,7 +74,7 @@ const Index = () => {
 
   const Typography = ({ variant, children, className = '' }) => {
     if (variant === 'h2') {
-      return <h2 className={className}>{children}</h2>;
+      return <h2 className={`text-xl md:text-2xl font-medium ${className}`}>{children}</h2>;
     }
     return <p className={className}>{children}</p>;
   };
@@ -139,7 +139,7 @@ const Index = () => {
         <Container size="xl">
           <div 
             ref={secondSection.ref}
-            className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
+            className={`relative z-10 flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
               secondSection.inView 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
@@ -173,7 +173,7 @@ const Index = () => {
         <Container size="xl">
           <div 
             ref={thirdSection.ref}
-            className={`flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
+            className={`relative z-10 flex flex-col items-center justify-center min-h-screen text-center space-y-8 transition-all duration-1000 ease-out ${
               thirdSection.inView 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
