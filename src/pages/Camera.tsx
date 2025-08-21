@@ -294,14 +294,15 @@ const Camera = () => {
             <>
               {!isActive ? (
                 <Button 
-            className="w-full h-12 text-lg bg-black text-white font-sans border-none hover:bg-white hover:text-black"
-                  onClick={() => {
-                    console.log('Camera start button clicked');
-                    startCamera();
-                  }}
-                >
-                  카메라 시작
-                </Button>
+  className="w-full h-12 text-lg bg-black text-white font-sans border-2 border-transparent hover:bg-white hover:text-black hover:border-black relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden 
+  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+  onClick={() => {
+    console.log('Camera start button clicked');
+    startCamera();
+  }}
+>
+  카메라 시작
+</Button>
               ) : !deviceInfo?.isDesktop ? (
                 // 모바일: 수동 촬영 버튼
                 <Button 
@@ -335,14 +336,16 @@ const Camera = () => {
                     <span className="text-gray-400 text-sm font-sans">또는</span>
                   </div>
                   
-                  <Button 
-                    variant="outline" 
-                    className="w-full h-12 font-sans border-gray-300 text-black hover:bg-black hover:text-white hover:border-black transition-colors" 
-                    onClick={() => document.getElementById('file-input')?.click()}
-                  >
-                    <Upload className="w-5 h-5 mr-2" />
-                    갤러리에서 선택
-                  </Button>
+                 <Button 
+  variant="outline" 
+  className="w-full h-12 font-sans border-2 border-black text-black relative flex items-center justify-center gap-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden 
+  hover:bg-black hover:text-white 
+  before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] before:skew-x-12 hover:before:translate-x-[100%] before:transition-transform before:duration-700"
+  onClick={() => document.getElementById('file-input')?.click()}
+>
+  <Upload className="w-5 h-5 mr-2 relative z-10" />
+  <span className="relative z-10">갤러리에서 선택</span>
+</Button>
                   
                   <input id="file-input" type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
                 </>
