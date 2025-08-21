@@ -499,7 +499,7 @@ const Analysis = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {analysisResult.similar_diseases.slice(0, 2).map((item, index) => {
-          const circleRadius = 18; // 그래프 크기 키움
+          const circleRadius = 10; // 그래프 크기 조정
           const circleCircumference = 2 * Math.PI * circleRadius;
           const progress = (item.confidence / 100) * circleCircumference;
 
@@ -514,16 +514,16 @@ const Analysis = () => {
                 {/* 퍼센트 + 원형 그래프 + 신뢰도 */}
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-600 font-sans">신뢰도</span>
-                  <div className="relative w-12 h-12 flex-shrink-0">
-                    <svg className="w-12 h-12">
+                  <div className="relative w-10 h-10 flex-shrink-0">
+                    <svg className="w-10 h-10">
                       <circle
                         className="text-gray-200"
                         strokeWidth="3"
                         stroke="currentColor"
                         fill="transparent"
                         r={circleRadius}
-                        cx="24"
-                        cy="24"
+                        cx="16"
+                        cy="16"
                       />
                       <circle
                         className="text-blue-500"
@@ -531,12 +531,12 @@ const Analysis = () => {
                         stroke="currentColor"
                         fill="transparent"
                         r={circleRadius}
-                        cx="24"
-                        cy="24"
+                        cx="16"
+                        cy="16"
                         strokeDasharray={circleCircumference}
                         strokeDashoffset={circleCircumference - progress}
                         strokeLinecap="round"
-                        transform="rotate(-90 24 24)"
+                        transform="rotate(-90 16 16)"
                       />
                     </svg>
                     <span className="absolute inset-0 flex items-center justify-center text-[10px] font-semibold text-gray-800">
