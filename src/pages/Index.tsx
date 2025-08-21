@@ -1,22 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Typography } from '@/components/ui/theme-typography';
-import { Container, Section } from '@/components/ui/theme-container';
-import { Header, Navigation, Hero, Footer } from '@/components/ui/theme-layout';
 import { Camera, Search, ArrowRight, ShieldCheck, Timer, Sparkles, MousePointerClick } from 'lucide-react';
-import { useAuthContext } from '@/contexts/AuthContext';
-const Index = () => {
-  const {
-    isAuthenticated,
-    logout
-  } = useAuthContext();
 
+const Index = () => {
   const [scrollY, setScrollY] = useState(0);
 
   // Simple implementation of useInView hook functionality
-  const useInView = <T extends HTMLElement,>() => {
-    const ref = useRef<T>(null);
+  const useInView = () => {
+    const ref = useRef(null);
     const [inView, setInView] = useState(false);
     useEffect(() => {
       const el = ref.current;
@@ -42,9 +32,33 @@ const Index = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const hero = useInView<HTMLDivElement>();
-  const secondSection = useInView<HTMLDivElement>();
-  const thirdSection = useInView<HTMLDivElement>();
+  const hero = useInView();
+  const secondSection = useInView();
+  const thirdSection = useInView();
+
+  // 🔍 디버깅 1단계: 현재 상태 확인
+  console.log('🟡 Hero inView:', hero.inView);
+  console.log('🟢 Second Section inView:', secondSection.inView);
+  console.log('🔵 Third Section inView:', thirdSection.inView);
+
+  // 🔍 디버깅 2단계: 상태 변화 감시
+  useEffect(() => {
+    console.log('🔥 Hero inView changed:', hero.inView);
+  }, [hero.inView]);
+
+  useEffect(() => {
+    console.log('🟢 Second Section inView changed:', secondSection.inView);
+  }, [secondSection.inView]);
+
+  useEffect(() => {
+    console.log('🔵 Third Section inView changed:', thirdSection.inView);
+  }, [thirdSection.inView]);
+
+  // 🔍 디버깅 3단계: 스크롤 위치 확인
+  useEffect(() => {
+    console.log('📏 Scroll Y position:', scrollY);
+  }, [scrollY]);
+
   const features = [{
     icon: Camera,
     title: '정밀 분석',
@@ -54,7 +68,36 @@ const Index = () => {
     title: '전문의 매칭',
     description: '필요할 때 정확한 연결'
   }];
-  return <div className="theme-home-bright min-h-screen bg-white overflow-x-hidden">
+
+  // Components
+  const Button = ({ children, size, className, ...props }) => (
+    <button className={className} {...props}>
+      {children}
+    </button>
+  );
+
+  const Section = ({ children, spacing, className, style, ...props }) => (
+    <section className={className} style={style} {...props}>
+      {children}
+    </section>
+  );
+
+  const Container = ({ children, size }) => (
+    <div className="mx-auto px-6 max-w-7xl">
+      {children}
+    </div>
+  );
+
+  const Typography = ({ variant, children, className }) => (
+    <h2 className={className}>{children}</h2>
+  );
+
+  const Link = ({ children, to, ...props }) => (
+    <a href={to} {...props}>{children}</a>
+  );
+
+  return (
+    <div className="theme-home-bright min-h-screen bg-white overflow-x-hidden">
       {/* Hero Section with Fixed Background */}
       <Section 
         spacing="hero" 
@@ -76,6 +119,8 @@ const Index = () => {
                 transform: `translateY(${scrollY * 0.5}px)`,
                 transition: 'transform 0.1s ease-out'
               }}
+              // 🔍 디버깅: 첫 번째 섹션 요소 확인
+              onClick={() => console.log('🟡 Hero section clicked, inView:', hero.inView)}
             >
               <div className="text-4xl md:text-6xl text-white font-sans font-bold text-center">
                 Diagnose. Match. Heal.
@@ -104,6 +149,12 @@ const Index = () => {
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
             }`}
+            // 🔍 디버깅: 두 번째 섹션 상태 확인
+            onClick={() => {
+              console.log('🟢 Second section clicked');
+              console.log('🟢 Current inView:', secondSection.inView);
+              console.log('🟢 Current classes:', secondSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10');
+            }}
           >
             <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
               AI 기술로 종양을 정밀 분석
@@ -136,6 +187,14 @@ const Index = () => {
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
             }`}
+            // 🔍 디버깅: 세 번째 섹션 상태 확인 (가장 중요!)
+            onClick={() => {
+              console.log('🔵 Third section clicked');
+              console.log('🔵 Current inView:', thirdSection.inView);
+              console.log('🔵 Current classes:', thirdSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10');
+              console.log('🔵 Element ref:', thirdSection.ref.current);
+            }}
+            onMouseEnter={() => console.log('🔵 Mouse entered third section')}
           >
             <h2 className="text-2xl md:text-3xl font-sans font-bold text-white">
               AI 기술로 얼굴을 자동 인식하고 분석
@@ -151,6 +210,29 @@ const Index = () => {
           </div>
         </Container>
       </Section>
-    </div>;
+
+      {/* 🔍 디버깅 패널 (화면 오른쪽 상단에 표시) */}
+      <div 
+        style={{
+          position: 'fixed',
+          top: '10px',
+          right: '10px',
+          backgroundColor: 'rgba(0,0,0,0.8)',
+          color: 'white',
+          padding: '10px',
+          borderRadius: '5px',
+          fontSize: '12px',
+          zIndex: 9999,
+          fontFamily: 'monospace'
+        }}
+      >
+        <div>🟡 Hero: {hero.inView ? 'TRUE' : 'FALSE'}</div>
+        <div>🟢 Second: {secondSection.inView ? 'TRUE' : 'FALSE'}</div>
+        <div>🔵 Third: {thirdSection.inView ? 'TRUE' : 'FALSE'}</div>
+        <div>📏 Scroll: {Math.round(scrollY)}px</div>
+      </div>
+    </div>
+  );
 };
+
 export default Index;
