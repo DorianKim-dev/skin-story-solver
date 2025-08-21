@@ -71,20 +71,20 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 text-white hover:text-gray-300 transition-colors mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 text-black hover:text-gray-600 transition-colors mb-6">
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm">돌아가기</span>
           </Link>
         </div>
 
-        <Card className="bg-black border border-white text-white">
+        <Card className="bg-white border border-black text-black">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl text-white">로그인</CardTitle>
-            <p className="text-gray-300">계정에 로그인하여 서비스를 이용하세요</p>
+            <CardTitle className="text-2xl text-black">로그인</CardTitle>
+            <p className="text-gray-600">계정에 로그인하여 서비스를 이용하세요</p>
           </CardHeader>
           
           <CardContent>
@@ -92,7 +92,7 @@ const Login = () => {
               <div className="space-y-4">
                 {/* Email */}
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-white">이메일</Label>
+                  <Label htmlFor="email" className="text-black">이메일</Label>
                   <Input
                     id="email"
                     name="email"
@@ -100,7 +100,7 @@ const Login = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="이메일을 입력하세요"
-                    className={`bg-black text-white border ${errors.email ? 'border-red-500' : 'border-white'}`}
+                    className={`bg-white text-black border ${errors.email ? 'border-red-500' : 'border-black'}`}
                   />
                   {errors.email && (
                     <p className="text-sm text-red-500">
@@ -111,7 +111,7 @@ const Login = () => {
 
                 {/* Password */}
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-white">비밀번호</Label>
+                  <Label htmlFor="password" className="text-black">비밀번호</Label>
                   <div className="relative">
                     <Input
                       id="password"
@@ -120,13 +120,13 @@ const Login = () => {
                       value={formData.password}
                       onChange={handleInputChange}
                       placeholder="비밀번호를 입력하세요"
-                      className={`bg-black text-white border pr-10 ${errors.password ? 'border-red-500' : 'border-white'}`}
+                      className={`bg-white text-black border pr-10 ${errors.password ? 'border-red-500' : 'border-black'}`}
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="absolute right-0 top-0 h-full px-3 text-white"
+                      className="absolute right-0 top-0 h-full px-3 text-black"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
@@ -145,7 +145,7 @@ const Login = () => {
               </div>
 
               {/* Submit Button */}
-              <Button type="submit" size="lg" className="w-full bg-white text-black hover:bg-gray-200" disabled={isLoading}>
+              <Button type="submit" size="lg" className="w-full bg-black text-white hover:bg-gray-800" disabled={isLoading}>
                 {isLoading ? '로그인 중...' : '로그인'}
               </Button>
             </form>
@@ -154,10 +154,10 @@ const Login = () => {
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white"></div>
+                  <div className="w-full border-t border-black"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-black text-white">또는</span>
+                  <span className="px-4 bg-white text-black">또는</span>
                 </div>
               </div>
               
@@ -166,9 +166,9 @@ const Login = () => {
 
             {/* Sign up link */}
             <div className="mt-6 text-center">
-              <p className="text-gray-300">
+              <p className="text-gray-600">
                 계정이 없으신가요?{' '}
-                <Link to="/signup" className="text-white hover:underline font-medium">
+                <Link to="/signup" className="text-black hover:underline font-medium">
                   회원가입
                 </Link>
               </p>
