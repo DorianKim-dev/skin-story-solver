@@ -392,25 +392,6 @@ const Analysis = () => {
             <Typography variant="body" className="text-gray-600">
               AI가 분석한 환부의 상태입니다
             </Typography>
-            <div className="mt-3 flex justify-center gap-2">
-              {questionnaireData && (
-                <Badge className="bg-gray-100 text-black border-gray-300">
-                  설문조사 데이터 포함
-                </Badge>
-              )}
-              {isFromStorage && (
-                <Badge className="bg-gray-100 text-black border-gray-300 flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  저장된 결과
-                </Badge>
-              )}
-              {!uploadedImage && !isFromStorage && (
-                <Badge className="bg-gray-100 text-black border-gray-300 flex items-center gap-1">
-                  <Sparkles className="w-3 h-3" />
-                  데모 결과
-                </Badge>
-              )}
-            </div>
           </div>
         </div>
 
