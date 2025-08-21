@@ -490,70 +490,40 @@ const Analysis = () => {
           </CardContent>
         </Card>
 
-       {/* 유사질환 박스 */}
-{analysisResult.similar_diseases && analysisResult.similar_diseases.length > 0 && (
-  <Card className="bg-white border border-gray-200 mb-8">
-    <CardContent className="p-6">
-      <div className="mb-4">
-        <h2 className="text-xl font-semibold">유사질환</h2>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {analysisResult.similar_diseases.slice(0, 2).map((item, index) => {
-          const circleRadius = 12; // 그래프 크기 그대로 유지
-          const circleCircumference = 2 * Math.PI * circleRadius;
-          const progress = (item.confidence / 100) * circleCircumference;
+       {/* 퍼센트 + 원형 그래프 + 신뢰도 */}
+<div className="flex items-center gap-2">
+  <div className="relative w-10 h-10 flex-shrink-0"> {/* 그래프 크기 키움 */}
+    <svg className="w-10 h-10">
+      <circle
+        className="text-gray-200"
+        strokeWidth="3"
+        stroke="currentColor"
+        fill="transparent"
+        r={circleRadius}
+        cx="20"
+        cy="20"
+      />
+      <circle
+        className="text-blue-500"
+        strokeWidth="3"
+        stroke="currentColor"
+        fill="transparent"
+        r={circleRadius}
+        cx="20"
+        cy="20"
+        strokeDasharray={circleCircumference}
+        strokeDashoffset={circleCircumference - progress}
+        strokeLinecap="round"
+        transform="rotate(-90 20 20)"
+      />
+    </svg>
+    <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-gray-800">
+      {item.confidence}%
+    </span>
+  </div>
+  <span className="text-sm text-gray-600 font-sans">신뢰도</span>
+</div>
 
-          return (
-            <div
-              key={index}
-              className="bg-gray-50 rounded-xl p-4 border border-gray-200 hover:border-gray-300 transition-all duration-200"
-            >
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="font-medium text-gray-800">{item.name}</h3>
-
-                {/* 퍼센트 + 원형 그래프 + 신뢰도 */}
-                <div className="flex items-center gap-2">
-                  <div className="relative w-8 h-8 flex-shrink-0">
-                    <svg className="w-8 h-8">
-                      <circle
-                        className="text-gray-200"
-                        strokeWidth="3"
-                        stroke="currentColor"
-                        fill="transparent"
-                        r={circleRadius}
-                        cx="16"
-                        cy="16"
-                      />
-                      <circle
-                        className="text-blue-500"
-                        strokeWidth="3"
-                        stroke="currentColor"
-                        fill="transparent"
-                        r={circleRadius}
-                        cx="16"
-                        cy="16"
-                        strokeDasharray={circleCircumference}
-                        strokeDashoffset={circleCircumference - progress}
-                        strokeLinecap="round"
-                        transform="rotate(-90 16 16)"
-                      />
-                    </svg>
-                    <span className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-gray-800">
-                      {item.confidence}%
-                    </span>
-                  </div>
-                  <span className="text-sm text-gray-600 font-sans">신뢰도</span>
-                </div>
-              </div>
-
-              <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
-            </div>
-          );
-        })}
-      </div>
-    </CardContent>
-  </Card>
-)}
 
         {/* 병원 추천 */}
         <Card className="bg-white border border-gray-200 mb-8">
